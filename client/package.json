@@ -1,0 +1,7 @@
+{
+  "name": "angular-client",
+  "description": "A sample Angular application",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

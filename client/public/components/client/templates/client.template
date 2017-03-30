@@ -1,0 +1,12 @@
+<!-- <div ng-controller="MainController">
+    <div ng-repeat="item in courses">
+        <course info="item"></course>
+    </div>
+</div> -->
+
+<div ng-controller="MainController">
+    <div ng-repeat="item in courses_old">
+        <p>name       : {{item.name}}</p>
+        <p>description: {{item.description}}</p>
+    </div>
+</div>
