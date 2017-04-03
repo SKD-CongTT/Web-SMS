@@ -1,13 +1,15 @@
 from django.db import models
-from django.utils import timezone
-from django.core.validators import MaxValueValidator, MinValueValidator
-
+from django.contrib.auth.models import User
 
 class Course(models.Model):
-    name = models.CharField(max_length=100)
+    course_name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=1000)
-        
-class Score(models.Model):
-    cid = models.ForeignKey(Course, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    score = models.IntegerField()
+
+class NormalClass(models.Model):
+	classname = models.CharField(max_length=50)
+
+class Student(User):
+	major = models.CharField(max_length=100)
+	bio = models.TextField()
+	type = models.IntegerField()
+

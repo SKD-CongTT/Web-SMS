@@ -25,8 +25,10 @@ SECRET_KEY = 'p5tj2m$)6t37&1$@&yvmn2@yh(y-xkk@q+r-lh@_ulcza)%ksb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'localhost',
+    '192.168.1.18',
+]
 
 # Application definition
 
@@ -37,14 +39,32 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework_jwt',
     'rest_framework',
     'server'
     
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    # cors
+    'corsheaders.middleware.CorsMiddleware',
+    ###
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -53,6 +73,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'urls'
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {

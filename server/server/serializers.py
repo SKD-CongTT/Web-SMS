@@ -4,9 +4,20 @@ from server.models import *
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('name', 'description')
+        fields = ('course_name', 'description')
 
-class ScoreSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Score
-        fields = ('cid', 'name','score')
+        model = Student
+        fields = ('id', 'first_name', 'last_name', 
+            'username', 'password', 'email', 
+            'major', 'bio', 'type')
+
+class NormalClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NormalClass
+        fields = ('classname',)
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

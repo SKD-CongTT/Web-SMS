@@ -1,5 +1,5 @@
 client.factory('api', ['$http', function($http) { 
-    return $http.get('http://localhost:8000/courses.json') 
+    return $http.get('http://localhost/credit_students/') 
     .success(function(data) { 
         return data; 
     }) 
