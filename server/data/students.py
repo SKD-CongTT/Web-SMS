@@ -1,3 +1,4 @@
+from Crypto.Random import random
 import names
 
 DEFAULT_MAJOR = 'Computer Science'
@@ -11,9 +12,15 @@ def generate_student(sid, major=DEFAULT_MAJOR, bio=DEFAULT_BIO):
         "password": sid,
         "email": sid + '@student.hust.edu.vn',
         "major": major,
-        "bio": bio
+        "bio": bio,
+        "type": random.randint(0,1)
     }
 
-for i in range(100):
-    print generate_student('2014%04d' % i)
+def main():
+    for i in range(100):
+        print generate_student('2014%04d' % i)
+
+
+if __name__ == '__main__':
+    main()
     
