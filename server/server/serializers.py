@@ -4,7 +4,7 @@ from server.models import *
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('id', 'name', 'cost', 'description', 'requirements')
+        fields = ('id', 'name', 'cost', 'description', 'requirements', 'active')
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,4 @@ class StudentSerializer(serializers.ModelSerializer):
 class NormalClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = NormalClass
-        fields = ('name',)
+        fields = ('name','course','semester','time')
