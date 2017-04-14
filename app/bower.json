@@ -1,12 +1,12 @@
 {
   "name": "webix",
   "authors": [
-    "Nguyen Hong Son <nguyenhongson.9a4@gmail.com>"
+    "Tran Thanh Cong <lovesome13296@gmail.com>"
   ],
-  "description": "Web Assistant",
+  "description": "Student Management System",
   "main": "",
   "license": "MIT",
-  "homepage": "webassistant.vn",
+  "homepage": "sms.ict.vn",
   "ignore": [
     "**/.*",
     "node_modules",
