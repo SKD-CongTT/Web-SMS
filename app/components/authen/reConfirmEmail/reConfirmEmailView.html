@@ -1,0 +1,30 @@
+<div class="front-panel transbox">
+        <div class="panel-heading">
+            <h3 class="panel-title-other text-center"><strong>GỬI LẠI MAIL XÁC NHẬN</strong></h3>
+        </div>
+        <form role="form" name="reConfirmForm" ng-submit="doResend()">
+            <div class="panel-body">
+                <fieldset>
+                    <div class="form-group">
+                        <input class="form-control"
+                               placeholder="Email"
+                               type="email"
+                               ng-model="resend.email"
+                               required
+                               autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control"
+                               placeholder="Mật khẩu"
+                               type="password"
+                               ng-model="resend.password"
+                               required
+                               autofocus>
+                    </div>
+                    <button ng-disabled="forgotForm.$invalid" class="btn btn-lg btn-success btn-block">RESET MẬT KHẨU</button>
+                    <div class="pointer" style="margin-top: 10px;"><a ui-sref="authen.login">< Quay về trang đăng nhập?</a></div>
+                    <div class="pointer" style="margin-top: 10px;">Bạn chưa có tài khoản? <a ui-sref="authen.signup">ĐĂNG KÝ NGAY!</a></div>
+                </fieldset>
+            </div>
+        </form>
+    </div>

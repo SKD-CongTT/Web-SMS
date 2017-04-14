@@ -1,0 +1,82 @@
+<div layout="column" layout-gt-md="row" layout-padding>
+    <div flex="50" layout="column" style="position: relative" >
+        <md-button hide-xs hide-sm class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="editProfileModal()">
+            <md-icon class="material-icons">edit</md-icon>
+        </md-button>
+        <h3 class="md-title text-center">THÔNG TIN CÁ NHÂN</h3>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Tên tài khoản</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <input aria-label="username" type="text" ng-model="userProfile.username" disabled>
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Tên người dùng</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <input aria-label="name" type="text" placeholder="{{userProfile.last_name}} {{userProfile.first_name}}" disabled>
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Địa chỉ Email</div>
+                <md-input-container flex="50">
+                    <input aria-label="email" type="text" ng-model="userProfile.email" disabled>
+                </md-input-container>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Nhóm</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <input aria-label="groupName" type="text" ng-model="userProfile.type" disabled>
+                </md-input-container>
+            </div>
+        </div>
+    </div>
+    <div flex="50" layout="column">
+        <h3 class="md-title text-center">THAY ĐỔI MẬT KHẨU</h3>
+        <form name="userPasswordForm" ng-submit="saveChangePwd()">
+            <div layout="column" layout-padding  class="md-whiteframe-1dp">
+                <md-input-container>
+                    <label>Mật khẩu cũ</label>
+                    <input type="password" name="passwordOld"
+                           ng-model="userPwd.passwordOld" required>
+                    <div ng-messages="userPasswordForm.passwordOld.$error" ng-show="userPasswordForm.passwordOld.$dirty">
+                        <div ng-message="required">Mật khẩu cũ không được để trống!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Mật khẩu mới</label>
+                    <input type="password" name="password"
+                           ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/"
+                           minlength="8"
+                           ng-model="userPwd.password"
+                           required>
+                    <div ng-messages="userPasswordForm.password.$error" ng-show="userPasswordForm.password.$dirty">
+                        <div ng-message="required">Mật khẩu mới không được để trống!</div>
+                        <div ng-message="pattern">Mật khẩu phải chứa kí tự chữ cái và chứ số!</div>
+                        <div ng-message="minlength">Mật khẩu ít nhất có 8 kí tự!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Nhập lại mật khẩu</label>
+                    <input type="password" name="password2"
+                           ng-model="userPwd.password2"
+                           ng-disabled="userPasswordForm.password.$invalid"
+                           required>
+                    <div ng-messages="userPasswordForm.password2.$error" ng-show="userPasswordForm.password2.$dirty">
+                        <div ng-message="required">Mật khẩu nhập lại không được để trống!</div>
+                        <div ng-message="notMatch">Mật khẩu nhập lại không khớp!</div>
+                    </div>
+                </md-input-container>
+                <div flex="30">
+                    <md-button type="submit"
+                               class="md-raised md-primary"
+                               ng-disabled="userPasswordForm.$invalid">ĐỔI MẬT KHẨU</md-button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

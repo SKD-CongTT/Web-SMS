@@ -1,0 +1,109 @@
+<div layout="column" layout-gt-md="row" layout-margin>
+    <div flex flex-gt-md="30" layout="row">
+        <md-input-container flex>
+            <label>Kiểu sắp xếp</label>
+            <md-select ng-model="order_type">
+                <md-option value="1">Tăng dần</md-option>
+                <md-option value="-1">Giảm dần</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Trường sắp xếp</label>
+            <md-select ng-model="field"
+                       ng-model-options="{trackBy: '$value.id'}">
+                <md-option ng-repeat="f in fieldValues" ng-value="{{f}}">{{f.name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Bộ lọc</label>
+            <md-select ng-model="selectedFilter" multiple>
+                <md-optgroup label="Mức độ nguy hiểm">
+                    <md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'severity' }">{{valueFilter.name}}</md-option>
+                </md-optgroup>
+                <md-optgroup label="Gửi cảnh báo">
+                    <md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'is_alerted' }">{{valueFilter.name}}</md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div flex flex-gt-md="30" layout="column">
+        <md-input-container class="md-icon-right md-block">
+            <label>Tìm kiếm </label>
+            <md-icon md-font-set="material-icons" ng-click="searchAlert()"> search </md-icon>
+            <input ng-model="queryAlert.data" type="text" placeholder="Nhập từ khóa tìm kiếm">
+        </md-input-container>
+    </div>
+    <div flex flex-gt-md="20" layout="column">
+        <md-button class="md-raised md-warn" ng-disabled="alertList.id.length == 0" ng-click="openReportModal()">Báo cáo cảnh báo sai</md-button>
+    </div>
+    <div flex flex-gt-md="20" layout="column">
+        <md-button class="md-raised md-success" ng-disabled="alertList.id.length == 0" ng-click="openDoneModal()">Xử lý cảnh báo</md-button>
+    </div>
+</div>
+<div layout="column" layout-margin>
+    <div flex>
+        <mdt-table selectable-rows="true"
+                   selected-row-callback="selectedRowCallback(rows)"
+                   paginated-rows="{isEnabled: true, rowsPerPageValues: [20,50,100]}"
+                   mdt-row-paginator="refresh_alert(page, pageSize)"
+                   mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                   mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
+                   mdt-row="{
+                                      'table-row-id-key': '_id.$id',
+                                      'column-keys': [
+                                          'update_at',
+                                          'name',
+                                          '_type',
+                                          'severity',
+                                          'is_alerted',
+                                          '_id.$id'
+                                      ]
+                                      }">
+            <mdt-header-row>
+                <mdt-column align-rule="left">Thời gian</mdt-column>
+                <mdt-column align-rule="left">Cảnh báo</mdt-column>
+                <mdt-column align-rule="left">Đối tượng bị ảnh hưởng</mdt-column>
+                <mdt-column align-rule="left">Mức độ</mdt-column>
+                <mdt-column align-rule="left">Gửi cảnh báo</mdt-column>
+                <mdt-column align-rule="left">Chi tiết</mdt-column>
+            </mdt-header-row>
+            <mdt-custom-cell column-key="update_at">
+                <i class="fa fa-clock-o"></i> {{value*1000| date:'yyyy-MM-dd HH:mm:ss'}}
+            </mdt-custom-cell>
+            <mdt-custom-cell column-key="name">
+                <strong>{{value}}</strong>
+            </mdt-custom-cell>
+            <mdt-custom-cell column-key="_type">
+                <i class="fa fa-rocket"></i> {{value}}
+            </mdt-custom-cell>
+            <mdt-custom-cell column-key="severity">
+                <!--<label class="label"-->
+                       <!--ng-class="value=='1'?'label-default':value=='2'?'label-warning':'label-'">{{value}}-->
+                <!--</label>-->
+                <label class="label label-default" ng-show="value=='1'">Thấp</label>
+                <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
+                <label class="label label-danger" ng-show="value=='3'">Cao</label>
+            </mdt-custom-cell>
+            <mdt-custom-cell column-key="is_alerted">
+                <label ng-show="value==1"
+                       class="label label-success hidden-sm"
+                       title="Đã có log">
+                    <i class="fa fa-check"></i> Đã gửi
+                </label>
+                <label ng-show="value==0"
+                       class="label label-warning hidden-sm"
+                       title="Chưa gửi cảnh báo tới quản trị.">
+                    <i class="fa fa-spinner fa-spin"></i> Pending
+                </label>
+                <label ng-show="value==-1"
+                       class="label label-danger hidden-sm"
+                       title="Chưa gửi cảnh báo tới quản trị.">
+                    Không gửi được
+                </label>
+            </mdt-custom-cell>
+            <mdt-custom-cell column-key="_id.$id">
+                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showDetail(value)">more_horiz</md-icon>
+            </mdt-custom-cell>
+        </mdt-table>
+    </div>
+</div>

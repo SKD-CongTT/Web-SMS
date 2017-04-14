@@ -1,0 +1,54 @@
+<md-dialog flex="40">
+    <form ng-cloak name="editGroup">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>CHỈNH SỬA NHÓM NGƯỜI DÙNG</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">cancel</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label>Tên nhóm</label>
+                    <input type="text"
+                           name="name"
+                           ng-model="groupModal.name"
+                           md-maxlength="32"
+                           placeholder="Nhập tên nhóm"
+                           required/>
+                    <div ng-messages="editGroup.name.$error" ng-show="editGroup.name.$dirty">
+                        <div ng-message="required">Tên nhóm không được để trống!</div>
+                        <div ng-message="md-maxlength">Tên nhóm quá dài!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Mô tả</label>
+                    <input type="text"
+                           name="description"
+                           ng-model="groupModal.description"
+                           md-maxlength="64"
+                           placeholder="Nhập mô tả nhóm"
+                           required/>
+                    <div ng-messages="editGroup.description.$error" ng-show="editGroup.description.$dirty">
+                        <div ng-message="required">Mô tả nhóm không được để trống!</div>
+                        <div ng-message="md-maxlength">Mô tả nhóm quá dài!</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-margin>
+            <span flex></span>
+            <md-button class="md-warn md-raised" ng-click="cancel()">
+                Hủy bỏ
+            </md-button>
+            <md-button class="md-success md-raised" ng-disabled="editGroup.$invalid && onRequest"
+                       md-auto-focus
+                       ng-click="edit()">
+                Cập nhật
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

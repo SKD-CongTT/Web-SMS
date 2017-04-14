@@ -1,0 +1,42 @@
+<md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+    <md-nav-item permission
+                 permission-only = "'6'"
+                 md-nav-sref="dashboard.alerts.positive"
+                 name="dashboard.alerts.positive">
+        <i class="material-icons">add_alert</i><span hide-xs> Cảnh báo</span>
+    </md-nav-item>
+    <md-nav-item hide-xs permission
+                 permission-only = "'10'"
+                 md-nav-sref="dashboard.alerts.negative"
+                 name="dashboard.alerts.negative">
+        <i class="material-icons">error</i><span hide-xs> Cảnh báo sai</span>
+    </md-nav-item>
+    <md-nav-item hide-xs permission
+                 permission-only = "'10'"
+                 md-nav-sref="dashboard.alerts.done"
+                 name="dashboard.alerts.done">
+        <i class="material-icons">check_circle</i><span hide-xs> Cảnh báo đã xử lý</span>
+    </md-nav-item>
+    <md-nav-item hide-xs permission
+                 permission-only = "'10'"
+                 md-nav-sref="dashboard.alerts.rules" name="dashboard.alerts.rules">
+        <i class="material-icons">list</i><span hide-xs> Bộ nhận dạng</span>
+    </md-nav-item>
+    <md-nav-item hide-xs hide-sm permission
+                 permission-only = "'10'"
+                 md-nav-sref="dashboard.alerts.trustedIp" name="dashboard.alerts.trustedIp">
+        <i class="material-icons">playlist_add_check</i><span hide-xs> IP tin cậy</span>
+    </md-nav-item>
+    <md-nav-item hide-xs hide-sm permission
+                 permission-only = "'10'"
+                 md-nav-sref="dashboard.alerts.reports" name="dashboard.alerts.reports">
+        <i class="material-icons">show_chart</i><span hide-xs> Báo cáo</span>
+    </md-nav-item>
+</md-nav-bar>
+
+<div ui-view="positive" ng-show="$state.includes('dashboard.alerts.positive')"></div>
+<div ui-view="negative" ng-show="$state.includes('dashboard.alerts.negative')"></div>
+<div ui-view="done" ng-show="$state.includes('dashboard.alerts.done')"></div>
+<div ui-view="rules" ng-show="$state.includes('dashboard.alerts.rules')"></div>
+<div ui-view="trustedIp" ng-show="$state.includes('dashboard.alerts.trustedIp')"></div>
+<div ui-view="reports" ng-show="$state.includes('dashboard.alerts.reports')"></div>

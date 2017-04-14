@@ -1,0 +1,50 @@
+<div layout="column" layout-gt-md="row" layout-margin>
+    <div flex flex-gt-md="30" layout="column">
+    </div>
+    <div flex flex-gt-md="40" layout="column">
+        <md-input-container class="md-icon-right md-block">
+            <label>Tìm kiếm </label>
+            <md-icon md-font-set="material-icons"> search </md-icon>
+            <input ng-model="searchGroup" type="text" placeholder="Nhập từ khóa tìm kiếm">
+            <div ng-hide="true">
+                {{(filteredGroup = (groups | filter: searchGroup))}}
+            </div>
+        </md-input-container>
+    </div>
+    <div flex flex-gt-md="20" layout="column">
+        <md-button class="md-raised md-success" ng-click="addGroupModal()">Tạo nhóm người dùng</md-button>
+    </div>
+</div>
+<div layout="column" layout-margin>
+    <div flex>
+        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                   mdt-row="{
+                               data: filteredGroup,
+                              'table-row-id-key': 'id',
+                              'column-keys': [
+                                  'name',
+                                  'description',
+                                  'created_at',
+                                  'updated_at',
+                                  'id'
+                              ]
+                              }">
+            <mdt-header-row>
+                <mdt-column align-rule="left">Tên Nhóm</mdt-column>
+                <mdt-column align-rule="left">Mô tả</mdt-column>
+                <mdt-column align-rule="left">Thời gian tạo</mdt-column>
+                <mdt-column align-rule="left">Thời gian cập nhật</mdt-column>
+                <mdt-column align-rule="left">Hành động</mdt-column>
+            </mdt-header-row>
+            <mdt-custom-cell column-key="name">
+                <strong>{{value}}</strong>
+            </mdt-custom-cell>
+            <mdt-custom-cell column-key="id">
+                <md-icon ng-click="clientScope.editGroupModal(value)" class="md-secondary"
+                         md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon>
+                <md-icon ng-click="clientScope.deleteGroupModal(value)" class="md-secondary"
+                         md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
+            </mdt-custom-cell>
+        </mdt-table>
+    </div>
+</div>

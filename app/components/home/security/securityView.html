@@ -1,0 +1,151 @@
+<div layout="column" layout-gt-md="row">
+    <div flex ng-repeat="p in panelResult">
+        <md-card md-colors="{background:'blue-500'}">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{p.name}}</span>
+                    <span class="md-headline">{{p.info | number}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-if="p.href" ui-sref="{{p.href}}">Chi tiết <i class="material-icons">more_horiz</i></md-button>
+                <md-button ng-if="p.click" ng-click="clickDetail(p.click)">Chi tiết <i class="material-icons">more_horiz</i></md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
+
+<div layout="column" layout-gt-md="row" layout-margin id="websites" class="noLeftRightMargin">
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Top sự cố
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-progress-linear ng-show="loadingTableAlert" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+            <p class="noThing" ng-show="!loadingTableAlert && top_alert.length == 0"><em>Không có cảnh báo</em></p>
+            <mdt-table mdt-row="{
+                  data: top_alert,
+                  'column-keys': [
+                      'name',
+                      'total',
+                      'percentage'
+                    ]
+                  }"
+                       ng-show="!loadingTableAlert && top_alert.length != 0">
+                <mdt-header-row>
+                    <mdt-column align-rule="left">Tấn công</mdt-column>
+                    <mdt-column align-rule="right">Số lượt</mdt-column>
+                    <mdt-column align-rule="right">Tỷ lệ</mdt-column>
+                </mdt-header-row>
+
+                <!-- using mdt-custom-cell directive let us create a custom visualisation for the specified column key. -->
+                <mdt-custom-cell column-key="name">
+                    <a class="pointer" ng-dblclick="clientScope.clickAlert(value)"><strong>{{value}}</strong></a>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="total_attacks">
+                    {{value | number}}
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="percentage">
+                    {{value | number:2}} %
+                </mdt-custom-cell>
+            </mdt-table>
+        </md-content>
+    </div>
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Thống kê các cuộc tấn công
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-progress-linear ng-show="loadingChart" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+            <highchart id="chartPie" config="chartPieConfig"></highchart>
+        </md-content>
+    </div>
+</div>
+
+<div layout="column" layout-gt-md="row" layout-margin class="noLeftRightMargin">
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Top IP tấn công nhiều nhất
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-progress-linear ng-show="loadingTableIp" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+            <p class="noThing" ng-show="!loadingTableIp && top_ips.length == 0"><em>Không có địa chỉ IP tấn công</em></p>
+            <mdt-table mdt-row="{
+                data: top_ips,
+                    'column-keys': [
+                        'src_ip',
+                        'total_attacks',
+                        'percent'
+                    ]
+                }"
+                       ng-show="!loadingTableIp && top_ips.length != 0">
+                <mdt-header-row>
+                    <mdt-column align-rule="left">Địa chỉ IP tấn công</mdt-column>
+                    <mdt-column align-rule="right">Số lượt tấn công</mdt-column>
+                    <mdt-column align-rule="right">Tỷ lệ</mdt-column>
+                </mdt-header-row>
+                <mdt-custom-cell column-key="src_ip">
+                    <a class="pointer" ng-dblclick="clientScope.clickFilter('remote_host', value)"><strong>{{value}}</strong></a>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="total_attacks">
+                    {{value | number}}
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="percent">
+                    {{value | number}} %
+                </mdt-custom-cell>
+            </mdt-table>
+        </md-content>
+    </div>
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Các Website gặp sự cố
+            </div>
+        </md-toolbar>
+        <md-content>
+            <!--<md-progress-linear ng-show="loadingTableWebsite" md-mode="indeterminate" class="md-accent"></md-progress-linear>-->
+            <!--<p class="noThing" ng-show="!loadingTableWebsite && events.length == 0"><em>Không có Website gặp sự cố</em></p>-->
+            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,100]}",
+                       mdt-row-paginator="getWebsites(page, pageSize)"
+                       mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                       mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
+                           mdt-row="{
+                      'column-keys': [
+                          'hostName',
+                          'event',
+                          'reason',
+                          'duration'
+                        ]
+                      }">
+                    <mdt-header-row>
+                        <mdt-column align-rule="left">Website</mdt-column>
+                        <mdt-column align-rule="right">Trạng thái</mdt-column>
+                        <mdt-column align-rule="right">Http Code</mdt-column>
+                        <mdt-column align-rule="right">Uptimes</mdt-column>
+                    </mdt-header-row>
+                    <mdt-custom-cell column-key="hostName">
+                        <strong>{{value}}</strong>
+                    </mdt-custom-cell>
+                    <mdt-custom-cell column-key="event">
+                        <label class="label" ng-class="value == 'Down'?'label-danger':value == 'Up'?'label-success':'label-primary'">
+                            <i class="fa"
+                               ng-class="value == 'Down'?'fa-long-arrow-down':value == 'Up'?'fa-long-arrow-up':'fa-play'"></i>
+                            {{value}}
+                        </label>
+                    </mdt-custom-cell>
+                    <mdt-custom-cell column-key="reason">
+                        <label class="label"
+                               ng-class="value == 'OK' || value=='OK (200)'?'label-success':'label-danger'">
+                            {{value}}
+                        </label>
+                    </mdt-custom-cell>
+                </mdt-table>
+        </md-content>
+    </div>
+</div>

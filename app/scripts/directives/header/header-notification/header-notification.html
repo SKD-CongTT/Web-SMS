@@ -1,0 +1,84 @@
+
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<div class="nav navbar-top-links navbar-left">
+    <li ui-sref-active="active">
+        <a ui-sref="dashboard.home">
+            <i class="fa fa-dashboard fa-fw"></i> 
+            Dashboard
+        </a>
+    </li>
+
+    <li class="dropdown" >
+        <a class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-wrench fa-fw"></i> IP Address 
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-ipaddress">
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.ipAddress">
+                    <i class="fa fa-user fa-fw"></i> IP Address List
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li ui-sref-active="active"><a ui-sref="dashboard.addIP"><i class="fa fa-user fa-fw"></i> Add New</a></li>
+        </ul>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="dashboard.logs">
+            <i class="fa fa-table fa-fw"></i> Logs
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="dashboard.settings">
+            <i class="fa fa-cog fa-fw"></i> Alert
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="dashboard.settings">
+            <i class="fa fa-cog fa-fw"></i> Settings
+        </a>
+    </li>
+
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user fa-fw"></i> Users <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.users">
+                    <i class="fa fa-user fa-fw"></i> Users List
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.addUser">
+                    <i class="fa fa-sign-out fa-fw"></i> Add New
+                </a>
+            </li>
+        </ul>
+    </li>
+</div>
+<div class="nav navbar-top-links navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+            </li>
+            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+            </li>
+            <li><a href="#"><i class="fa fa-eye fa-fw"></i> Help </a></li>
+            <li class="divider"></li>
+            <li><a ui-sref="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            </li>
+        </ul>
+        <!-- /.dropdown-user -->
+    </li>
+    <!-- /.dropdown -->
+</div>
+</div>
+

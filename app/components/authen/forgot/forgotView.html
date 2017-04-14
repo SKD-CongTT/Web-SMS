@@ -1,0 +1,24 @@
+<div class="front-panel transbox">
+    <div class="panel-heading">
+        <h3 class="panel-title-other text-center"><strong>QUÊN MẬT KHẨU</strong></h3>
+    </div>
+    <form role="form" name="forgotForm" novalidate ng-submit="doForgot()">
+        <div class="panel-body">
+            <fieldset>
+                <div ng-show="errorMessage.length != 0" class="help-block error" style="margin: 0 0 10px 0;">
+                    {{errorMessage}}
+                </div>
+                <div class="form-group">
+                    <input class="form-control"
+                           placeholder="Email"
+                           type="email"
+                           ng-model="email"
+                           required
+                           autofocus>
+                </div>
+                <div class="pointer" style="margin-bottom: 10px;"><a ui-sref="authen.login">< Trở về Đăng nhập?</a></div>
+                <button ng-disabled="forgotForm.$invalid" class="btn btn-lg btn-success btn-block">RESET MẬT KHẨU</button>
+            </fieldset>
+        </div>
+    </form>
+</div>

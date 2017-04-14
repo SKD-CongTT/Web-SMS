@@ -1,0 +1,180 @@
+<div layout="column" layout-gt-md="row">
+    <div flex ng-repeat="p in panelResult">
+        <md-card class="panel-blue">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{p.name}}</span>
+                    <span class="md-headline" ng-if="isNumber(p.info)">{{p.info | number}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ui-sref="{{p.href}}"><span ng-if="p.href">Chi tiết <i class="material-icons">more_horiz</i></span></md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
+
+<div layout="column" layout-gt-md="row" layout-margin id="status" class="noLeftRightMargin">
+    <!-- <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Tiếp nhận Logs
+            </div>
+        </md-toolbar>
+        <md-content>
+            <div flex>
+                <md-progress-linear ng-show="loadingChart" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+                <highchart id="chartLine" config="chartConfig"></highchart>
+            </div>
+        </md-content>
+    </div> -->
+<!--     <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Cảnh báo
+            </div>
+        </md-toolbar>
+        <md-content>
+            <div flex>
+                <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,50,100]}"
+                           mdt-row-paginator="refresh_alert(page, pageSize)"
+                           mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                           mdt-trigger-request="getLoadResultsAlertCallback(loadPageCallback)"
+                           mdt-row="{
+                                      'table-row-id-key': '_id.$id',
+                                      'column-keys': [
+                                          'update_at',
+                                          'name'
+                                      ]
+                                      }">
+                    <mdt-header-row>
+                        <mdt-column align-rule="left">Thời gian</mdt-column>
+                        <mdt-column align-rule="left">Cảnh báo</mdt-column> -->
+                        <!--<mdt-column align-rule="left">Mức độ</mdt-column>-->
+       <!--              </mdt-header-row>
+                    <mdt-custom-cell column-key="update_at">
+                        <i class="fa fa-clock-o"></i> {{value*1000| date:'yyyy-MM-dd HH:mm:ss'}}
+                    </mdt-custom-cell>
+                    <mdt-custom-cell column-key="name">
+                        <strong>{{value}}</strong>
+                    </mdt-custom-cell>
+                    <mdt-custom-cell column-key="severity"> -->
+                        <!--<label class="label"-->
+                        <!--ng-class="value=='1'?'label-default':value=='2'?'label-warning':'label-'">{{value}}-->
+                        <!--</label>-->
+<!--                         <label class="label label-default" ng-show="value=='1'">Thấp</label>
+                        <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
+                        <label class="label label-danger" ng-show="value=='3'">Cao</label>
+                    </mdt-custom-cell>
+                    <mdt-custom-cell column-key="is_alerted">
+                        <label ng-show="value==1"
+                               class="label label-success hidden-sm"
+                               title="Đã có log">
+                            <i class="fa fa-check"></i> Đã gửi
+                        </label>
+                        <label ng-show="value==0"
+                               class="label label-warning hidden-sm"
+                               title="Chưa gửi cảnh báo tới quản trị.">
+                            <i class="fa fa-spinner fa-spin"></i> Pending
+                        </label>
+                        <label ng-show="value==-1"
+                               class="label label-danger hidden-sm"
+                               title="Chưa gửi cảnh báo tới quản trị.">
+                            Không gửi được
+                        </label>
+                    </mdt-custom-cell>
+                    <mdt-custom-cell column-key="_id.$id">
+                        <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showDetail(value)">more_horiz</md-icon>
+                    </mdt-custom-cell>
+                </mdt-table>
+            </div>
+        </md-content>
+    </div> -->
+</div>
+
+<div layout="column" layout-gt-md="row" layout-margin class="noLeftRightMargin">
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Course
+            </div>
+        </md-toolbar>
+        <md-content>
+            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+                       mdt-row-paginator="getWebsites(page, pageSize)"
+                       mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                       mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
+                       mdt-row="{
+
+                      'column-keys': [
+                          'hostName',
+                          'event',
+                          'reason',
+                          'duration'
+                        ]
+                      }">
+                <mdt-header-row>
+                    <mdt-column align-rule="left">Course</mdt-column>
+                    <mdt-column align-rule="right">Credit</mdt-column>
+                    <mdt-column align-rule="right">Pre</mdt-column>
+                    <mdt-column align-rule="right">Time</mdt-column>
+                </mdt-header-row>
+                <mdt-custom-cell column-key="hostName">
+                    <strong>{{value}}</strong>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="event">
+                    <label class="label" ng-class="value == 'Down'?'label-danger':value == 'Up'?'label-success':'label-primary'">
+                        <i class="fa"
+                           ng-class="value == 'Down'?'fa-long-arrow-down':value == 'Up'?'fa-long-arrow-up':'fa-play'"></i>
+                        {{value}}
+                    </label>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="reason">
+                    <label class="label"
+                           ng-class="value == 'OK' || value=='OK (200)'?'label-success':'label-danger'">
+                        {{value}}
+                    </label>
+                </mdt-custom-cell>
+            </mdt-table>
+
+        </md-content>
+    </div>
+<!--     <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Máy chủ
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-progress-linear ng-show="loadingTableAgent" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+            <p class="noThing" ng-show="!loadingTableAgent && agents.length == 0"><em>Không có cảm biến</em></p>
+            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                       mdt-row="{
+                      data: agents,
+                      'column-keys': [
+                          'name',
+                          'lastTime',
+                          'total'
+                        ]
+                      }"
+                       ng-show="!loadingTableAgent && agents.length != 0">
+                <mdt-header-row>
+                    <mdt-column align-rule="left">Tên cảm biến</mdt-column>
+                    <mdt-column align-rule="right">Lần cuối nhận Logs</mdt-column>
+                    <mdt-column align-rule="right">Sự kiện</mdt-column>
+                </mdt-header-row> -->
+
+                <!-- using mdt-custom-cell directive let us create a custom visualisation for the specified column key. -->
+<!--                 <mdt-custom-cell column-key="name">
+                    <strong>{{value}}</strong>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="lastTime">
+                    {{value | date:'yyyy-MM-dd HH:mm:ss'}}
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="total">
+                    {{value | number}}
+                </mdt-custom-cell>
+            </mdt-table>
+        </md-content>
+    </div> -->
+</div>
