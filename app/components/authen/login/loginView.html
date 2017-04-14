@@ -1,0 +1,50 @@
+<md-content class="front-panel transbox">
+    <div class="panel-heading">
+        <h3 class="panel-title-other text-center"><strong>ĐĂNG NHẬP</strong></h3>
+    </div>
+    <form role="form" name="loginForm" novalidate ng-submit="doLogin()">
+        <div class="panel-body">
+            <fieldset>
+                <div ng-show="errorLogin.length != 0" class="has-error" style="margin: 0 0 10px 0;">
+                    <div class="help-block ">{{errorLogin}}</div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : errorLogin.username.$invalid && !loginForm.username.$pristine}">
+                    <div class="input-group">
+                        <input class="form-control "
+                               placeholder="Email hoặc tên đăng nhập"
+                               type="text"
+                               name="username"
+                               ng-model="userLogin.username"
+                               required
+                               autofocus>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    </div>
+                    <p ng-show="loginForm.username.$invalid && !loginForm.username.$pristine"
+                       class="help-block">*Tên đăng nhập là bắt buộc
+                    </p>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine}">
+                    <div class="input-group">
+                        <input class="form-control "
+                               placeholder="Mật khẩu"
+                               name="password"
+                               type="password"
+                               ng-model="userLogin.password"
+                               required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                    </div>
+                    <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine"
+                       class="help-block">*Mật khẩu là bắt buộc
+                    </p>
+                </div>
+                <div class="pointer" style="margin-bottom: 10px;"><a ui-sref="authen.forgot">Quên mật khẩu?</a></div>
+                <button type="submit"
+                        class="btn btn-lg btn-success btn-block"
+                        ng-disabled="loginForm.$invalid && !onLogin">ĐĂNG NHẬP
+                </button>
+            </fieldset>
+        </div>
+    </form>
+</md-content>

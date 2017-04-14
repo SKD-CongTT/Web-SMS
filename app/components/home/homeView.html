@@ -1,0 +1,129 @@
+<!-- <md-nav-bar md-selected-nav-item="currentNavItem" md-no-ink nav-bar-aria-label="navigation links"> -->
+<!--     <md-nav-item md-nav-sref="dashboard.home.general" name="dashboard.home.general">
+        <i class="material-icons">home</i><span hide-xs> Home Page</span>
+    </md-nav-item> -->
+<!--     <md-nav-item permission
+                 permission-only = "'6'"
+                 md-nav-sref="dashboard.home.security" name="dashboard.home.security">
+        <i class="material-icons">security</i><span hide-xs> An ninh</span>
+    </md-nav-item>
+    <md-nav-item permission
+                 permission-only = "'4'"
+                 md-nav-sref="dashboard.home.logs-centralize" name="dashboard.home.logs-centralize">
+        <i class="material-icons">layers</i><span hide-xs> Thống kê Logs</span>
+    </md-nav-item>
+    <md-nav-item  hide-xs
+                  permission
+                  permission-only = "'8'"
+                  md-nav-sref="dashboard.home.system" name="dashboard.home.system">
+        <i class="material-icons">computer</i><span hide-xs> Cấu hình hệ thống</span>
+    </md-nav-item> -->
+<!-- </md-nav-bar>
+<div ng-if="stateIsLoading.value">
+    <md-progress-linear md-mode="indeterminate" class="md-accent"></md-progress-linear>
+</div> -->
+
+<!-- <div flex ui-view="system" ng-if="$state.includes('dashboard.home.system') && !stateIsLoading.value"></div> -->
+<!-- <div flex ui-view="general" ng-if="$state.includes('dashboard.home.general') && !stateIsLoading.value"></div> -->
+<!-- <div flex ui-view="security" ng-if="$state.includes('dashboard.home.security') && !stateIsLoading.value"></div>
+<div flex ui-view="uptime" ng-if="$state.includes('dashboard.home.uptime') && !stateIsLoading.value"></div>
+<div flex ui-view="logs-centralize" ng-if="$state.includes('dashboard.home.logs-centralize') && !stateIsLoading.value"></div> -->
+
+<div layout="column" layout-gt-md="row">
+    <div flex ng-repeat="p in panelResult">
+        <md-card class="panel-blue">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{p.name}}</span>
+                    <span class="md-headline" ng-if="isNumber(p.info)">{{p.info | number}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ui-sref="{{p.href}}"><span ng-if="p.href">Chi tiết <i class="material-icons">more_horiz</i></span></md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
+
+<div layout="column" layout-gt-md="row" layout-margin id="status" class="noLeftRightMargin">
+</div>
+
+<div layout="column" layout-gt-md="row" layout-margin class="noLeftRightMargin">
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Course
+            </div>
+        </md-toolbar>
+        <md-content>
+            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+                       mdt-row-paginator="getWebsites(page, pageSize)"
+                       mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                       mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
+                       mdt-row="{
+
+                      'column-keys': [
+                          'hostName',
+                          'event',
+                          'reason',
+                          'duration'
+                        ]
+                      }">
+                <mdt-header-row>
+                    <mdt-column align-rule="left">Course</mdt-column>
+                    <mdt-column align-rule="right">Credit</mdt-column>
+                    <mdt-column align-rule="right">Pre</mdt-column>
+                    <mdt-column align-rule="right">Time</mdt-column>
+                </mdt-header-row>
+                <mdt-custom-cell column-key="hostName">
+                    <strong>{{value}}</strong>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="event">
+                    <label class="label" ng-class="value == 'Down'?'label-danger':value == 'Up'?'label-success':'label-primary'">
+                        <i class="fa"
+                           ng-class="value == 'Down'?'fa-long-arrow-down':value == 'Up'?'fa-long-arrow-up':'fa-play'"></i>
+                        {{value}}
+                    </label>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="reason">
+                    <label class="label"
+                           ng-class="value == 'OK' || value=='OK (200)'?'label-success':'label-danger'">
+                        {{value}}
+                    </label>
+                </mdt-custom-cell>
+            </mdt-table>
+
+        </md-content>
+    </div>
+
+
+
+<!--<uib-tabset active="activeTabDashboard" class="tab-menu">-->
+    <!--<uib-tab ui-sref=".system" index="1" >-->
+        <!--<uib-tab-heading>-->
+            <!--<i class="fa fa-desktop"></i> Hệ thống chung-->
+        <!--</uib-tab-heading>-->
+    <!--</uib-tab>-->
+    <!--<uib-tab ui-sref=".security" index="2">-->
+        <!--<uib-tab-heading>-->
+            <!--<i class="fa fa-exclamation-triangle"></i> An ninh-->
+        <!--</uib-tab-heading>-->
+    <!--</uib-tab>-->
+    <!--&lt;!&ndash;<uib-tab ui-sref=".uptime" index="3">&ndash;&gt;-->
+        <!--&lt;!&ndash;<uib-tab-heading>&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="fa fa-globe"></i> Uptime&ndash;&gt;-->
+        <!--&lt;!&ndash;</uib-tab-heading>&ndash;&gt;-->
+    <!--&lt;!&ndash;</uib-tab>&ndash;&gt;-->
+    <!--<uib-tab ui-sref=".logs-centralize" index="4">-->
+        <!--<uib-tab-heading>-->
+            <!--<i class="fa fa-database"></i> Thống kê Logs-->
+        <!--</uib-tab-heading>-->
+    <!--</uib-tab>-->
+<!--</uib-tabset>-->
+
+<!--<div ui-view="system" ng-if="$state.includes('dashboard.home.system')"></div>-->
+<!--<div ui-view="security" ng-if="$state.includes('dashboard.home.security')"></div>-->
+<!--<div ui-view="uptime" ng-if="$state.includes('dashboard.home.uptime')"></div>-->
+<!--<div ui-view="logs-centralize" ng-if="$state.includes('dashboard.home.logs-centralize')"></div>-->
+
+

@@ -1,0 +1,30 @@
+<div class="popover" tabindex="-1">
+    <div class="arrow"></div>
+    <div class="popover-title">
+        <button id="closeBtn" type="button" class="close" ng-click="$hide()">&times;</button>
+        <p>{{k}}</p>
+    </div>
+
+    <div class="popover-content">
+        <form name="popoverForm">
+            <table class="table table-hover pointer">
+                <thead>
+                <tr>
+                    <td><strong>GIÁ TRỊ</strong></td>
+                    <td width="25%"><strong>SỐ LƯỢNG</strong></td>
+                    <td width="25%"> TỶ LỆ</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="value in v">
+                    <td style="min-width:100px; max-width:150px; word-wrap: break-word"; overflow: hidden;" title="{{value.key}}">
+                        <a ng-click="clickFilter(k,value.key)"><span style="text-overflow: ellipsis;">{{value.key}}</span></a>
+                    </td>
+                    <td>{{value.doc_count | number}}</td>
+                    <td >{{value.percentage | number:2}} %</td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

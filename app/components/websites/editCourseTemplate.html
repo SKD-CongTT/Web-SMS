@@ -1,0 +1,101 @@
+<md-dialog flex="40">
+    <form ng-cloak name="editInfo">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>EDIT COURSE INFORMATION</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">cancel</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <span>Course Name</span>
+                    <input type="text"
+                           name="name"
+                           ng-model="courseInfo.name"
+                           md-maxlength="64"
+                           required/>
+                    <div ng-messages="editInfo.name.$error" ng-show="editInfo.name.$dirty">
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="md-maxlength">Course name is too long</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <span>Credit</span>
+                    <input type="number"
+                           name="cost"
+                           ng-model="courseInfo.cost"
+                           max="10"
+                           min="0"
+                           required/>
+                    <div ng-messages="editInfo.cost.$error" ng-show="editInfo.cost.$dirty">
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="max">Maximum credit is 10</div>
+                        <div ng-message="min">Minimum credit is 0</div>
+                    </div>
+                </md-input-container>
+          <div layout="row" layout-align="space-between center">
+        <span>Status</span>
+        <md-select ng-model="courseInfo.active" placeholder="Status" class="md-no-underline">
+          <md-option value="true">Opening</md-option>
+          <md-option value="false">Closed</md-option>
+        </md-select>
+      </div>
+                <md-input-container class="md-block">
+                    <span>Requirement</span>
+                    <!-- <input type="text"
+                           name="requirements"
+                           ng-model="courseInfo.requirements"
+                           md-maxlength="300"
+                           required/>
+                    <div ng-messages="editInfo.requirements.$error" ng-show="editInfo.requirements.$dirty">
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="md-maxlength">Requirement is too long</div>
+                    </div>
+ -->
+      <div flex="100" flex-gt-sm="50" layout="column">
+        <div>
+          <fieldset class="standard" >
+            <div layout="row" layout-wrap flex>
+              <div flex="50" ng-repeat="item in courseInfo.requirements">
+                <md-checkbox ng-checked="exist(item)" ng-click = "toggle(item)">
+                  {{ item }}
+                </md-checkbox>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <span>Description</span>
+                    <input type="text"
+                           name="description"
+                           ng-model="courseInfo.description"
+                           md-maxlength="300"
+                           required/>
+                    <div ng-messages="editInfo.description.$error" ng-show="editInfo.description.$dirty">
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="md-maxlength">Description is too long</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-margin>
+            <span flex></span>
+            <md-button class="md-warn md-raised" ng-click="cancel()">
+                Hủy bỏ
+            </md-button>
+            <md-button class="md-success md-raised" ng-disabled="editInfo.$invalid"
+                       ng-click="edit()">
+                Cập nhật
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+

@@ -1,0 +1,189 @@
+<div layout="column" layout-padding>
+    <div flex layout="column" layout-margin>
+        <h3 class="md-title text-center">GỬI CẢNH BÁO</h3>
+        <form name="alertConfig">
+            <div layout="column" layout-padding class="md-whiteframe-1dp">
+                <div layout="column" layout-gt-md="row">
+                    <md-input-container flex-gt-sm class="md-block">
+                        <label>Server</label>
+                        <input aria-label="server" name="server" type="text" ng-model="emailConfig.server" required>
+                        <div ng-messages="alertConfig.server.$error" ng-show="alertConfig.server.$dirty">
+                            <div ng-message="required">Server không được để trống!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex-gt-sm class="md-block">
+                        <label>Tài khoản gửi Email</label>
+                        <input aria-label="username" type="email" name="username" md-maxlength="128" ng-model="emailConfig.username" required>
+                        <div ng-messages="alertConfig.username.$error" ng-show="alertConfig.username.$dirty">
+                            <div ng-message="required">Tên tài khoản Email không được để trống!</div>
+                            <div ng-message="email">Địa chỉ email không đúng định dạng!</div>
+                            <div ng-message="md-maxlength">Địa chỉ email quá dài!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex-gt-sm class="md-block">
+                        <label>Mật khẩu</label>
+                        <input aria-label="password" type="password" name="password" ng-model="emailConfig.password" required>
+                        <div ng-messages="alertConfig.password.$error" ng-show="alertConfig.password.$dirty">
+                            <div ng-message="required">Mật khẩu không được để trống!</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="column" layout-gt-md="row">
+                    <md-input-container flex-gt-sm="33" class="md-block">
+                        <label>Port</label>
+                        <input aria-label="port" name="port" type="number" min="1" max="65535" ng-model="emailConfig.port" required>
+                        <div ng-messages="alertConfig.port.$error" ng-show="alertConfig.port.$dirty">
+                            <div ng-message="required">Port không được để trống!</div>
+                            <div ng-message="max">Port quá lớn!</div>
+                            <div ng-message="min">Port lớn hơn 0!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex-gt-sm="33" class="md-block">
+                        <label>Mức độ nguy hiểm</label>
+                        <md-select ng-model="emailConfig.severity" name="severity">
+                            <md-option value="3">Cao</md-option>
+                            <md-option value="2">Trung bình</md-option>
+                            <md-option value="1">Thấp</md-option>
+                        </md-select>
+                        <div ng-messages="alertConfig.severity.$error" ng-show="alertConfig.severity.$dirty">
+                            <div ng-message="required">Mức độ nguy hiểm không được để trống!</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="column" layout-gt-md="row">
+                    <md-input-container flex-gt-sm class="md-block">
+                        <label>Name</label>
+                        <input aria-label="nameEmail" type="text" name="name" md-maxlength="128" ng-model="emailConfig.name" required>
+                        <div ng-messages="alertConfig.name.$error" ng-show="alertConfig.name.$dirty">
+                            <div ng-message="required">Tên của email không được để trống!</div>
+                            <div ng-message="md-maxlength">Tên của email quá dài!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex-gt-sm class="md-block">
+                        <label>Subject</label>
+                        <textarea aria-label="subjectEmail" type="text" name="subject" md-maxlength="128" ng-model="emailConfig.subject" rows="3" required></textarea>
+                        <div ng-messages="alertConfig.subject.$error" ng-show="alertConfig.subject.$dirty">
+                            <div ng-message="required">Subject của email không được để trống!</div>
+                            <div ng-message="md-maxlength">Subject của email quá dài!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex-gt-sm class="md-block" >
+                        <label>Body</label>
+                        <textarea  aria-label="bodyEmail" type="text" name="body" ng-model="emailConfig.body" rows="3" required></textarea>
+                        <div ng-messages="alertConfig.body.$error" ng-show="alertConfig.body.$dirty">
+                            <div ng-message="required">Nội dung email không được để trống!</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div flex-offset="50" flex-offset-gt-md="85">
+                    <md-button class="md-raised md-success"
+                               ng-click="saveEmailConfig()"
+                               ng-disabled="alertConfig.$invalid">Lưu thay đổi
+                    </md-button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div flex layout="column" layout-gt-md="row" layout-margin>
+        <div flex layout="column">
+            <h3 class="md-title text-center">ROTATION</h3>
+            <form name="rotationConfig" ng-submit="saveChangePwd()">
+                <div layout="column" layout-padding class="md-whiteframe-1dp">
+                    <md-input-container class="md-block">
+                        <label>Số lượng log tối đa mỗi sensor/ngày</label>
+                        <input type="number" name="log"
+                               min="1"
+                               max="1000000"
+                               ng-model="rotation.max_log_per_day_per_agent"
+                               required>
+                        <div ng-messages="rotationConfig.log.$error" ng-show="rotationConfig.log.$dirty">
+                            <div ng-message="required">Số lượng log không được để trống!</div>
+                            <div ng-message="min">Số lượng log phải lớn hơn 0!</div>
+                            <div ng-message="max">Số lượng log quá lớn!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Số ngày tối đa lưu trữ Log</label>
+                        <input type="number" name="log_rotation_time"
+                               min="1"
+                               max="30"
+                               ng-model="rotation.log_rotation_time"
+                               required>
+                        <div ng-messages="rotationConfig.log_rotation_time.$error" ng-show="rotationConfig.log_rotation_time.$dirty">
+                            <div ng-message="required">Số ngày lưu trữ Log không được để trống!</div>
+                            <div ng-message="min">Số ngày lưu trữ log phải lớn hơn 0!</div>
+                            <div ng-message="max">Số ngày lưu trữ log phải nhỏ hơn 30!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Số lượng log tối đa trong cảnh báo</label>
+                        <input type="number" name="max_res_in_alert"
+                               min="1"
+                               max="150"
+                               ng-model="rotation.max_res_in_alert"
+                               required>
+                        <div ng-messages="rotationConfig.max_res_in_alert.$error" ng-show="rotationConfig.max_res_in_alert.$dirty">
+                            <div ng-message="required">Số lượng log không được để trống!</div>
+                            <div ng-message="min">Số lượng log phải lớn hơn 0!</div>
+                            <div ng-message="max">Số lượng log phải nhỏ hơn 100!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Số ngày tối đa lưu trữ sự kiện theo dõi Website</label>
+                        <input type="number" name="webchecker_rotation_time"
+                               min="1"
+                               max="7"
+                               ng-model="rotation.webchecker_rotation_time"
+                               required>
+                        <div ng-messages="rotationConfig.webchecker_rotation_time.$error" ng-show="rotationConfig.webchecker_rotation_time.$dirty">
+                            <div ng-message="required">Số ngày lưu trữ không được để trống!</div>
+                            <div ng-message="min">Số ngày lưu trữ phải lớn hơn 0!</div>
+                            <div ng-message="max">Số ngày lưu trữ phải nhỏ hơn 7!</div>
+                        </div>
+                    </md-input-container>
+                    <div flex-offset="50" flex-offset-gt-md="70">
+                        <md-button class="md-raised md-success"
+                                   ng-click="saveRotationConfig()"
+                                   ng-disabled="rotationConfig.$invalid">Lưu thay đổi
+                        </md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div flex layout="column">
+            <h3 class="md-title text-center">CƠ SỞ DỮ LIỆU</h3>
+            <form name="dbConfig">
+                <div layout="column" layout-padding  class="md-whiteframe-1dp">
+                    <md-input-container class="md-block">
+                        <label>Đường dẫn</label>
+                        <input type="text" name="es_ip"
+                               ng-model="database.es_ip"
+                               required>
+                        <div ng-messages="dbConfig.es_ip.$error" ng-show="dbConfig.es_ip.$dirty">
+                            <div ng-message="required">Đường dẫn cơ sở dữ liệu không được để trống!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Port</label>
+                        <input name="es_port"
+                               type="number"
+                               min="1" max="65535"
+                               ng-model="database.es_port"
+                               required>
+                        <div ng-messages="dbConfig.es_port.$error" ng-show="dbConfig.es_port.$dirty">
+                            <div ng-message="required">Port không được để trống!</div>
+                            <div ng-message="max">Port quá lớn!</div>
+                            <div ng-message="min">Port lớn hơn 0!</div>
+                        </div>
+                    </md-input-container>
+                    <div flex-offset="50" flex-offset-gt-md="70" class="bot-padding">
+                        <md-button class="md-raised md-success"
+                                   ng-click="saveDbConfig()"
+                                   ng-disabled="dbConfig.$invalid">Lưu thay đổi
+                        </md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

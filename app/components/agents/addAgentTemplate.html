@@ -1,0 +1,83 @@
+<md-dialog flex="40">
+    <form ng-cloak name="addSensor">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>TẠO SENSOR</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">cancel</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label>Tên Sensor</label>
+                    <input type="text"
+                           name="name"
+                           ng-model="agent.agent_name"
+                           md-maxlength="64"
+                           placeholder="Nhập tên sensor"
+                           required/>
+                    <div ng-messages="addSensor.name.$error" ng-show="addSensor.name.$dirty">
+                        <div ng-message="required">Tên Sensor không được để trống!</div>
+                        <div ng-message="md-maxlength">Tên Sensor quá dài!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Địa chỉ IP</label>
+                    <input type="text"
+                           name="ipAddress"
+                           ng-model="agent.ipAddress"
+                           md-maxlength="64"
+                           ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
+                           placeholder="Nhập địa chỉ IP trong khoảng 0.0.0.0 - 255.255.255.255"
+                           required/>
+                    <div ng-messages="addSensor.ipAddress.$error" ng-show="addSensor.ipAddress.$dirty">
+                        <div ng-message="required">Địa chỉ IP không được để trống!</div>
+                        <div ng-message="pattern">Địa chỉ IP không đúng định dạng!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Mô tả</label>
+                    <input type="text"
+                           name="description"
+                           ng-model="agent.description"
+                           placeholder="Nhập mô tả sensor"
+                           md-maxlength="128"
+                           required/>
+                    <div ng-messages="addSensor.description.$error" ng-show="addSensor.description.$dirty">
+                        <div ng-message="required">Mô tả không được để trống!</div>
+                        <div ng-message="md-maxlength">Mô tả quá dài!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Người quản lý </label>
+                    <md-select ng-model="agent.userControl"
+                               multiple
+                               required
+                               name="controlUser">
+                        <md-option ng-repeat="u in userList" value="{{u.id}}">{{u.name}}</md-option>
+                    </md-select>
+                    <div ng-messages="addSensor.controlUser.$error">
+                        <div ng-message="required">Người quản lý không được để trống!</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-margin>
+            <span flex></span>
+            <md-button class="md-warn md-raised" ng-click="cancel()">
+                Hủy bỏ
+            </md-button>
+            <md-button class="md-success md-raised" ng-disabled="addSensor.$invalid || onRequest"
+                       md-auto-focus
+                       ng-click="add()">
+                Thêm mới
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+

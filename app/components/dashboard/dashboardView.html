@@ -1,0 +1,124 @@
+<!--<div id="wrapper" ng-cloak flex>-->
+    <!--&lt;!&ndash; Navigation &ndash;&gt;-->
+
+
+    <!--<md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">-->
+        <!--<md-nav-item md-nav-sref="dashboard.home" name="dashboard.home">Trang chủ</md-nav-item>-->
+        <!--<md-nav-item md-nav-sref="dashboard.websites" name="dashboard.websites">Bảng hoạt động Websites</md-nav-item>-->
+        <!--<md-nav-item md-nav-sref="dashboard.logs" name="dashboard.logs">Sự kiện Logs</md-nav-item>-->
+        <!--<md-nav-item md-nav-sref="dashboard.alerts" name="dashboard.alerts">Cảnh báo</md-nav-item>-->
+        <!--<md-nav-item md-nav-sref="dashboard.sensors" name="dashboard.sensors">Quản lý Sensors</md-nav-item>-->
+        <!--<md-nav-item md-nav-sref="dashboard.managements" name="dashboard.managements">Quản lý</md-nav-item>-->
+        <!--<md-nav-item md-nav-sref="dashboard.profile"  name="dashboard.profile">@{{profileName.username    }}</md-nav-item>-->
+        <!--<md-nav-item md-nav-sref="logout" name="logout">Đăng xuất</md-nav-item>-->
+    <!--</md-nav-bar>-->
+
+    <!--<md-content>-->
+        <!--<div ui-view></div>-->
+    <!--</md-content>-->
+
+<!--</div>-->
+<md-sidenav md-is-locked-open="$mdMedia('gt-lg')" md-component-id="left"
+            class="md-whiteframe-z2 md-sidenav-left">
+    <md-toolbar md-theme="custom" class="md-hue-1 md-whiteframe-z2">
+        <md-button layout="row" layout-align="center center" class="md-toolbar-tools md-warn">
+            <h3>Student Management System</h3>
+        </md-button>
+    </md-toolbar>
+    <md-content flex>
+        <md-button layout="column" layout-align="center center"
+                   flex ui-sref-active="md-warn" ui-sref="dashboard.home"
+                   permission
+                   permission-only="['9']">
+            <div hide-xs class="md-tile-content">
+                <i class="material-icons md-36">home</i>
+            </div>
+            <div class="md-tile-content">
+                Home
+            </div>
+        </md-button>
+        <md-divider></md-divider>
+        <md-button layout="column" layout-align="center center"
+                   flex ui-sref-active="md-warn" ui-sref="dashboard.course_registration"
+                   permission
+                   permission-only="['7']">
+            <div hide-xs class="md-tile-content">
+                <i class="material-icons md-36">border_color</i>
+            </div>
+            <div class="md-tile-content">
+                Course Registration
+            </div>
+        </md-button>
+        <md-divider></md-divider>
+        <md-button layout="column" layout-align="center center"
+                   flex ui-sref-active="md-warn" ui-sref="dashboard.course_information"
+                   permission
+                   permission-only="['4']">
+            <div hide-xs class="md-tile-content">
+                <i class="material-icons md-36">list</i>
+            </div>
+            <div class="md-tile-content">
+                Course Information
+            </div>
+        </md-button>
+        <md-divider></md-divider>
+         <md-button layout="column" layout-align="center center"
+                   flex ui-sref-active="md-warn" ui-sref="dashboard.student_management"
+                   permission
+                   permission-only="['1','2','3','8']">
+            <div hide-xs class="md-tile-content">
+                <i class="material-icons md-36">chrome_reader_mode</i>
+            </div>
+            <div class="md-tile-content">
+                Student Management
+            </div>
+        </md-button>
+        <md-divider></md-divider>
+        <md-button layout="column" layout-align="center center"
+                   flex ui-sref-active="md-warn" ui-sref="dashboard.profile"
+                   permission
+                   permission-only="['1','2','3','8']">
+            <div hide-xs class="md-tile-content">
+                <i class="material-icons md-36">account_circle</i>
+            </div>
+            <div class="md-tile-content">
+                Profile
+            </div>
+        </md-button>
+        <md-divider></md-divider>
+        <md-button layout="column" layout-align="center center"
+                   flex ui-sref-active="md-warn" ui-sref="dashboard.managements"
+                   permission
+                   permission-only="['1','2','3','8']">
+            <div hide-xs class="md-tile-content">
+                <i class="material-icons md-36">settings</i>
+            </div>
+            <div class="md-tile-content">
+                System Management
+            </div>
+        </md-button>
+        <md-divider></md-divider>
+    </md-content>
+</md-sidenav>
+
+<div layout="column" flex>
+    <md-toolbar md-colors="{background: 'Orange-500',color:'Grey-50'}" layout="row" layout-align="center center">
+        <section layout-align="start center" layout-fill flex>
+            <md-button hide-gt-lg ng-click="toggleLeftSidebar()" aria-label="Menu">
+                <i class="material-icons">menu</i>
+            </md-button>
+        </section>
+        <section layout-align="end center">
+            <md-button class="toolbar-button" ui-sref="dashboard.profile" ui-sref-active="md-warn" aria-label="Profile">
+                <i class="material-icons">account_circle</i><span hide-xs> {{profileName}}</span>
+            </md-button>
+            <md-button class="toolbar-button" ui-sref="logout" aria-label="Logout">
+                <i class="material-icons">exit_to_app</i><span hide-xs> Đăng xuất</span>
+            </md-button>
+        </section>
+    </md-toolbar>
+
+    <md-content layout="column" flex class="md-padding page-content">
+        <div ui-view flex></div>
+    </md-content>
+</div>

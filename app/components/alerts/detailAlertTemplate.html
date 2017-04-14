@@ -1,0 +1,204 @@
+<md-dialog flex="80" aria-label="detailAlert">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{selectedAlert.name}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">cancel</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="row" layout-padding>
+                    <mdt-table flex ng-if="selectedAlert.src_ip" paginated-rows="{isEnabled: true, rowsPerPageValues: [3,5,20,100]}">
+                        <mdt-header-row>
+                            <mdt-column align-rule="left">Địa chỉ IP tấn công</mdt-column>
+                            <mdt-row ng-repeat="value in selectedAlert.src_ip track by $index">
+                                <mdt-cell html-content="true">
+                                    <i class="fa fa-bomb text-danger" aria-hidden="true"></i> {{value}}
+                                </mdt-cell>
+                            </mdt-row>
+                        </mdt-header-row>
+                    </mdt-table>
+                    <mdt-table flex
+                               ng-if="selectedAlert._type"
+                               ng-hide="selectedAlert.start_at && selectedAlert.end_at">
+                        <mdt-header-row>
+                            <mdt-column align-rule="left">Đối tượng bị ảnh hưởng</mdt-column>
+                            <mdt-row>
+                                <mdt-cell html-content="true">
+                                    <i class="fa fa-rocket" aria-hidden="true"></i> {{selectedAlert._type}} ({{selectedAlert.dst_ip}})
+                                </mdt-cell>
+                            </mdt-row>
+                        </mdt-header-row>
+                    </mdt-table>
+                    <mdt-table flex ng-if="selectedAlert.start_at && selectedAlert.end_at">
+                        <mdt-header-row>
+                            <mdt-column align-rule="left">Đối tượng bị ảnh hưởng</mdt-column>
+                            <mdt-column align-rule="left">Thời gian</mdt-column>
+                            <mdt-row>
+                                <mdt-cell html-content="true">
+                                    <i class="fa fa-rocket" aria-hidden="true"></i> {{selectedAlert._type}} ({{selectedAlert.dst_ip}})
+                                </mdt-cell>
+                                <mdt-cell html-content="true">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i> Từ <strong>{{selectedAlert.start_at | myTimeFormat}}</strong> đến <strong>{{selectedAlert.end_at | myTimeFormat}}</strong>
+                                </mdt-cell>
+                            </mdt-row>
+                        </mdt-header-row>
+                    </mdt-table>
+                    <mdt-table flex ng-if="selectedAlert.events" paginated-rows="{isEnabled: true, rowsPerPageValues: [3,5,20,100]}">>
+                        <mdt-header-row>
+                            <mdt-column align-rule="left">Thời gian</mdt-column>
+                            <mdt-row ng-repeat="ev in selectedAlert.events | orderBy:'-start_at'">
+                                <mdt-cell html-content="true">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>Từ <strong> {{ev.start_at | myTimeFormat}}</strong> đến <strong>{{ev.end_at | myTimeFormat}}</strong>
+                                </mdt-cell>
+                            </mdt-row>
+                        </mdt-header-row>
+                    </mdt-table>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" layout-padding>
+                    <div flex ng-if="selectedAlert.status_code">
+                        <label>Mã phản hồi: <span class="label label-warning">{{selectedAlert.status_code}}</span></label>
+                    </div>
+                    <div flex ng-if="selectedAlert.time_response >= 0">
+                        <label>Thời gian phản hồi: {{selectedAlert.time_response}} ms</label>
+                    </div>
+                    <div flex ng-if="selectedAlert.severity">
+                        <label>Mức độ nguy hiểm:
+                            <span class="label label-default" ng-show="selectedAlert.severity=='1'">Thấp</span>
+                            <span class="label label-warning" ng-show="selectedAlert.severity=='2'">Trung bình</span>
+                            <span class="label label-danger" ng-show="selectedAlert.severity=='3'">Cao</span>
+                        </label>
+                    </div>
+                    <div flex ng-if="selectedAlert.severity">
+                        <label>Gửi cảnh báo:
+                            <span>
+                                <label ng-if="selectedAlert.is_alerted==1"
+                                       class="label label-success"
+                                       title="Đã gửi cảnh báo">Đã gửi
+                                </label>
+                                <label ng-if="selectedAlert.is_alerted==0"
+                                       class="label label-warning"
+                                       title="Chưa gửi cảnh báo">Pending
+                                </label>
+                                <label ng-show="selectedAlert.is_alerted==-1"
+                                       class="label label-danger"
+                                       title="Chưa gửi cảnh báo tới quản trị.">
+                                    Không gửi được
+                                 </label>
+
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <md-divider ng-if="selectedAlert.old_ip"></md-divider>
+                <div layout="row" layout-padding ng-if="selectedAlert.old_ip">
+                    <div flex>
+                        <label>Địa chỉ IP cũ: <em>{{selectedAlert.old_ip}}</em></label>
+                    </div>
+                    <div flex>
+                        <label>Địa chỉ IP mới: <em>{{selectedAlert.new_ip}}</em></label>
+                    </div>
+                </div>
+                <md-divider ng-if="selectedAlert.description && !selectedAlert.deface_at"></md-divider>
+                <div layout="column" layout-padding ng-if="selectedAlert.description && !selectedAlert.deface_at">
+                    <div flex>
+                        <label>Mô tả: </label><span> {{selectedAlert.description}}</span>
+                    </div>
+                    <div flex>
+                        <label>Reference: </label>
+                        <span><a href="{{selectedAlert.reference}}" target="_blank"> {{selectedAlert.reference}}</a></span>
+                    </div>
+                </div>
+                <md-divider ng-if="selectedAlert.description && selectedAlert.deface_at"></md-divider>
+                <div layout="column" layout-padding ng-if="selectedAlert.description && selectedAlert.deface_at">
+                    <div flex layout="row">
+                        <div flex>
+                            <label>Kiểu: </label><span >{{selectedAlert.deface_at.Name}}</span>
+                        </div>
+                        <div flex>
+                            <label>Thẻ: </label><code>{{selectedAlert.deface_at.tagName}}</code>
+                        </div>
+                    </div>
+
+                    <div flex>
+                        <label>Nội dung cũ: </label><code>{{selectedAlert.deface_at.oldContent}}</code>
+                    </div>
+                    <div flex>
+                        <label>Nội dung mới: </label><code>{{selectedAlert.deface_at.newContent}}</code>
+                    </div>
+                </div>
+                <md-divider ng-if="totalRecord"></md-divider>
+                <div layout="column" layout-padding ng-if="totalRecord">
+                    <div layout="row">
+                        <h4 flex> Quá trình tấn công ({{totalRecord}} sự kiện)</h4>
+                        <div flex>
+                            <dir-pagination-controls
+                                    max-size="5"
+                                    direction-links="true"
+                                    boundary-links="false"
+                                    on-page-change="pageChanged(newPageNumber)"
+                                    pagination-id="eventResult">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                    <div layout="row"  layout-padding layout-margin class="md-whiteframe-1dp"
+                         dir-paginate="e in selectedAlert.info | itemsPerPage:10"
+                         pagination-id="eventResult"
+                         total-items="totalRecord"
+                         current-page="pagination.current">
+                        <div flex="20" style="padding: 0;">
+                            <div>
+                                <i class="fa fa-clock-o"></i><strong> {{e.time | myTimeFormat}}</strong>
+                            </div>
+                            <label ng-repeat="t in e.tags track by $index"
+                                   class="label label-warning"
+                                   ng-if = "t !=''">
+                                <i class="fa fa-tags">
+                                </i> {{t}}
+                                <br>
+                            </label>
+
+                            <label class="label"
+                                   ng-class="e.status_code<400?'label-success':e.status_code<500?'label-warning':'label-danger'"
+                                   ng-if="e.status_code">{{e.status_code}}
+                            </label>
+                        </div>
+                        <div flex="80"  style="padding: 0;">
+                            <p class="logs">
+                                <!--{{e.remote_host.raw}} - {{e.remote_host.country}} - [{{e.time}}] "{{e.request_line.raw}}" {{e.remote_host.byte_tx}} "{{e.referer}}" "{{e.browser}}"-->
+                                {{e.raw}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <md-divider ng-if="selectedAlert.image_name"></md-divider>
+                <div layout="column" layout-padding layout-align="center center" ng-if="selectedAlert.image_name">
+                    <img src="../../alert_image/{{selectedAlert.image_name}}"
+                         alt="{{selectedAlert.image_name}}"
+                         style="height: 80%; width:80%; border: 1px solid ">
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-margin>
+            <span flex></span>
+            <md-button ng-if="state.includes('dashboard.alerts.positive')"
+                       class="md-warn md-raised" ng-click="openReportModal()">
+                Báo sai
+            </md-button>
+            <md-button ng-if="!state.includes('dashboard.alerts.done')"
+                       class="md-raised md-default" ng-click="openDoneModal()">
+                Xử lý
+            </md-button>
+            <md-button class="md-raised md-success" ng-click="cancel()">
+                Đóng
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,49 @@
+<div layout="column" layout-gt-md="row" layout-margin>
+    <div flex flex-gt-md="30" layout="column">
+    </div>
+    <div flex flex-gt-md="40" layout="column">
+        <md-input-container class="md-icon-right md-block">
+            <label>Tìm kiếm </label>
+            <md-icon md-font-set="material-icons"> search </md-icon>
+            <input ng-model="filterName" type="text" placeholder="Nhập từ khóa tìm kiếm">
+            <div ng-hide="true">
+                {{(filteredItems = (ips | filter: filterName))}}
+            </div>
+        </md-input-container>
+    </div>
+    <div flex flex-gt-md="15" layout="column">
+        <md-button class="md-raised md-success" ng-click="addIpModal()">Thêm địa chỉ IP</md-button>
+    </div>
+    <div flex flex-gt-md="15" layout="column">
+        <md-button class="md-raised md-warn" ng-disabled="ipLists.id == 0" ng-click="deleteIpModal()">Xóa địa chỉ IP</md-button>
+    </div>
+</div>
+<div layout="column"  layout-gt-md="row" layout-margin>
+    <div flex flex-gt-md="30"></div>
+    <div flex flex-gt-md="40">
+        <md-progress-linear flex ng-show="loading" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+        <mdt-table ng-show="!loading"
+                   selectable-rows="true"
+                   selected-row-callback="selectedRowCallback(rows)"
+                   paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                   mdt-row="{
+                      'data': filteredItems,
+                      'table-row-id-key': 'id',
+                      'column-keys': ['trusted_ip','id']
+                      }">
+            <mdt-header-row>
+                <mdt-column align-rule="right">Địa chỉ IP</mdt-column>
+                <mdt-column align-rule="right">Hành động</mdt-column>
+            </mdt-header-row>
+            <mdt-custom-cell column-key="trusted_ip">
+                <strong>{{value}}</strong>
+            </mdt-custom-cell>
+
+            <mdt-custom-cell column-key="id">
+                <md-icon ng-click="clientScope.editIpModal(value)" class="md-secondary"
+                         md-font-set="material-icons">more_horiz</md-icon>
+            </mdt-custom-cell>
+        </mdt-table>
+    </div>
+
+</div>

@@ -1,0 +1,118 @@
+<div class="front-panel transbox" ng-hide="successSignup">
+    <div class="panel-heading">
+        <h3 class="panel-title-other text-center"><strong>ĐĂNG KÝ</strong></h3>
+    </div>
+    <form role="form" name="signupForm" novalidate ng-submit="signup()">
+        <div class="panel-body">
+            <fieldset>
+                <div class="help-block" style="margin: 0 0 10px 0;">
+                    Mật khẩu phải có độ dài ít nhất 8 kí tự, không được phép dài quá 30 kí tự.
+                </div>
+                <div ng-show="errorMessage.length != 0" class="has-error" style="margin: 0 0 10px 0;">
+                    <div class="help-block">{{errorMessage}}</div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : signupForm.name.$invalid && !signupForm.name.$pristine}">
+                    <div class="input-group">
+                        <input class="form-control "
+                               placeholder="Họ tên"
+                               name="name"
+                               type="text"
+                               ng-model="userModal.name"
+                               required
+                               autofocus>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    </div>
+                    <p ng-show="signupForm.name.$invalid && !signupForm.name.$pristine"
+                       class="help-block">*Họ và tên người dùng là bắt buộc
+                    </p>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : signupForm.username.$invalid && !signupForm.username.$pristine}">
+                    <div class="input-group">
+                        <input type="text"
+                               name="username"
+                               ng-model="userModal.username"
+                               placeholder="Tên đăng nhập"
+                               ng-pattern="/^[a-zA-Z0-9]*$/"
+                               ng-minlength="6"
+                               required
+                               class="form-control"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    </div>
+                    <p ng-show="signupForm.username.$invalid && !signupForm.username.$pristine"
+                       class="help-block">*Tên đăng nhập là bắt buộc và trên 6 kí tự (chỉ kí tự chữ cái và số)
+                    </p>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error' : signupForm.email.$invalid && !signupForm.email.$pristine}">
+                    <div class="input-group">
+                        <input class="form-control "
+                               placeholder="Địa chỉ Email"
+                               type="email"
+                               name="email"
+                               ng-model="userModal.email"
+                               required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    </div>
+                    <p ng-show="signupForm.email.$error.required && !signupForm.email.$pristine"
+                       class="help-block">*Địa chỉ email là bắt buộc
+                    </p>
+                    <p ng-show="signupForm.email.$error.email && !signupForm.email.$pristine"
+                       class="help-block">*Địa chỉ email không hợp lệ
+                    </p>
+                </div>
+                <div class="form-group"
+                     ng-class="{ 'has-error' : signupForm.password.$invalid && !signupForm.password.$pristine}">
+                    <div class="input-group">
+                        <input class="form-control "
+                               placeholder="Mật khẩu"
+                               ng-minlength="8"
+                               ng-maxlength="30"
+                               type="password"
+                               name="password"
+                               ng-model="userModal.password"
+                               required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                    </div>
+                    <p ng-show="signupForm.password.$invalid && !signupForm.password.$pristine"
+                       class="help-block">*Mật khẩu là bắt buộc và từ 8 đến 30 kí tự
+                    </p>
+                </div>
+                <div class="form-group">
+                    <div class="input-group"
+                         ng-class="{ 'has-error' : signupForm.rePassword.$invalid && !signupForm.rePassword.$pristine}">
+                        <input class="form-control "
+                               placeholder="Nhập lại mật khẩu"
+                               type="password"
+                               name="rePassword"
+                               ng-model="userModal.rePassword"
+                               required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                    </div>
+                </div>
+                <button class="btn btn-lg btn-success btn-block"
+                        type="submit"
+                        ng-disabled="signupForm.$invalid || disbaleSigup">ĐĂNG KÝ</button>
+                <div class="pointer" style="margin-top: 10px; text-align: center">Bạn đã có tài khoản? <a ui-sref="authen.login">ĐĂNG NHẬP NGAY!</a></div>
+            </fieldset>
+        </div>
+    </form>
+</div>
+<div class="front-panel transbox" ng-show="successSignup">
+    <div class="panel-heading">
+        <h3 class="panel-title-other text-center success">
+            <i class="fa fa-check-circle"></i>
+            <strong>ĐĂNG KÝ THÀNH CÔNG</strong></h3>
+    </div>
+    <form role="presentation">
+        <div class="panel-body">
+            <fieldset>
+                <div ng-class="successSignup?' alert alert-success':''">
+                    <p>Vui lòng kiểm tra email đã đăng ký để xác thực tài khoản.</p>
+                    <a ui-sref="authen.login">< Trở về trang Đăng nhập</a>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</div>

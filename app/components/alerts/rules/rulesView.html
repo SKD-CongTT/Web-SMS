@@ -1,0 +1,224 @@
+<md-tabs md-dynamic-height md-border-bottom md-center-tabs md-stretch-tabs="always">
+    <md-tab id="tab1">
+        <md-tab-label>Luật đã kích hoạt</md-tab-label>
+        <md-tab-body>
+            <div layout="column" layout-gt-md="row" layout-margin>
+                <div flex flex-gt-md="30" layout="column">
+                </div>
+                <div flex flex-gt-md="40" layout="column">
+                    <md-input-container class="md-icon-right md-block">
+                        <label>Tìm kiếm </label>
+                        <md-icon md-font-set="material-icons"> search </md-icon>
+                        <input ng-model="searchActiveRule" type="text" placeholder="Nhập từ khóa tìm kiếm">
+                        <div ng-hide="true">
+                            {{(filteredActiveRule = (activeLists | filter: searchActiveRule))}}
+                        </div>
+                    </md-input-container>
+                </div>
+                <div flex flex-gt-md="15" layout="column">
+                    <md-button class="md-raised md-warn" ng-disabled="selectedActiveRules.id.length == 0" ng-click="openDisableModal()">Vô hiệu hóa luật</md-button>
+                </div>
+            </div>
+            <div layout="column" layout-margin>
+                <div flex>
+                    <mdt-table selectable-rows="true"
+                               selected-row-callback="selectedActiveRulesCallback(rows)"
+                               paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                               mdt-row="{
+                           data: filteredActiveRule,
+                          'table-row-id-key': '_id.$id',
+                          'column-keys': [
+                              'name',
+                              'tag',
+                              'query',
+                              'tag_description',
+                              'severity'
+                          ]
+                          }">
+                        <mdt-header-row>
+                            <mdt-column align-rule="left">Tên Luật</mdt-column>
+                            <mdt-column align-rule="left">Tag</mdt-column>
+                            <mdt-column align-rule="left">Câu truy vấn</mdt-column>
+                            <mdt-column align-rule="left">Mô tả</mdt-column>
+                            <mdt-column align-rule="left">Mức độ</mdt-column>
+                        </mdt-header-row>
+                        <mdt-custom-cell column-key="name">
+                            <strong>{{value}}</strong>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="tag_description">
+                            <div class="longText">
+                                <span title = "{{value}}"
+                                      ng-bind="value">
+                                </span>
+                            </div>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="query">
+                            <div class="longText">
+                                <span title = "{{value}}"
+                                      ng-bind="value">
+                                </span>
+                            </div>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="tag">
+                            <em>{{value}}</em>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="severity">
+                            <label class="label label-default" ng-show="value=='1'">Thấp</label>
+                            <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
+                            <label class="label label-danger" ng-show="value=='3'">Cao</label>
+                        </mdt-custom-cell>
+                    </mdt-table>
+                </div>
+            </div>
+        </md-tab-body>
+    </md-tab>
+    <md-tab id="tab2">
+        <md-tab-label>Luật chưa kích hoạt</md-tab-label>
+        <md-tab-body>
+            <div layout="column" layout-gt-md="row" layout-margin>
+                <div flex flex-gt-md="30" layout="column">
+                </div>
+                <div flex flex-gt-md="40" layout="column">
+                    <md-input-container class="md-icon-right md-block">
+                        <label>Tìm kiếm </label>
+                        <md-icon md-font-set="material-icons"> search </md-icon>
+                        <input ng-model="searchInactiveRule" type="text" placeholder="Nhập từ khóa tìm kiếm">
+                        <div ng-hide="true">
+                            {{(filteredInactiveRule = (inactiveLists | filter: searchInactiveRule))}}
+                        </div>
+                    </md-input-container>
+                </div>
+                <div flex flex-gt-md="15" layout="column">
+                    <md-button class="md-raised md-success" ng-disabled="selectedInactiveRules.id.length == 0" ng-click="openEnableModal()">Kích hoạt luật</md-button>
+                </div>
+            </div>
+            <div layout="column" layout-margin>
+                <div flex>
+                    <mdt-table selectable-rows="true"
+                               selected-row-callback="selectedInactiveRulesCallback(rows)"
+                               paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                               mdt-row="{
+                       data: filteredInactiveRule,
+                      'table-row-id-key': '_id.$id',
+                      'column-keys': [
+                          'name',
+                          'tag',
+                          'tag_description',
+                          'severity'
+                      ]
+                      }">
+                        <mdt-header-row>
+                            <mdt-column align-rule="left">Tên Luật</mdt-column>
+                            <mdt-column align-rule="left">Tag</mdt-column>
+                            <mdt-column align-rule="left">Mô tả</mdt-column>
+                            <mdt-column align-rule="left">Mức độ</mdt-column>
+                        </mdt-header-row>
+                        <mdt-custom-cell column-key="name">
+                            <strong>{{value}}</strong>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="tag_description">
+                            <div class="longText">
+                                <span title = "{{value}}"
+                                      ng-bind="value">
+                                </span>
+                            </div>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="tag">
+                            <em>{{value}}</em>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="severity">
+                            <label class="label label-default" ng-show="value=='1'">Thấp</label>
+                            <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
+                            <label class="label label-danger" ng-show="value=='3'">Cao</label>
+                        </mdt-custom-cell>
+                    </mdt-table>
+                </div>
+            </div>
+        </md-tab-body>
+    </md-tab>
+    <md-tab id="tab3">
+        <md-tab-label>Luật người dùng tạo</md-tab-label>
+        <md-tab-body>
+            <div layout="column" layout-gt-md="row" layout-margin>
+                <div flex flex-gt-md="30" layout="column">
+                </div>
+                <div flex flex-gt-md="40" layout="column">
+                    <md-input-container class="md-icon-right md-block">
+                        <label>Tìm kiếm </label>
+                        <md-icon md-font-set="material-icons"> search </md-icon>
+                        <input ng-model="searchCustomRule" type="text" placeholder="Nhập từ khóa tìm kiếm">
+                        <div ng-hide="true">
+                            {{(filteredCustomRule = (customLists | filter: searchCustomRule))}}
+                        </div>
+                    </md-input-container>
+                </div>
+                <div flex flex-gt-md="15" layout="column">
+                    <md-button class="md-raised md-warn" ng-disabled="selectedCustomRules.id.length == 0" ng-click="openDeleteModal()">Xóa bộ nhận dạng</md-button>
+                </div>
+            </div>
+            <div layout="column" layout-margin>
+                <div flex>
+                    <mdt-table selectable-rows="true"
+                               selected-row-callback="selectedCustomRulesCallback(rows)"
+                               paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,100]}"
+                               mdt-row="{
+                                   data: filteredCustomRule,
+                                  'table-row-id-key': '_id.$id',
+                                  'column-keys': [
+                                      'name',
+                                      'query',
+                                      'tag_description',
+                                      'severity',
+                                      'enabled',
+                                      '_id.$id'
+                                  ]
+                                  }">
+                        <mdt-header-row>
+                            <mdt-column align-rule="left">Tên Luật</mdt-column>
+                            <mdt-column align-rule="left">Câu truy vấn</mdt-column>
+                            <mdt-column align-rule="left">Mô tả</mdt-column>
+                            <mdt-column align-rule="left">Mức độ</mdt-column>
+                            <mdt-column align-rule="left">Trạng thái</mdt-column>
+                            <mdt-column align-rule="left">Chi tiết</mdt-column>
+                        </mdt-header-row>
+                        <mdt-custom-cell column-key="name">
+                            <strong>{{value}}</strong>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="query">
+                            <div class="longText">
+                                <span title = "{{value}}"
+                                      ng-bind="value">
+                                </span>
+                            </div>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="severity">
+                            <label class="label label-default" ng-show="value=='1'">Thấp</label>
+                            <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
+                            <label class="label label-danger" ng-show="value=='3'">Cao</label>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="tag_description">
+                            <div class="longText">
+                                <span title = "{{value}}"
+                                      ng-bind="value">
+                                </span>
+                            </div>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="enabled">
+                            <label class="label label-success"
+                                   ng-show="value==1">Kích hoạt
+                            </label>
+                            <label class="label label-warning"
+                                   ng-show="value==0">Vô hiệu hóa
+                            </label>
+                        </mdt-custom-cell>
+                        <mdt-custom-cell column-key="_id.$id">
+                            <md-icon ng-click="clientScope.editRuleModal(value)" class="md-secondary"
+                                     md-font-set="material-icons">more_horiz</md-icon>
+                        </mdt-custom-cell>
+                    </mdt-table>
+                </div>
+            </div>
+        </md-tab-body>
+    </md-tab>
+</md-tabs>
+

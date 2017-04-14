@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-md-offset-2 col-lg-offset-2">
+            <div class="login-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center"><strong>QUÊN MẬT KHẨU</strong></h3>
+                </div>
+                <form role="form" name="forgotForm" ng-submit="doForgot()">
+                    <div class="panel-body">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control input-lg"
+                                       placeholder="Email"
+                                       type="email"
+                                       ng-model="email"
+                                       required
+                                       autofocus>
+                            </div>
+                            <div class="pointer" style="margin-bottom: 10px;"><a ui-sref="login">Đăng nhập?</a></div>
+                            <button ng-disabled="forgotForm.$invalid" class="btn btn-lg btn-success btn-block">RESET MẬT KHẨU</button>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
