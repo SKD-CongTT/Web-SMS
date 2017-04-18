@@ -1,6 +1,6 @@
 angular.module('webix')
 
-    .controller('websitesController',function ($scope,$rootScope,$http,$mdToast,auth,$timeout,$mdDialog) {
+    .controller('courseController',function ($scope,$rootScope,$http,$mdToast,auth,$timeout,$mdDialog) {
         if(auth.isAuthed()) {
             $scope.webList = [];
 
@@ -29,7 +29,7 @@ angular.module('webix')
                     $mdDialog.show({
                         locals: {courseInfo : value},
                         controller: DialogEditController,
-                        templateUrl: 'components/websites/editCourseTemplate.html',
+                        templateUrl: 'components/course/editCourseTemplate.html',
                         parent: angular.element(document.body),
                         clickOutsideToClose: true,
                         fullscreen: true
@@ -43,11 +43,11 @@ angular.module('webix')
                 $scope.courseInfo = courseInfo;
                 $scope.requirements = angular.copy(courseInfo.requirements);
                 var toastSuccess = $mdToast.simple()
-                    .textContent('Chỉnh sửa Thông tin cá nhân thành công.')
+                    .textContent('Course Information Updated Successfully.')
                     .position('right bottom');
 
                 var toastFail = $mdToast.simple()
-                    .textContent('Chỉnh sửa Thông tin cá nhân thất bại!')
+                    .textContent('Course Information Updated Failed.')
                     .position('right bottom');
 
                 $scope.hide = function() {
@@ -202,11 +202,12 @@ angular.module('webix')
                 
             };
 
-            $scope.addWebsiteModal = function () {
+            $scope.addCourseModal = function () {
                 if(auth.isAuthed()) {
+                    console.log(1)
                     $mdDialog.show({
                         controller: DialogAddController,
-                        templateUrl: 'components/websites/addWebsiteTemplate.html',
+                        templateUrl: 'components/course/addCourseTemplate.html',
                         parent: angular.element(document.body),
                         clickOutsideToClose:true,
                         fullscreen: true
@@ -225,7 +226,7 @@ angular.module('webix')
                 $mdDialog.show({
                     locals: {selectedWebsite: $scope.selectedWebsite},
                     controller: DialogEditController,
-                    templateUrl: 'components/websites/editWebsiteTemplate.html',
+                    templateUrl: 'components/course/editCourseTemplate.html',
                     parent: angular.element(document.body),
                     clickOutsideToClose:true,
                     fullscreen: true
@@ -275,11 +276,11 @@ angular.module('webix')
             function DialogAddController($scope, $mdDialog) {
 
                 var toastSuccess = $mdToast.simple()
-                    .textContent('Thêm Website thành công')
+                    .textContent('Success To Add New Course.')
                     .position('right bottom');
 
                 var toastFail = $mdToast.simple()
-                    .textContent('Thêm Website thất bại')
+                    .textContent('Failed To Add New Course.')
                     .position('right bottom');
 
                 $scope.websiteModal = {

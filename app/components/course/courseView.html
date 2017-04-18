@@ -1,4 +1,4 @@
-<div ng-controller="websitesController as ctrl" ng-cloak>
+<div ng-controller="courseController as ctrl" ng-cloak>
     <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 600px">
         <md-content flex="nogrow" flex-gt-md="30" layout="column">
             <div layout="row">
@@ -13,7 +13,7 @@
 <!--                 <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="showVisualization()">
                     <md-icon class="material-icons"> visibility </md-icon>
                 </md-button> -->
-                <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="addWebsiteModal()">
+                <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="addCourseModal()" permission permission-only="['1']">
                     <md-icon md-colors="{color:'green-500'}" md-font-set="material-icons"> add_box </md-icon>
                 </md-button>
             </div>

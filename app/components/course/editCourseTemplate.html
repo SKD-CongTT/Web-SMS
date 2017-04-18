@@ -38,7 +38,7 @@
                         <div ng-message="min">Minimum credit is 0</div>
                     </div>
                 </md-input-container>
-          <div layout="row" layout-align="space-between center">
+          <div layout="row" layout-align="space-between center" style="width:250px; height:76px;">
         <span>Status</span>
         <md-select ng-model="courseInfo.active" placeholder="Status" class="md-no-underline">
           <md-option value="true">Opening</md-option>
@@ -47,29 +47,19 @@
       </div>
                 <md-input-container class="md-block">
                     <span>Requirement</span>
-                    <!-- <input type="text"
-                           name="requirements"
-                           ng-model="courseInfo.requirements"
-                           md-maxlength="300"
-                           required/>
-                    <div ng-messages="editInfo.requirements.$error" ng-show="editInfo.requirements.$dirty">
-                        <div ng-message="required">This field cannot be blank</div>
-                        <div ng-message="md-maxlength">Requirement is too long</div>
-                    </div>
- -->
-      <div flex="100" flex-gt-sm="50" layout="column">
-        <div>
-          <fieldset class="standard" >
-            <div layout="row" layout-wrap flex>
-              <div flex="50" ng-repeat="item in courseInfo.requirements">
-                <md-checkbox ng-checked="exist(item)" ng-click = "toggle(item)">
-                  {{ item }}
-                </md-checkbox>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-      </div>
+                      <div flex="100" flex-gt-sm="50" layout="column">
+                        <div>
+                          <fieldset class="standard" >
+                            <div layout="row" layout-wrap flex>
+                              <div flex="50" ng-repeat="item in courseInfo.requirements">
+                                <md-checkbox ng-checked="exist(item)" ng-click = "toggle(item)">
+                                  {{ item }}
+                                </md-checkbox>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <span>Description</span>

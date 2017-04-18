@@ -493,10 +493,10 @@ angular
                     }
                 })
                 .state('dashboard.course_information',{
-                    templateUrl:'components/websites/websitesView.html',
+                    templateUrl:'components/course/courseView.html',
                     title: 'Course Information',
                     url:'/course_information',
-                    controller:'websitesController',
+                    controller:'courseController',
                     data: {
                         permissions: {
                             only: '7',
@@ -508,7 +508,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/websites/websitesController.js',
+                                    'components/course/courseController.js',
 
                                 ]
                             })

@@ -89,10 +89,10 @@ function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter,
             if (response.data.token){
                 $location.path('/home');
             } else {
-                $rootScope.errorLogin = "DKM dang nhap sai roi";
+                $rootScope.errorLogin = "Username or Password is Incorrect";
             }
         }, function(response){
-            $rootScope.errorLogin = "DKM dang nhap sai roi";
+            $rootScope.errorLogin = "Username or Password is Incorrect";
             console.log(1);
         })
     };
