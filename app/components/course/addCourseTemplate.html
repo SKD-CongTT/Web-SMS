@@ -13,25 +13,23 @@
         <md-dialog-content>
             <div class="md-dialog-content">
             <md-input-container class="md-block">
-                    <label>Course ID</label>
+                    <span>Course ID</span>
                     <input type="text"
-                           name="ID"
-                           ng-model="addedCourse.ID"
+                           name="id"
+                           ng-model="addedCourse.id"
                            md-maxlength="6"
-                           placeholder="Enter the course ID"
                            required/>
-                    <div ng-messages="addCourse.ID.$error" ng-show="addCourse.ID.$touched">
+                    <div ng-messages="addCourse.id.$error" ng-show="addCourse.id.$touched">
                         <div ng-message="required">This field cannot be blank</div>
                         <div ng-message="md-maxlength">Course ID is too long</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>Course name</label>
+                    <span>Course name</span>
                     <input type="text"
                            name="name"
                            ng-model="addedCourse.name"
                            md-maxlength="64"
-                           placeholder="Enter the course name"
                            required/>
                     <div ng-messages="addCourse.name.$error" ng-show="addCourse.name.$touched">
                         <div ng-message="required">This field cannot be blank</div>
@@ -39,7 +37,7 @@
                     </div>
                 </md-input-container>
                 <div layout="row" layout-align="space-between center" style="width:250px; height:76px;">
-                  <span>Status</span>
+                  <span>Status: </span>
                   <md-select ng-model="addCourse.active" placeholder="Status" class="md-no-underline">
                     <md-option value="true">Opening</md-option>
                     <md-option value="false">Closed</md-option>
@@ -73,6 +71,17 @@
                     </md-select>
                     <div ng-messages="addCourse.requirements.$error" ng-show="addCourse.requirements.$touched">
                     <div ng-message="required">This field cannot be blank</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <span>Description</span>
+                    <input type="text"
+                           name="description"
+                           ng-model="addedCourse.description"
+                           md-maxlength="300"
+                           required/>
+                    <div ng-messages="addCourse.description.$error" ng-show="addCourse.description.$touched">
+                        <div ng-message="max-maxlength">Description is too long.</div>
                     </div>
                 </md-input-container>
             </div>
