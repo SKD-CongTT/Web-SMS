@@ -2,7 +2,7 @@
     <form ng-cloak name="editInfo">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>CHỈNH SỬA THÔNG TIN CÁ NHÂN</h2>
+                <h2>Edit profile information</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon class="material-icons">cancel</md-icon>
@@ -13,43 +13,66 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <md-input-container class="md-block">
-                    <label>Tên người dùng</label>
+                    <span>First name</span>
                     <input type="text"
-                           name="name"
-                           ng-model="userProfile.name"
-                           md-maxlength="64"
-                           placeholder="Nhập tên người dùng"
+                           name="first_name"
+                           ng-model="userProfile.first_name"
+                           md-maxlength="20"
                            required/>
-                    <div ng-messages="editInfo.name.$error" ng-show="editInfo.name.$dirty">
-                        <div ng-message="required">Tên người dùng không được để trống!</div>
-                        <div ng-message="md-maxlength">Tên người dùng quá dài!</div>
+                    <div ng-messages="editInfo.first_name.$error" ng-show="editInfo.first_name.$dirty">
+                        <div ng-message="required">This field cannot be blank!</div>
+                        <div ng-message="md-maxlength">Profile name is too long!</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>Địa chỉ Email</label>
+                    <span>Last name</span>
+                    <input type="text"
+                           name="last_name"
+                           ng-model="userProfile.last_name"
+                           md-maxlength="20"
+                           required/>
+                    <div ng-messages="editInfo.last_name.$error" ng-show="editInfo.last_name.$dirty">
+                        <div ng-message="required">This field cannot be blank!</div>
+                        <div ng-message="md-maxlength">Profile name is too long!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <span>Email address</span>
                     <input type="email"
                            name="email"
                            ng-model="userProfile.email"
                            md-maxlength="128"
-                           placeholder="Nhập địa chỉ Email"
                            required/>
                     <div ng-messages="editInfo.email.$error" ng-show="editInfo.email.$dirty">
-                        <div ng-message="required">Địa chỉ Email không được để trống!</div>
-                        <div ng-message="email">Địa chỉ Email không đúng định dạng!</div>
-                        <div ng-message="md-maxlength">Địa chỉ Email dùng quá dài!</div>
+                        <div ng-message="required">This field cannot be blank!</div>
+                        <div ng-message="email">Invalid email address format!</div>
+                        <div ng-message="md-maxlength">Email address is too long!</div>
                     </div>
                 </md-input-container>
+                <md-input-container class="md-block">
+                    <span>Favorite</span>
+                    <input type="text"
+                           name="bio"
+                           ng-model="userProfile.bio"
+                           md-maxlength="128"
+                           required/>
+                    <div ng-messages="editInfo.bio.$error" ng-show="editInfo.bio.$dirty">
+                        <div ng-message="required">This field cannot be blank!</div>
+                        <div ng-message="md-maxlength">Favorite is too long!</div>
+                    </div>
+                </md-input-container>
+
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row" layout-margin>
             <span flex></span>
             <md-button class="md-warn md-raised" ng-click="cancel()">
-                Hủy bỏ
+                Cancel
             </md-button>
             <md-button class="md-success md-raised" ng-disabled="editInfo.$invalid"
                        ng-click="edit()">
-                Cập nhật
+                Update
             </md-button>
         </md-dialog-actions>
     </form>

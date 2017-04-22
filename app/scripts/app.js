@@ -7,80 +7,80 @@
  *
  * Main module of the application.
  */
-angular
-    .module('webix', [
-        'oc.lazyLoad',
-        'ui.router',
-        'ui.bootstrap',
-        'angularUtils.directives.dirPagination',
-        'highcharts-ng',
-        'ngStorage',
-        'ngAnimate',
-        'ngSanitize',
-        'permission',
-        'permission.ui',
-        'ngclipboard',
-        'angular-web-notification',
-        'mgcrea.ngStrap',
-        'checklist-model',
-        'ngMaterial',
-        'ngMessages',
-        'mdDataTable',
-        'angular-toArrayFilter',
-        'smDateTimeRangePicker',
-        'textAngular','ui.codemirror'
+ angular
+ .module('webix', [
+    'oc.lazyLoad',
+    'ui.router',
+    'ui.bootstrap',
+    'angularUtils.directives.dirPagination',
+    'highcharts-ng',
+    'ngStorage',
+    'ngAnimate',
+    'ngSanitize',
+    'permission',
+    'permission.ui',
+    'ngclipboard',
+    'angular-web-notification',
+    'mgcrea.ngStrap',
+    'checklist-model',
+    'ngMaterial',
+    'ngMessages',
+    'mdDataTable',
+    'angular-toArrayFilter',
+    'smDateTimeRangePicker',
+    'textAngular','ui.codemirror'
     ])
 
-    .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider','$httpProvider','$mdThemingProvider','pickerProvider',
-        function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider,$httpProvider,$mdThemingProvider,pickerProvider) {
-            $mdThemingProvider.theme('input', 'default')
-                .primaryPalette('grey');
+ .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider','$httpProvider','$mdThemingProvider','pickerProvider',
+    function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider,$httpProvider,$mdThemingProvider,pickerProvider) {
+        $mdThemingProvider.theme('input', 'default')
+        .primaryPalette('grey');
 
-            $mdThemingProvider
-                .theme('dark-blue')
-                .backgroundPalette('blue',{
-                    'default': '500'
-                }).dark();
+        $mdThemingProvider
+        .theme('dark-blue')
+        .backgroundPalette('blue',{
+            'default': '500'
+        }).dark();
 
-            $mdThemingProvider
-                .theme('default')
-                .primaryPalette('blue', {
-                    'default': '500'
-                })
-                .accentPalette('red', {
-                    'default': '500'
-                })
-                .warnPalette('defaultPrimary');
+        $mdThemingProvider
+        .theme('default')
+        .primaryPalette('blue', {
+            'default': '500'
+        })
+        .accentPalette('red', {
+            'default': '500'
+        })
+        .warnPalette('defaultPrimary');
 
-            $mdThemingProvider.theme('dark', 'default')
-                .primaryPalette('defaultPrimary')
-                .dark();
+        $mdThemingProvider.theme('dark', 'default')
+        .primaryPalette('defaultPrimary')
+        .dark();
 
-            $mdThemingProvider.theme('custom', 'default')
-                .primaryPalette('defaultPrimary', {
-                    'hue-1': '50'
-                });
+        $mdThemingProvider.theme('custom', 'default')
+        .primaryPalette('defaultPrimary', {
+            'hue-1': '50'
+        });
 
-            $mdThemingProvider.definePalette('defaultPrimary', {
-                '50':  '#FFFFFF',
-                '100': 'rgb(255, 198, 197)',
-                '200': '#E75753',
-                '300': '#E75753',
-                '400': '#E75753',
-                '500': '#E75753',
-                '600': '#E75753',
-                '700': '#E75753',
-                '800': '#E75753',
-                '900': '#E75753',
-                'A100': '#E75753',
-                'A200': '#E75753',
-                'A400': '#E75753',
-                'A700': '#E75753'
-            });
+        $mdThemingProvider.definePalette('defaultPrimary', {
+            '50':  '#FFFFFF',
+            '100': 'rgb(255, 198, 197)',
+            '200': '#E75753',
+            '300': '#E75753',
+            '400': '#E75753',
+            '500': '#E75753',
+            '600': '#E75753',
+            '700': '#E75753',
+            '800': '#E75753',
+            '900': '#E75753',
+            'A100': '#E75753',
+            'A200': '#E75753',
+            'A400': '#E75753',
+            'A700': '#E75753'
+        });
 
-            /*config daterange-picker*/
-            pickerProvider.setOkLabel('Chọn');
-            pickerProvider.setCancelLabel('Đóng');
+        /*config daterange-picker*/
+        pickerProvider.setOkLabel('Chọn');
+        pickerProvider.setCancelLabel('Đóng');
             pickerProvider.setDayHeader('single'); //Options 'single','shortName', 'fullName'
             pickerProvider.setDaysNames([
                 {'single':'CN','shortName':'CN','fullName':'Chủ nhật'},
@@ -90,39 +90,39 @@ angular
                 {'single':'T5','shortName':'Th 5','fullName':'Thứ 5'},
                 {'single':'T6','shortName':'Th 6','fullName':'Thứ 6'},
                 {'single':'T7','shortName':'Th 7','fullName':'Thứ 7'}
-            ]);
+                ]);
             pickerProvider.setMonthNames(["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]);
             pickerProvider.setRangeDefaultList([
-                {
-                    label:'Hôm nay',
-                    startDate:moment().startOf('day'),
-                    endDate:moment().endOf('day')
-                },
-                {
-                    label:'1 Tuần trước',
-                    startDate: moment().subtract(7,'d'),
-                    endDate:moment()
-                },
-                {
-                    label:'Tháng hiện tại',
-                    startDate:moment().startOf('month'),
-                    endDate: moment().endOf('month')
-                },
-                {
-                    label:'1 Tháng trước',
-                    startDate:moment().subtract(1,'month'),
-                    endDate: moment()
-                },
-                {
-                    label:'2 Tháng trước',
-                    startDate:moment().subtract(2,'month'),
-                    endDate: moment()
-                },
-                {
-                    label: 'Quý hiện tại',
-                    startDate: moment().startOf('quarter'),
-                    endDate: moment().endOf('quarter')
-                }
+            {
+                label:'Hôm nay',
+                startDate:moment().startOf('day'),
+                endDate:moment().endOf('day')
+            },
+            {
+                label:'1 Tuần trước',
+                startDate: moment().subtract(7,'d'),
+                endDate:moment()
+            },
+            {
+                label:'Tháng hiện tại',
+                startDate:moment().startOf('month'),
+                endDate: moment().endOf('month')
+            },
+            {
+                label:'1 Tháng trước',
+                startDate:moment().subtract(1,'month'),
+                endDate: moment()
+            },
+            {
+                label:'2 Tháng trước',
+                startDate:moment().subtract(2,'month'),
+                endDate: moment()
+            },
+            {
+                label: 'Quý hiện tại',
+                startDate: moment().startOf('quarter'),
+                endDate: moment().endOf('quarter')
+            }
             ]);
             pickerProvider.setRangeCustomStartEnd(['Ngày bắt đầu', 'Ngày kết thúc']);
 
@@ -138,31 +138,31 @@ angular
             $urlRouterProvider.when('/alerts', '/alerts/positive');
             $urlRouterProvider.when('/managements', '/managements/users');
             $stateProvider
-                .state('dashboard', {
-                    url: '',
-                    templateUrl: 'components/dashboard/dashboardView.html',
-                    controller: 'dashboardController',
-                    data: {
-                        permissions: {
-                            only: ['1','2','3','4','5','6','7','8','9'],
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    abstract: true ,
-                    resolve: {
-                        loadMyDirectives:function($ocLazyLoad){
-                            return $ocLazyLoad.load(
-                            {
-                                name:'webix',
-                                files:[
-                                    'components/dashboard/dashboardController.js'
-                                ]
-                            })
-                        }
+            .state('dashboard', {
+                url: '',
+                templateUrl: 'components/dashboard/dashboardView.html',
+                controller: 'dashboardController',
+                data: {
+                    permissions: {
+                        only: ['1','2','3','4','5','6','7','8','9'],
+                        redirectTo: 'dashboard.profile'
                     }
-                })
-                .state('dashboard.home',{
-                    url: '/home',
+                },
+                abstract: true ,
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'webix',
+                            files:[
+                            'components/dashboard/dashboardController.js'
+                            ]
+                        })
+                    }
+                }
+            })
+            .state('dashboard.home',{
+                url: '/home',
                     // title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
                     // data: {
                     //     permissions: {
@@ -181,20 +181,20 @@ angular
                     //     }
                     // },
                     templateUrl:'components/home/homeView.html',
-                            controller: 'generalController',
+                    controller: 'generalController',
 
-                     title: 'Student Management System',
+                    title: 'Student Management System',
                     resolve: {
                         loadMyFiles:function($ocLazyLoad) {
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/home/homeView.js'
+                                'components/home/homeView.js'
                                 ]
                             })
                         }
                     },
-                   
+                    
                 })
                 // .state('dashboard.home.general',{
                 //     url: '/general',
@@ -295,7 +295,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/agents/agentsController.js'
+                                'components/agents/agentsController.js'
                                 ]
                             })
                         }
@@ -321,7 +321,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/positive/positiveController.js'
+                                'components/alerts/positive/positiveController.js'
                                 ]
                             })
                         }
@@ -347,7 +347,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/negative/negativeController.js'
+                                'components/alerts/negative/negativeController.js'
                                 ]
                             })
                         }
@@ -373,7 +373,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/done/doneController.js'
+                                'components/alerts/done/doneController.js'
                                 ]
                             })
                         }
@@ -399,7 +399,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/rules/rulesController.js'
+                                'components/alerts/rules/rulesController.js'
                                 ]
                             })
                         }
@@ -425,7 +425,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/trustedIp/trustedIpController.js'
+                                'components/alerts/trustedIp/trustedIpController.js'
                                 ]
                             })
                         }
@@ -451,7 +451,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/reports/reportsController.js'
+                                'components/alerts/reports/reportsController.js'
                                 ]
                             })
                         }
@@ -486,7 +486,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/logs/logsController.js'
+                                'components/logs/logsController.js'
                                 ]
                             })
                         }
@@ -508,7 +508,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/course/courseController.js',
+                                'components/course/courseController.js',
 
                                 ]
                             })
@@ -536,7 +536,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/managements/managementsController.js'
+                                'components/managements/managementsController.js'
                                 ]
                             })
                         }
@@ -594,7 +594,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/profile/profileController.js'
+                                'components/profile/profileController.js'
                                 ]
                             })
                         }
@@ -616,7 +616,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/authen/login/loginController.js'
+                                'components/authen/login/loginController.js'
                                 ]
                             })
                         }
@@ -638,7 +638,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/authen/signup/signupController.js'
+                                'components/authen/signup/signupController.js'
                                 ]
                             })
                         }
@@ -660,7 +660,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/authen/forgot/forgotController.js'
+                                'components/authen/forgot/forgotController.js'
                                 ]
                             })
                         }
@@ -682,50 +682,50 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/logout/logoutController.js'
+                                'components/logout/logoutController.js'
                                 ]
                             })
                         }
                     }
                 })
-    }])
+            }])
 
-    .run(function ($anchorScroll, $rootScope, $localStorage, $location, auth, $window, $urlRouter, $http, PermPermissionStore, $state, $timeout)
-    {
-        $rootScope.$state = $state;
-        $rootScope.wrongInfo = false;
-        $rootScope.onLogin = false;
-        $rootScope.apiUrl = 'http://localhost';
-        $rootScope.downloadUrl = 'http://localhost';
-        $rootScope.webUrl = 'http://localhost';
-        $rootScope.webUrlHttp = 'http://localhost';
+.run(function ($anchorScroll, $rootScope, $localStorage, $location, auth, $window, $urlRouter, $http, PermPermissionStore, $state, $timeout)
+{
+    $rootScope.$state = $state;
+    $rootScope.wrongInfo = false;
+    $rootScope.onLogin = false;
+    $rootScope.apiUrl = 'http://localhost';
+    $rootScope.downloadUrl = 'http://localhost';
+    $rootScope.webUrl = 'http://localhost';
+    $rootScope.webUrlHttp = 'http://localhost';
 
-        $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
-            $rootScope.stateIsLoading = {value : true};
-            $timeout(function () {
-                $rootScope.stateIsLoading.value = false;
-            }, 1000);
+    $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
+        $rootScope.stateIsLoading = {value : true};
+        $timeout(function () {
+            $rootScope.stateIsLoading.value = false;
+        }, 1000);
 
-            var publicPages = ['/login','/forgot','/signup','/reConfirmEmail'];
-            var restrictedPage = publicPages.indexOf($location.path()) === -1;
+        var publicPages = ['/login','/forgot','/signup','/reConfirmEmail'];
+        var restrictedPage = publicPages.indexOf($location.path()) === -1;
 
-            var forgotPage = publicPages.indexOf($location.path()) === 1;
-            var signupPage = publicPages.indexOf($location.path()) === 2;
-            var reConfirmEmailPage = publicPages.indexOf($location.path()) === 3;
+        var forgotPage = publicPages.indexOf($location.path()) === 1;
+        var signupPage = publicPages.indexOf($location.path()) === 2;
+        var reConfirmEmailPage = publicPages.indexOf($location.path()) === 3;
 
-            if (!auth.isAuthed() && !forgotPage && !signupPage && !reConfirmEmailPage) {
-                $location.path('/login');
-                $urlRouter.sync();
-            } else if(!auth.isAuthed() && forgotPage){
-                $location.path('/forgot');
-                $urlRouter.sync();
-            } else if(!auth.isAuthed() && signupPage){
-                $location.path('/signup');
-                $urlRouter.sync();
-            } else if(!auth.isAuthed() && reConfirmEmailPage){
-                $location.path('/reConfirmEmail');
-                $urlRouter.sync();
-            } else {
+        if (!auth.isAuthed() && !forgotPage && !signupPage && !reConfirmEmailPage) {
+            $location.path('/login');
+            $urlRouter.sync();
+        } else if(!auth.isAuthed() && forgotPage){
+            $location.path('/forgot');
+            $urlRouter.sync();
+        } else if(!auth.isAuthed() && signupPage){
+            $location.path('/signup');
+            $urlRouter.sync();
+        } else if(!auth.isAuthed() && reConfirmEmailPage){
+            $location.path('/reConfirmEmail');
+            $urlRouter.sync();
+        } else {
                 // $rootScope.profileName = auth.getProfile();
                 // $http
                 //     .get($rootScope.apiUrl+'/user_permissions')
@@ -744,43 +744,43 @@ angular
                 //         $urlRouter.listen();
                 //     });
                 var permissions = ['1','2','3','4','5','6','7','8','9'];
-                        PermPermissionStore
-                            .defineManyPermissions(permissions, function (permissionName) {
-                                return _.contains(permissions, permissionName);
-                            });
-                 $urlRouter.sync();
-                 $urlRouter.listen();
-                }
-            });
-
-        $rootScope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
-            $rootScope.bodyClass = toState.bodyClass;
-            $window.document.title = toState.title;
-            $rootScope.currentNavItem = toState.name;
-        });
-    })
-
-    .filter('myTimeFormat', function(){
-        return function(x) {
-            if(x) {
-                var str = x.replace("T"," ");
-                return str;
+                PermPermissionStore
+                .defineManyPermissions(permissions, function (permissionName) {
+                    return _.contains(permissions, permissionName);
+                });
+                $urlRouter.sync();
+                $urlRouter.listen();
             }
-            return "";
-        };
-    })
-    .filter('myHostNameFormat', function(){
-        return function(y) {
-            var str1 = y.replace("-",":");
-            return str1;
-        };
-    })
-    .filter('longStringFormat', function(){
-        return function(y) {
-            var str1 = y.replace("-",":");
-            return str1;
-        };
+        });
+
+    $rootScope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
+        $rootScope.bodyClass = toState.bodyClass;
+        $window.document.title = toState.title;
+        $rootScope.currentNavItem = toState.name;
     });
+})
+
+.filter('myTimeFormat', function(){
+    return function(x) {
+        if(x) {
+            var str = x.replace("T"," ");
+            return str;
+        }
+        return "";
+    };
+})
+.filter('myHostNameFormat', function(){
+    return function(y) {
+        var str1 = y.replace("-",":");
+        return str1;
+    };
+})
+.filter('longStringFormat', function(){
+    return function(y) {
+        var str1 = y.replace("-",":");
+        return str1;
+    };
+});
 
 
-    
+

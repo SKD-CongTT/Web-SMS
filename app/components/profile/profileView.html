@@ -3,78 +3,102 @@
         <md-button hide-xs hide-sm class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="editProfileModal()">
             <md-icon class="material-icons">edit</md-icon>
         </md-button>
-        <h3 class="md-title text-center">THÔNG TIN CÁ NHÂN</h3>
+        <h3 class="md-title text-center">Personal Information</h3>
         <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Tên tài khoản</div>
+            <div flex-xs="30" flex>Username :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <input aria-label="username" type="text" ng-model="userProfile.username" disabled>
+                    <span>{{userProfile.username}}</span>
                 </md-input-container>
             </div>
         </div>
         <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Tên người dùng</div>
+            <div flex-xs="30" flex>First name :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <input aria-label="name" type="text" placeholder="{{userProfile.last_name}} {{userProfile.first_name}}" disabled>
+                    <span>{{userProfile.first_name}}</span>  
                 </md-input-container>
             </div>
         </div>
         <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Địa chỉ Email</div>
+            <div flex-xs="30" flex>Last name :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span>{{userProfile.last_name}}</span>  
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Email address :</div>
                 <md-input-container flex="50">
-                    <input aria-label="email" type="text" ng-model="userProfile.email" disabled>
+                    <span>{{userProfile.email}}</span>
                 </md-input-container>
         </div>
         <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Nhóm</div>
+            <div flex-xs="30" flex>Major :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <input aria-label="groupName" type="text" ng-model="userProfile.type" disabled>
+                    <span>{{userProfile.major}}</span>
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Favorite :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span>{{userProfile.bio}}</span>
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Group :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span>{{userProfile.type}}</span>
                 </md-input-container>
             </div>
         </div>
     </div>
     <div flex="50" layout="column">
-        <h3 class="md-title text-center">THAY ĐỔI MẬT KHẨU</h3>
+        <h3 class="md-title text-center">Change password</h3>
         <form name="userPasswordForm" ng-submit="saveChangePwd()">
             <div layout="column" layout-padding  class="md-whiteframe-1dp">
                 <md-input-container>
-                    <label>Mật khẩu cũ</label>
+                    <label>Old password</label>
                     <input type="password" name="passwordOld"
                            ng-model="userPwd.passwordOld" required>
                     <div ng-messages="userPasswordForm.passwordOld.$error" ng-show="userPasswordForm.passwordOld.$dirty">
-                        <div ng-message="required">Mật khẩu cũ không được để trống!</div>
+                        <div ng-message="required">This field cannot be blank</div>
                     </div>
                 </md-input-container>
                 <md-input-container>
-                    <label>Mật khẩu mới</label>
+                    <label>New password</label>
                     <input type="password" name="password"
                            ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/"
                            minlength="8"
                            ng-model="userPwd.password"
                            required>
                     <div ng-messages="userPasswordForm.password.$error" ng-show="userPasswordForm.password.$dirty">
-                        <div ng-message="required">Mật khẩu mới không được để trống!</div>
-                        <div ng-message="pattern">Mật khẩu phải chứa kí tự chữ cái và chứ số!</div>
-                        <div ng-message="minlength">Mật khẩu ít nhất có 8 kí tự!</div>
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="pattern">Password must contains both numbers and characters </div>
+                        <div ng-message="minlength">Password must be atleast 8 characters</div>
                     </div>
                 </md-input-container>
                 <md-input-container>
-                    <label>Nhập lại mật khẩu</label>
+                    <label>Retype new password</label>
                     <input type="password" name="password2"
                            ng-model="userPwd.password2"
                            ng-disabled="userPasswordForm.password.$invalid"
                            required>
                     <div ng-messages="userPasswordForm.password2.$error" ng-show="userPasswordForm.password2.$dirty">
-                        <div ng-message="required">Mật khẩu nhập lại không được để trống!</div>
-                        <div ng-message="notMatch">Mật khẩu nhập lại không khớp!</div>
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="notMatch">Incorrect retype new password</div>
                     </div>
                 </md-input-container>
                 <div flex="30">
                     <md-button type="submit"
                                class="md-raised md-primary"
-                               ng-disabled="userPasswordForm.$invalid">ĐỔI MẬT KHẨU</md-button>
+                               ng-disabled="userPasswordForm.$invalid">Change password</md-button>
                 </div>
             </div>
         </form>

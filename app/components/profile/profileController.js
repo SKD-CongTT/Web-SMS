@@ -30,7 +30,6 @@ angular.module('webix')
 
             $scope.editProfileModal = function () {
                 if(auth.isAuthed()) {
-                    console.log($scope.userProfile)
                     $mdDialog.show({
                         locals: {userProfile : $scope.userProfile},
                         controller: DialogEditController,
@@ -48,11 +47,11 @@ angular.module('webix')
             function DialogEditController($scope, userProfile) {
                 $scope.userProfile = userProfile;
                 var toastSuccess = $mdToast.simple()
-                    .textContent('Chỉnh sửa Thông tin cá nhân thành công.')
+                    .textContent('Successfully edit personal infomation')
                     .position('right bottom');
 
                 var toastFail = $mdToast.simple()
-                    .textContent('Chỉnh sửa Thông tin cá nhân thất bại!')
+                    .textContent('Failed to edit personal infomation')
                     .position('right bottom');
 
                 $scope.hide = function() {
@@ -64,10 +63,10 @@ angular.module('webix')
                 };
 
                 $scope.edit = function () {
-                    if (auth.isAuthed) {
+                    if (auth.isAuthed) {    
                         $http({
-                            method: 'POST',
-                            url: $rootScope.apiUrl + '/update_user_info',
+                            method: 'PATCH',
+                            url: $rootScope.apiUrl + ':81/students/' + $scope.userProfile.id + "/",
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                             transformRequest: function (obj) {
                                 var str = [];
@@ -76,12 +75,15 @@ angular.module('webix')
                                 return str.join("&");
                             },
                             data: {
-                                name: $scope.userProfile.name,
-                                email: $scope.userProfile.email
+                                first_name: $scope.userProfile.first_name,
+                                last_name: $scope.userProfile.last_name,
+                                email: $scope.userProfile.email,
+                                bio: $scope.userProfile.bio,
                             }
                         }).success(function (response) {
                             $mdDialog.hide();
-                            if(response['result']) {
+                            console.log(response)
+                            if(response['id'] == $scope.userProfile.id) {
                                 $mdToast.show(toastSuccess);
                                 refresh();
                             } else {
@@ -99,11 +101,11 @@ angular.module('webix')
             }
 
             var toastSuccess = $mdToast.simple()
-                .textContent('Thay đổi Mật khẩu thành công')
+                .textContent('Successfully change password')
                 .position('right bottom');
 
             var toastFail = $mdToast.simple()
-                .textContent('Thay đổi Mật khẩu thất bại')
+                .textContent('Failed to change password')
                 .position('right bottom');
 
             $scope.userPwd = {

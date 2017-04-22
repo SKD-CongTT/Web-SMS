@@ -83,10 +83,10 @@
                 <br><br>
                 <h2 style="text-align: center">Course Information</h2><br>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex= "50">Course ID</div>
+                    <div flex-xs="30" flex= "50">Course ID :</div>
                     <div flex-xs="70" flex>
                         <md-input-container>
-                            <input aria-label="username" type="text" ng-model="selectedCourse.id" disabled>
+                            <span>{{selectedCourse.id}}</span>
                         </md-input-container>
                     </div>
                     <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)">
@@ -95,39 +95,39 @@
 
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Name</div>
+                    <div flex-xs="30" flex>Name :</div>
                     <div flex-xs="70" flex>
                         <md-input-container>
-                            <input aria-label="name" type="text" ng-model="selectedCourse.name" disabled>
+                            <span>{{selectedCourse.name}}</span>  
                         </md-input-container>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Status</div>
+                    <div flex-xs="30" flex>Status :</div>
                     <div flex-xs="70" flex>
                         <md-input-container>
-                            <input aria-label="email" type="text" ng-model="selectedCourse.status" disabled>
+                            <span>{{selectedCourse.status}}</span>
                         </md-input-container>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Credits</div>
+                    <div flex-xs="30" flex>Credits :</div>
                     <div flex-xs="70" flex>
                         <md-input-container>
-                            <input aria-label="groupName" type="text" ng-model="selectedCourse.cost" disabled>
+                            <span>{{selectedCourse.cost}}</span>
                         </md-input-container>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Requirements</div>
+                    <div flex-xs="30" flex>Requirements :</div>
                     <md-input-container flex= "50">
-                        <input aria-label="groupName" type="text" ng-model="selectedCourse.requirements" disabled>
+                            <span>{{selectedCourse.require}}.</span>
                     </md-input-container>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Description</div>
+                    <div flex-xs="30" flex>Description :</div>
                     <md-input-container flex= "50">
-                        <input aria-label="groupName" type="text" ng-model="selectedCourse.description" disabled>
+                            <span>{{selectedCourse.description}}</span> 
                     </md-input-container>
                 </div>
 

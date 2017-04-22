@@ -122,13 +122,18 @@ angular.module('webix')
             })
         }
     };
-    $scope.select = function (value){
+    var select = function (value){
         $scope.selectedCourse = value;
+        $scope.selectedCourse.require = value.requirements[0];
+        for (i = 1; i < value.requirements.length; i++){
+            $scope.selectedCourse.require = $scope.selectedCourse.require + "; " + value.requirements[i];
+        }
         if (value.active)
             $scope.selectedCourse.status = "Opening";
         else
             $scope.selectedCourse.status = "Closed";
     }
+    $scope.select = select;
     $scope.searchCourse = function (query) {
         if(query != "") {
            $http({
@@ -157,8 +162,9 @@ angular.module('webix')
 
 };
 
-        getAllCourse();
-
+        getAllCourse().then(function(){
+                select($scope.showCourse[0]);
+        });
         var page = 10;
         $scope.itemRemain = 0;
         $scope.hasMoreItemsToShow = function() {

@@ -1,22 +1,22 @@
 /**
  * Created by sonsi_000 on 7/20/2016.
  */
-'use strict';
+ 'use strict';
 
-angular
-    .module('webix')
-    .factory('authInterceptor', authInterceptor)
-    .factory('searchQuery', searchQuery)
-    .factory('searchQueryAlert', searchQueryAlert)
-    .service('user', userService)
-    .service('auth', authService)
-    .factory('$exceptionHandler', ['$log', function($log) {
-        return function myExceptionHandler(exception, cause) {
-            $log.warn(exception, cause);
-        };
-    }]);
+ angular
+ .module('webix')
+ .factory('authInterceptor', authInterceptor)
+ .factory('searchQuery', searchQuery)
+ .factory('searchQueryAlert', searchQueryAlert)
+ .service('user', userService)
+ .service('auth', authService)
+ .factory('$exceptionHandler', ['$log', function($log) {
+    return function myExceptionHandler(exception, cause) {
+        $log.warn(exception, cause);
+    };
+}]);
 
-function authService($localStorage,$location,$window) {
+ function authService($localStorage,$location,$window) {
     var srvc = this;
 
     srvc.parseJwt = function (token) {
