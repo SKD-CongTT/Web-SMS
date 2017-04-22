@@ -7,7 +7,7 @@ angular.module('webix')
         $scope.isNumber = angular.isNumber;
         $scope.chartConfig = {};
         $scope.countChartConfig = {};
-        $scope.loadingWebList = false;
+        $scope.loadingCourseList = false;
         $scope.loadingChart = true;
         $scope.loadingChartPie = true;
         $scope.selectedWebsite = {};
@@ -103,42 +103,19 @@ angular.module('webix')
             }
         };
     }
-    var getCourseInfo = function (page) {
-        if (auth.isAuthed()){
-            return new Promise(function(resolve, reject) {
-                $http.get($rootScope.apiUrl + ':81/courses/')
-                .then(function (response) {
-                    console.log(response)
-                    $scope.loadingWebList = false;
-                    if(response.data.results !== false) {
-                        $scope.webList = response.data.results;
-                        $scope.count = response.data.count;
-                        $scope.itemRemain = $scope.count - 10;
-                        console.log($scope.count);
-                        resolve();
-                    } else {
-                        $scope.webList = [];
-                        reject();
-                    }
-                })
-            })
-        }
-    };
     var getAllCourse = function(){
         if (auth.isAuthed()){
             return new Promise(function(resolve, reject) {
                 $http.get($rootScope.apiUrl + ':81/courses/?limit=10000')
                 .then(function (response) {
-                    console.log(response)
                     if(response.data.results !== false) {
                         $scope.showCourse = response.data.results.slice(0,10);
                         $scope.allCourseList = response.data.results;
                         $scope.count = response.data.count;
                         $scope.itemRemain = $scope.count - 10;
-                        console.log($scope.count);
                         resolve();
                     } else {
-                        $scope.allCourseList = [];
+                        $scope.showCourse = [];
                         reject();
                     }
                 })
@@ -167,12 +144,12 @@ angular.module('webix')
         }).success(function (response) {
             console.log(response)
             if(response['result'] == false) {
-                $scope.webSearchList = [];
+                $scope.courseSearchList = [];
             } else {
-                $scope.webSearchList = response['result'];
+                $scope.courseSearchList = response['result'];
             }
         }).error(function () {
-            $scope.webSearchList = [];
+            $scope.courseSearchList = [];
 
                         // console.log(response);
                     })
@@ -180,9 +157,9 @@ angular.module('webix')
 
 };
 
-        getCourseInfo(0);
+        getAllCourse();
 
-        var page = 0;
+        var page = 10;
         $scope.itemRemain = 0;
         $scope.hasMoreItemsToShow = function() {
             //server return 10 items each request
@@ -192,16 +169,7 @@ angular.module('webix')
         $scope.showMoreItems = function() {
             page = page + 10;
             $scope.itemRemain -= 10;
-            $scope.page = page;
-            $http.get($rootScope.apiUrl+':81/courses/?offset='+page)
-            .success(function (response) {
-                $scope.loadingWebList = false;
-                console.log(response);
-
-                if(response.results !== false) {
-                    $scope.webList = $scope.webList.concat(response.results);
-                }
-            })
+            $scope.showCourse = $scope.allCourseList.slice(0, page)            
         };
 
 
@@ -214,9 +182,10 @@ angular.module('webix')
         };
 
         $scope.addCourseModal = function () {
+            console.log($scope.allCourseList)
             if(auth.isAuthed()) {
-                console.log(1)
                 $mdDialog.show({
+                    locals: {allCourseList: $scope.allCourseList},
                     controller: DialogAddController,
                     templateUrl: 'components/course/addCourseTemplate.html',
                     parent: angular.element(document.body),
@@ -252,19 +221,19 @@ angular.module('webix')
         .textContent('Xóa Website thất bại')
         .position('right bottom');
 
-        $scope.deleteWebsiteModal = function (value) {
+        $scope.deleteCourseModal = function (value) {
             if(auth.isAuthed()) {
-                $scope.selectedWebsite = angular.copy(this.value);
+                $scope.selectedCourse = angular.copy(this.value);
 
                 var confirm = $mdDialog.confirm()
-                .title('Bạn có chắc chắn muốn xóa Website ' + $scope.selectedWebsite.hostName+ ' ?')
-                .textContent('Toàn bộ dữ liệu theo dõi Website này sẽ bị xóa')
-                .ariaLabel('Delete Websie')
-                .ok('Xác nhận')
-                .cancel('Hủy bỏ');
+                .title('Are you sure to delete this course: ' + $scope.selectedCourse.name+ ' ?')
+                .textContent('All data that related with this course will be deleted.')
+                .ariaLabel('Deleted course.')
+                .ok('Confirm')
+                .cancel('Cancel');
 
                 $mdDialog.show(confirm).then(function() {
-                    $http.delete($rootScope.apiUrl + '/delete_website/'+ value.id )
+                    $http.delete($rootScope.apiUrl + ':81/courses/'+ value.id )
                     .success(function(response){
                         if (response['result']) {
                             $mdToast.show(toastSuccess);
@@ -284,8 +253,9 @@ angular.module('webix')
             }
         };
 
-        function DialogAddController($scope, $mdDialog) {
+        function DialogAddController($scope, $mdDialog, allCourseList) {
             $scope.addedCourse = {}
+            $scope.newList = allCourseList;
             var toastSuccess = $mdToast.simple()
             .textContent('Success To Add New Course.')
             .position('right bottom');
@@ -306,6 +276,7 @@ angular.module('webix')
 
             $scope.add = function () {
                 if(auth.isAuthed()) {
+                    console.log($scope.addedCourse)
                     $scope.onRequest = true;
                     $http({
                         method: 'POST',

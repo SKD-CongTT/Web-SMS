@@ -17,28 +17,23 @@
                     <md-icon md-colors="{color:'green-500'}" md-font-set="material-icons"> add_box </md-icon>
                 </md-button>
             </div>
-
+                
             <md-list flex class="max-heigh-content">
-                <md-progress-linear ng-show="loadingWebList" md-mode="indeterminate" class="md-accent"></md-progress-linear>
-                <p class="noThing" ng-if="!loadingWebList && webList.length==0"><em>No Course Available!</em></p>
-                <p class="noThing" ng-if="!loadingWebList && webSearchList.length==0"><em>Course ID Not Found</em></p>
-                <md-list-item ng-click="select(value)" ng-if="!loadingWebList && query.length == 0 && webSearchList.length !=0" ng-repeat="value in webList"
-                              ng-class="selectedId==value.id?'label-grey':''" >
-                    <md-icon ng-show="value.status==1" title="Kết nối thành công"
-                             md-font-set="material-icons" md-colors="{color:'green-500'}">check</md-icon>
-                    <md-icon ng-show="value.status==0" title="Kết nối thất bại"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}">clear</md-icon>
-                    <p  ng-click="selectWebsite(value.id, value.hostName)"
-                        class="longText">{{value.id}}</p>
+                <md-progress-linear ng-show="loadingCourseList" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+                <p class="noThing" ng-if="!loadingCourseList && showCourse.length==0"><em>No Course Available!</em></p>
+                <p class="noThing" ng-if="!loadingCourseList && webSearchList.length==0"><em>Course ID Not Found</em></p>
+                <md-list-item ng-click="select(value)" ng-if="!loadingCourseList && query.length == 0 && webSearchList.length !=0" ng-repeat="value in showCourse"
+                ng-class="selectedId==value.id?'label-grey':''" >
+                <p class="longText">{{value.id}}</p>
 <!--                     <md-icon hide-sm hide-xs ng-click="webStructModal()" class="md-secondary"
                              md-font-set="material-icons" md-colors="{color:'grey-500'}">code</md-icon>
                     <md-icon hide-sm hide-xs ng-click="editWebsiteModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon> -->
-                    <md-icon hide-sm hide-xs ng-click="deleteWebsiteModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
+                    md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon> -->
+                    <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
+                    md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
                 </md-list-item>
 
-                <!-- <md-list-item ng-if="!loadingWebList && query.length !== 0 " ng-repeat="value in webSearchList"
+                <!-- <md-list-item ng-if="!loadingCourseList && query.length !== 0 " ng-repeat="value in webSearchList"
                               ng-class="selectedId==value.id?'label-grey':''" >
                     <md-icon ng-show="value.status==1" title="Kết nối thành công"
                              md-font-set="material-icons" md-colors="{color:'green-500'}">check</md-icon>
@@ -52,91 +47,91 @@
                              md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon>
                     <md-icon hide-sm hide-xs ng-click="deleteWebsiteModal(value)" class="md-secondary"
                              md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
-                </md-list-item> -->
-                <div style="text-align: center">
-                    <md-button style="alignment: center" ng-show="hasMoreItemsToShow() && query.length == 0 && itemRemain > 0" ng-click="showMoreItems()">
-                        Xem thêm ({{itemRemain}})<md-icon class="material-icons">arrow_drop_down</md-icon>
-                    </md-button>
-                </div>
-            </md-list>
-            <!--<md-list flex>-->
-            <!--<md-virtual-repeat-container id="vertical-container">-->
-            <!--<md-list-item md-virtual-repeat="value in ctrl.infiniteItems"-->
-            <!--md-on-demand ng-class="selectedId==value.id?'label-grey':''"  flex>-->
-            <!--<md-icon ng-show="value.status==1" title="Kết nối thành công"-->
-            <!--md-font-set="material-icons" md-colors="{color:'green-500'}">check</md-icon>-->
-            <!--<md-icon ng-show="value.status==0" title="Kết nối thất bại"-->
-            <!--md-font-set="material-icons" md-colors="{color:'red-500'}">clear</md-icon>-->
-            <!--<div ng-click="selectWebsite(value.id, value.hostName)"-->
-            <!--class="longText">{{value.hostName}}</div>-->
-            <!--<md-icon ng-show="value" ng-click="webStructModal()" class="md-secondary"-->
-            <!--md-font-set="material-icons" md-colors="{color:'grey-500'}">code</md-icon>-->
-            <!--<md-icon ng-show="value" ng-click="editWebsiteModal(value)" class="md-secondary"-->
-            <!--md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon>-->
-            <!--<md-icon ng-show="value" ng-click="deleteWebsiteModal()" class="md-secondary"-->
-            <!--md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>-->
-            <!--</md-list-item>-->
-            <!--</md-virtual-repeat-container>-->
-            <!--</md-list>-->
-        </md-content>
-        <div flex flex-gt-md="70" layout="column" style="margin: 0 !important;">
+                         </md-list-item> -->
+                         <div style="text-align: center">
+                            <md-button style="alignment: center" ng-show="hasMoreItemsToShow() && query.length == 0 && itemRemain > 0" ng-click="showMoreItems()">
+                                Xem thêm ({{itemRemain}})<md-icon class="material-icons">arrow_drop_down</md-icon>
+                            </md-button>
+                        </div>
+                    </md-list>
+                    <!--<md-list flex>-->
+                    <!--<md-virtual-repeat-container id="vertical-container">-->
+                    <!--<md-list-item md-virtual-repeat="value in ctrl.infiniteItems"-->
+                    <!--md-on-demand ng-class="selectedId==value.id?'label-grey':''"  flex>-->
+                    <!--<md-icon ng-show="value.status==1" title="Kết nối thành công"-->
+                    <!--md-font-set="material-icons" md-colors="{color:'green-500'}">check</md-icon>-->
+                    <!--<md-icon ng-show="value.status==0" title="Kết nối thất bại"-->
+                    <!--md-font-set="material-icons" md-colors="{color:'red-500'}">clear</md-icon>-->
+                    <!--<div ng-click="selectWebsite(value.id, value.hostName)"-->
+                    <!--class="longText">{{value.hostName}}</div>-->
+                    <!--<md-icon ng-show="value" ng-click="webStructModal()" class="md-secondary"-->
+                    <!--md-font-set="material-icons" md-colors="{color:'grey-500'}">code</md-icon>-->
+                    <!--<md-icon ng-show="value" ng-click="editWebsiteModal(value)" class="md-secondary"-->
+                    <!--md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon>-->
+                    <!--<md-icon ng-show="value" ng-click="deleteWebsiteModal()" class="md-secondary"-->
+                    <!--md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>-->
+                    <!--</md-list-item>-->
+                    <!--</md-virtual-repeat-container>-->
+                    <!--</md-list>-->
+                </md-content>
+                <div flex flex-gt-md="70" layout="column" style="margin: 0 !important;">
             <!-- <md-content>
                 <md-progress-linear ng-show="loadingChart" md-mode="indeterminate" class="md-accent"></md-progress-linear>
                 <highchart id="chartMonitor" config="chartConfig"></highchart>
             </md-content> -->
-               <div flex="100" layout="column" >
-        <br><br>
-        <h2 style="text-align: center">Course Information</h2><br>
-        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex= "50">Course ID</div>
-            <div flex-xs="70" flex>
-                <md-input-container>
-                    <input aria-label="username" type="text" ng-model="selectedCourse.id" disabled>
-                </md-input-container>
-            </div>
-            <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)">
-            <md-icon class="material-icons">edit</md-icon>
-            </md-button>
+            <div flex="100" layout="column" >
+                <br><br>
+                <h2 style="text-align: center">Course Information</h2><br>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex= "50">Course ID</div>
+                    <div flex-xs="70" flex>
+                        <md-input-container>
+                            <input aria-label="username" type="text" ng-model="selectedCourse.id" disabled>
+                        </md-input-container>
+                    </div>
+                    <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)">
+                        <md-icon class="material-icons">edit</md-icon>
+                    </md-button>
 
-        </div>
-        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Name</div>
-            <div flex-xs="70" flex>
-                <md-input-container>
-                    <input aria-label="name" type="text" ng-model="selectedCourse.name" disabled>
-                </md-input-container>
-            </div>
-        </div>
-        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Status</div>
-            <div flex-xs="70" flex>
-                <md-input-container>
-                    <input aria-label="email" type="text" ng-model="selectedCourse.status" disabled>
-                </md-input-container>
-            </div>
-        </div>
-        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Credits</div>
-            <div flex-xs="70" flex>
-                <md-input-container>
-                    <input aria-label="groupName" type="text" ng-model="selectedCourse.cost" disabled>
-                </md-input-container>
-            </div>
-        </div>
-        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Requirements</div>
-                <md-input-container flex= "50">
-                    <input aria-label="groupName" type="text" ng-model="selectedCourse.requirements" disabled>
-                </md-input-container>
-        </div>
-        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-            <div flex-xs="30" flex>Description</div>
-                <md-input-container flex= "50">
-                    <input aria-label="groupName" type="text" ng-model="selectedCourse.description" disabled>
-                </md-input-container>
-        </div>
+                </div>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex>Name</div>
+                    <div flex-xs="70" flex>
+                        <md-input-container>
+                            <input aria-label="name" type="text" ng-model="selectedCourse.name" disabled>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex>Status</div>
+                    <div flex-xs="70" flex>
+                        <md-input-container>
+                            <input aria-label="email" type="text" ng-model="selectedCourse.status" disabled>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex>Credits</div>
+                    <div flex-xs="70" flex>
+                        <md-input-container>
+                            <input aria-label="groupName" type="text" ng-model="selectedCourse.cost" disabled>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex>Requirements</div>
+                    <md-input-container flex= "50">
+                        <input aria-label="groupName" type="text" ng-model="selectedCourse.requirements" disabled>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex>Description</div>
+                    <md-input-container flex= "50">
+                        <input aria-label="groupName" type="text" ng-model="selectedCourse.description" disabled>
+                    </md-input-container>
+                </div>
 
-    </div>
+            </div>
 
         </div>
     </div>
@@ -191,15 +186,15 @@
                     </label>
                 </mdt-custom-cell>
             </mdt-table> -->
-        <!-- </md-content> -->
-    <!-- </div> -->
-</div>
+            <!-- </md-content> -->
+            <!-- </div> -->
+        </div>
 
-<div layout="column" style="visibility: hidden">
-    <div flex class="md-dialog-container" id="myDialog">
-        <md-dialog flex  style="height: 100% !important;" >
-            <div align="center" id="mynetwork"></div>
-        </md-dialog>
-    </div>
-</div>
+        <div layout="column" style="visibility: hidden">
+            <div flex class="md-dialog-container" id="myDialog">
+                <md-dialog flex  style="height: 100% !important;" >
+                    <div align="center" id="mynetwork"></div>
+                </md-dialog>
+            </div>
+        </div>
 
