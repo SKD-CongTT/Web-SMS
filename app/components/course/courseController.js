@@ -105,7 +105,7 @@ angular.module('webix')
     var getAllCourse = function(){
         if (auth.isAuthed()){
             return new Promise(function(resolve, reject) {
-                $http.get($rootScope.apiUrl + ':81/course/?limit=10000')
+                $http.get($rootScope.apiUrl + ':81/courses/?limit=10000')
                 .then(function (response) {
                     if(response.data.results !== false) {
                         console.log(response)
@@ -140,7 +140,7 @@ angular.module('webix')
         if(query != "") {
            $http({
             method: 'GET',
-            url: $rootScope.apiUrl + ':81/course/' + query,
+            url: $rootScope.apiUrl + ':81/courses/' + query,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             transformRequest: function (obj) {
                 var str = [];
@@ -241,7 +241,7 @@ angular.module('webix')
                 .cancel('Cancel');
 
                 $mdDialog.show(confirm).then(function() {
-                    $http.delete($rootScope.apiUrl + ':81/course/'+ value.id )
+                    $http.delete($rootScope.apiUrl + ':81/courses/'+ value.id )
                     .success(function(response){
                         if (response['result']) {
                             $mdToast.show(toastSuccess);
@@ -288,7 +288,7 @@ angular.module('webix')
                     $scope.onRequest = true;
                     $http({
                         method: 'POST',
-                        url: $rootScope.apiUrl+':81/course/',
+                        url: $rootScope.apiUrl+':81/courses/',
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                         transformRequest: function (obj) {
                             var str = [];
