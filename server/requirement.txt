@@ -1,6 +1,0 @@
-django
-djangorestframework
-djangorestframework-jwt
-django-cors-headers
-names
-
