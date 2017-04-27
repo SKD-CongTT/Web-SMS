@@ -1194,3 +1194,9 @@ md-autocomplete md-autocomplete-wrap md-progress-linear.md-inline {
 .md-blue {
     background-color: #2A87E3;
 }
+ .line{
+width: 96%;
+height: 15%;
+border-bottom: 1px solid #A9A9A9;
+position: absolute;
+}

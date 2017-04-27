@@ -1,5 +1,5 @@
 <div ng-controller="courseController as ctrl" ng-cloak>
-    <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 600px">
+    <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 680px">
         <md-content flex="nogrow" flex-gt-md="30" layout="column">
             <div layout="row">
                 <form flex ng-submit="searchCourse(query)" name="formSearch">
@@ -74,63 +74,73 @@
                     <!--</md-virtual-repeat-container>-->
                     <!--</md-list>-->
                 </md-content>
-                <div flex flex-gt-md="70" layout="column" style="margin: 0 !important;">
+                <div flex flex-gt-md="70" layout="column" layout-margin >
             <!-- <md-content>
                 <md-progress-linear ng-show="loadingChart" md-mode="indeterminate" class="md-accent"></md-progress-linear>
                 <highchart id="chartMonitor" config="chartConfig"></highchart>
             </md-content> -->
-            <div flex="100" layout="column" >
+            <div flex="100" layout="column" layout-padding>
                 <br><br>
-                <h2 style="text-align: center">Course Information</h2><br>
+                <h1 style="text-align: center">Course Information</h1><br>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
                     <div flex-xs="30" flex= "50">Course ID :</div>
                     <div flex-xs="70" flex>
-                        <md-input-container>
-                            <span>{{selectedCourse.id}}</span>
-                        </md-input-container>
+                            {{selectedCourse.id}}
                     </div>
                     <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)">
                         <md-icon class="material-icons">edit</md-icon>
                     </md-button>
 
                 </div>
+                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex></div>
+                    <div flex-xs="70" flex>
+                    </div>
+                </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
                     <div flex-xs="30" flex>Name :</div>
                     <div flex-xs="70" flex>
-                        <md-input-container>
-                            <span>{{selectedCourse.name}}</span>  
-                        </md-input-container>
+                            {{selectedCourse.name}}
+                    </div>
+                </div>
+                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex></div>
+                    <div flex-xs="70" flex>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
                     <div flex-xs="30" flex>Status :</div>
                     <div flex-xs="70" flex>
-                        <md-input-container>
-                            <span>{{selectedCourse.status}}</span>
-                        </md-input-container>
+                           {{selectedCourse.status}}
+                    </div>
+                </div>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex></div>
+                    <div flex-xs="70" flex>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
                     <div flex-xs="30" flex>Credits :</div>
                     <div flex-xs="70" flex>
-                        <md-input-container>
-                            <span>{{selectedCourse.cost}}</span>
-                        </md-input-container>
+                            {{selectedCourse.cost}}
+                    </div>
+                </div>
+                <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div flex-xs="30" flex></div>
+                    <div flex-xs="70" flex>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
                     <div flex-xs="30" flex>Requirements :</div>
-                    <md-input-container flex= "50">
-                            <span>{{selectedCourse.require}}.</span>
-                    </md-input-container>
+                    <div flex-xs="70" flex>
+                            {{selectedCourse.requirements}}
+                    </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Description :</div>
-                    <md-input-container flex= "50">
-                            <span>{{selectedCourse.description}}</span> 
-                    </md-input-container>
+                    <div flex-xs="30" flex></div>
+                    <div flex-xs="70" flex>
+                    </div>
                 </div>
-
             </div>
 
         </div>

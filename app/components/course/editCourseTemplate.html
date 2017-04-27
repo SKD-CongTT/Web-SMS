@@ -61,18 +61,6 @@
                         </div>
                       </div>
                 </md-input-container>
-                <md-input-container class="md-block">
-                    <span>Description</span>
-                    <input type="text"
-                           name="description"
-                           ng-model="courseInfo.description"
-                           md-maxlength="300"
-                           required/>
-                    <div ng-messages="editInfo.description.$error" ng-show="editInfo.description.$dirty">
-                        <div ng-message="required">This field cannot be blank</div>
-                        <div ng-message="md-maxlength">Description is too long</div>
-                    </div>
-                </md-input-container>
             </div>
         </md-dialog-content>
 

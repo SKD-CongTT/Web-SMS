@@ -1,6 +1,3 @@
-/**
- * Created by sonsi_000 on 7/20/2016.
- */
  'use strict';
 
  angular
@@ -85,7 +82,6 @@ function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter,
                 password: password
             }
         }).then(function (response) {
-            console.log(auth.parseJwt(response.data.token));
             if (response.data.token){
                 $location.path('/home');
             } else {
