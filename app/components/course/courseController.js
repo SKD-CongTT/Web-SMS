@@ -68,15 +68,15 @@ angular.module('webix')
           $scope.edit = function () {
             if (auth.isAuthed) {
                 $http({
-                    method: 'PUT',
+                    method: 'PATCH',
                     url: $rootScope.apiUrl + ':81/course/' + $scope.courseInfo.id + "/",
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    transformRequest: function (obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
+                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    // transformRequest: function (obj) {
+                    //     var str = [];
+                    //     for (var p in obj)
+                    //         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    //     return str.join("&");
+                    // },
                     data: {
                         id: $scope.courseInfo.id,
                         name: $scope.courseInfo.name,
@@ -284,18 +284,18 @@ angular.module('webix')
 
             $scope.add = function () {
                 if(auth.isAuthed()) {
-                    console.log($scope.addedCourse)
                     $scope.onRequest = true;
+
                     $http({
                         method: 'POST',
                         url: $rootScope.apiUrl+':81/courses/',
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                        transformRequest: function (obj) {
-                            var str = [];
-                            for (var p in obj)
-                                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                            return str.join("&");
-                        },
+                        // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        // transformRequest: function (obj) {
+                        //     var str = [];
+                        //     for (var p in obj)
+                        //         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        //     return str.join("&");
+                        // },
                         data: {
                             id: $scope.addedCourse.id,
                             name: $scope.addedCourse.name,
@@ -307,7 +307,8 @@ angular.module('webix')
                         $scope.onRequest = false;
                         $mdDialog.hide();
                         $scope.websiteModal = {};
-                        console.log(data)
+                        console.log(response)
+
                         if (response['result']) {
                             $mdToast.show(toastSuccess);
                         } else {
