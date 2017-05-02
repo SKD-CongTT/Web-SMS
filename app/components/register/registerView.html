@@ -1,0 +1,66 @@
+<div ng-controller="registerController as ctrl" ng-cloak>
+           <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 680px">
+            <md-content flex="nogrow" flex-gt-md="30" layout="column">
+            <div layout="row">
+                <form flex ng-submit="searchCourse(query)" name="formSearch">
+                    <md-input-container ng-form="formSearch" class="md-icon-float md-icon-right mb-block">
+                        <!-- Use floating label instead of placeholder -->
+                        <md-icon md-font-set="material-icons"> search </md-icon>
+                        <label>Course Searching</label>
+                        <input ng-model="id" type="text">
+                    </md-input-container>
+                </form>
+            </div>
+                
+            <md-list flex class="max-heigh-content">
+                <md-progress-linear ng-show="loadingCourseList" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+                <p class="noThing" ng-if="!loadingCourseList && showCourse.length==0"><em>No Course Available!</em></p>
+                <md-list-item ng-click="select(value)" ng-if="!loadingCourseList" ng-repeat="value in showCourse | filter : id"
+                ng-class="selectedId==value.id?'label-grey':''" >
+                <p class="longText">{{value.id}}</p>
+
+                    <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
+                    md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
+                </md-list-item>
+
+
+                         <div style="text-align: center">
+                            <md-button style="alignment: center" ng-show="hasMoreItemsToShow() && query.length == 0 && itemRemain > 0" ng-click="showMoreItems()">
+                                Xem thêm ({{itemRemain}})<md-icon class="material-icons">arrow_drop_down</md-icon>
+                            </md-button>
+                        </div>
+                    </md-list>
+                </md-content>
+                <div layout="column" layout-gt-md="row" flex flex-gt-md="70" layout-margin>
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Opening Class
+            </div>
+        </md-toolbar>
+        <md-content>
+            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+                        selectable-rows="true",
+                        selected-row-callback="selectedRowCallback(rows)",
+                       mdt-row="{
+                       data : availableCourse,
+                       'table-row-id-key': 'id',
+                      'column-keys': [
+                          'id',
+                          'name',
+                          'cost',
+                          'department'
+                        ]
+                      }">
+                <mdt-header-row>
+                    <mdt-column align-rule="left">Course</mdt-column>
+                    <mdt-column align-rule="left">Name</mdt-column>
+                    <mdt-column align-rule="left">Credit</mdt-column>
+                    <mdt-column align-rule="left">Department</mdt-column>
+                </mdt-header-row>
+            </mdt-table>
+
+        </md-content>
+    </div>
+    </div>
+    </div>

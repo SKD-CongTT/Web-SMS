@@ -471,10 +471,10 @@
                 })
 
                 .state('dashboard.course_registration',{
-                    templateUrl:'components/logs/logsView.html',
+                    templateUrl:'components/register/registerView.html',
                     title: 'Course Registration',
                     url:'/course_registration',
-                    controller:'logsController',
+                    controller:'registerController',
                     data: {
                         permissions: {
                             only: '4',
@@ -486,7 +486,7 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/logs/logsController.js'
+                                'components/register/registerController.js'
                                 ]
                             })
                         }

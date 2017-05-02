@@ -5,14 +5,11 @@
                 <form flex ng-submit="searchCourse(query)" name="formSearch">
                     <md-input-container ng-form="formSearch" class="md-icon-float md-icon-right mb-block">
                         <!-- Use floating label instead of placeholder -->
-                        <md-icon md-font-set="material-icons" ng-click="searchCourse(query)"> search </md-icon>
+                        <md-icon md-font-set="material-icons"> search </md-icon>
                         <label>Course Searching</label>
-                        <input ng-model="query" type="text">
+                        <input ng-model="id" type="text">
                     </md-input-container>
                 </form>
-<!--                 <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="showVisualization()">
-                    <md-icon class="material-icons"> visibility </md-icon>
-                </md-button> -->
                 <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="addCourseModal()" permission permission-only="['1']">
                     <md-icon md-colors="{color:'green-500'}" md-font-set="material-icons"> add_box </md-icon>
                 </md-button>
@@ -21,38 +18,12 @@
             <md-list flex class="max-heigh-content">
                 <md-progress-linear ng-show="loadingCourseList" md-mode="indeterminate" class="md-accent"></md-progress-linear>
                 <p class="noThing" ng-if="!loadingCourseList && showCourse.length==0"><em>No Course Available!</em></p>
-                <p class="noThing" ng-if="!loadingCourseList && webSearchList.length==0"><em>Course ID Not Found</em></p>
-                <md-list-item ng-click="select(value)" ng-if="!loadingCourseList && query.length == 0 && webSearchList.length !=0" ng-repeat="value in showCourse"
+                <md-list-item ng-click="select(value)" ng-if="!loadingCourseList" ng-repeat="value in showCourse | filter : id"
                 ng-class="selectedId==value.id?'label-grey':''" >
                 <p class="longText">{{value.id}}</p>
-<!--                     <md-icon hide-sm hide-xs ng-click="webStructModal()" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'grey-500'}">code</md-icon>
-                    <md-icon hide-sm hide-xs ng-click="editWebsiteModal(value)" class="md-secondary"
-                    md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon> -->
                     <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
                     md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
                 </md-list-item>
-
-                <!-- <md-list-item ng-if="!loadingCourseList && query.length !== 0 " ng-repeat="value in webSearchList"
-                              ng-class="selectedId==value.id?'label-grey':''" >
-                    <md-icon ng-show="value.status==1" title="Kết nối thành công"
-                             md-font-set="material-icons" md-colors="{color:'green-500'}">check</md-icon>
-                    <md-icon ng-show="value.status==0" title="Kết nối thất bại"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}">clear</md-icon>
-                    <p  ng-click="selectWebsite(value.id, value.hostName)"
-                        class="longText">{{value.hostName}}</p>
-                    <md-icon hide-sm hide-xs ng-click="webStructModal()" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'grey-500'}">code</md-icon>
-                    <md-icon hide-sm hide-xs ng-click="editWebsiteModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon>
-                    <md-icon hide-sm hide-xs ng-click="deleteWebsiteModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
-                         </md-list-item> -->
-                         <div style="text-align: center">
-                            <md-button style="alignment: center" ng-show="hasMoreItemsToShow() && query.length == 0 && itemRemain > 0" ng-click="showMoreItems()">
-                                Xem thêm ({{itemRemain}})<md-icon class="material-icons">arrow_drop_down</md-icon>
-                            </md-button>
-                        </div>
                     </md-list>
                     <!--<md-list flex>-->
                     <!--<md-virtual-repeat-container id="vertical-container">-->

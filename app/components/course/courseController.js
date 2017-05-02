@@ -109,10 +109,7 @@ angular.module('webix')
                 .then(function (response) {
                     if(response.data.results !== false) {
                         console.log(response)
-                        $scope.showCourse = response.data.results.slice(0,10);
-                        $scope.allCourseList = response.data.results;
-                        $scope.count = response.data.count;
-                        $scope.itemRemain = $scope.count - 10;
+                        $scope.showCourse = response.data.results;
                         resolve();
                     } else {
                         $scope.showCourse = [];
@@ -136,50 +133,10 @@ angular.module('webix')
             $scope.selectedCourse.status = "Closed";
     }
     $scope.select = select;
-    $scope.searchCourse = function (query) {
-        if(query != "") {
-           $http({
-            method: 'GET',
-            url: $rootScope.apiUrl + ':81/courses/' + query,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            transformRequest: function (obj) {
-                var str = [];
-                for (var p in obj)
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                return str.join("&");
-            },
-        }).success(function (response) {
-            console.log(response)
-            if(response['result'] == false) {
-                $scope.courseSearchList = [];
-            } else {
-                $scope.courseSearchList = response['result'];
-            }
-        }).error(function () {
-            $scope.courseSearchList = [];
-
-                        // console.log(response);
-                    })
-    }
-
-};
 
         getAllCourse().then(function(){
                 select($scope.showCourse[0]);
         });
-        var page = 10;
-        $scope.itemRemain = 0;
-        $scope.hasMoreItemsToShow = function() {
-            //server return 10 items each request
-            return page < ($scope.count);
-        };
-
-        $scope.showMoreItems = function() {
-            page = page + 10;
-            $scope.itemRemain -= 10;
-            $scope.showCourse = $scope.allCourseList.slice(0, page)            
-        };
-
 
         $scope.selectWebsite = function (id,hostName) {
             $scope.loadingChart = true;

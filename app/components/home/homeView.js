@@ -54,6 +54,14 @@ angular.module('webix')
             }
         };
         getAvailableCourse();
+        function sleep(milliseconds) {
+              var start = new Date().getTime();
+              for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds){
+                  break;
+                }
+              }
+            }
          var getMember = function () {
             if (auth.isAuthed()){
                 return new Promise(function(resolve, reject) {
