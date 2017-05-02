@@ -69,7 +69,7 @@ function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter,
         $rootScope.onLogin = true;
         return $http({
             method: 'POST',
-            url: $rootScope.apiUrl +':81/auth/token/obtain/',
+            url: $rootScope.apiUrl +'/auth/token/obtain/',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             transformRequest: function (obj) {
                 var str = [];

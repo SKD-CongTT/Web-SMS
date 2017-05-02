@@ -69,7 +69,7 @@ angular.module('webix')
             if (auth.isAuthed) {
                 $http({
                     method: 'PATCH',
-                    url: $rootScope.apiUrl + ':81/course/' + $scope.courseInfo.id + "/",
+                    url: $rootScope.apiUrl + '/course/' + $scope.courseInfo.id + "/",
                     // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     // transformRequest: function (obj) {
                     //     var str = [];
@@ -105,7 +105,7 @@ angular.module('webix')
     var getAllCourse = function(){
         if (auth.isAuthed()){
             return new Promise(function(resolve, reject) {
-                $http.get($rootScope.apiUrl + ':81/courses/?limit=10000')
+                $http.get($rootScope.apiUrl + '/courses/?limit=10000')
                 .then(function (response) {
                     if(response.data.results !== false) {
                         console.log(response)

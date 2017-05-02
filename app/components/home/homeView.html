@@ -52,45 +52,27 @@
     <div flex layout="column" class="md-whiteframe-1dp">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                Course
+                Opening Course
             </div>
         </md-toolbar>
         <md-content>
             <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
-                       mdt-row-paginator="getWebsites(page, pageSize)"
                        mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
-                       mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
                        mdt-row="{
-
+                       data : availableCourse,
                       'column-keys': [
-                          'hostName',
-                          'event',
-                          'reason',
-                          'duration'
+                          'id',
+                          'name',
+                          'cost',
+                          'department'
                         ]
                       }">
                 <mdt-header-row>
                     <mdt-column align-rule="left">Course</mdt-column>
-                    <mdt-column align-rule="right">Credit</mdt-column>
-                    <mdt-column align-rule="right">Pre</mdt-column>
-                    <mdt-column align-rule="right">Time</mdt-column>
+                    <mdt-column align-rule="left">Name</mdt-column>
+                    <mdt-column align-rule="left">Credit</mdt-column>
+                    <mdt-column align-rule="left">Department</mdt-column>
                 </mdt-header-row>
-                <mdt-custom-cell column-key="hostName">
-                    <strong>{{value}}</strong>
-                </mdt-custom-cell>
-                <mdt-custom-cell column-key="event">
-                    <label class="label" ng-class="value == 'Down'?'label-danger':value == 'Up'?'label-success':'label-primary'">
-                        <i class="fa"
-                           ng-class="value == 'Down'?'fa-long-arrow-down':value == 'Up'?'fa-long-arrow-up':'fa-play'"></i>
-                        {{value}}
-                    </label>
-                </mdt-custom-cell>
-                <mdt-custom-cell column-key="reason">
-                    <label class="label"
-                           ng-class="value == 'OK' || value=='OK (200)'?'label-success':'label-danger'">
-                        {{value}}
-                    </label>
-                </mdt-custom-cell>
             </mdt-table>
 
         </md-content>

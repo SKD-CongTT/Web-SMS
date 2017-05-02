@@ -695,10 +695,10 @@
     $rootScope.$state = $state;
     $rootScope.wrongInfo = false;
     $rootScope.onLogin = false;
-    $rootScope.apiUrl = 'http://localhost';
-    $rootScope.downloadUrl = 'http://localhost';
-    $rootScope.webUrl = 'http://localhost';
-    $rootScope.webUrlHttp = 'http://localhost';
+    $rootScope.apiUrl = 'http://localhost:8000';
+    $rootScope.downloadUrl = 'http://localhost:8000';
+    $rootScope.webUrl = 'http://localhost:8000';
+    $rootScope.webUrlHttp = 'http://localhost:8000';
 
     $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
         $rootScope.stateIsLoading = {value : true};
