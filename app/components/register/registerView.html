@@ -43,20 +43,22 @@
                         selectable-rows="true",
                         selected-row-callback="selectedRowCallback(rows)",
                        mdt-row="{
-                       data : availableCourse,
+                       data : showClass,
                        'table-row-id-key': 'id',
                       'column-keys': [
                           'id',
-                          'name',
-                          'cost',
-                          'department'
+                          'semester',
+                          'count',
+                          'max_enroll',
+                          'year'
                         ]
                       }">
                 <mdt-header-row>
-                    <mdt-column align-rule="left">Course</mdt-column>
-                    <mdt-column align-rule="left">Name</mdt-column>
-                    <mdt-column align-rule="left">Credit</mdt-column>
-                    <mdt-column align-rule="left">Department</mdt-column>
+                    <mdt-column align-rule="left">Id</mdt-column>
+                    <mdt-column align-rule="left">Semester</mdt-column>
+                    <mdt-column align-rule="left">Enroll</mdt-column>
+                    <mdt-column align-rule="left">Max enroll</mdt-column>
+                    <mdt-column align-rule="left">Year</mdt-column>
                 </mdt-header-row>
             </mdt-table>
 

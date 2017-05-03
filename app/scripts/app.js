@@ -135,8 +135,6 @@
             });
 
             $urlRouterProvider.otherwise('/home');
-            $urlRouterProvider.when('/alerts', '/alerts/positive');
-            $urlRouterProvider.when('/managements', '/managements/users');
             $stateProvider
             .state('dashboard', {
                 url: '',
@@ -279,28 +277,6 @@
                 //     }
                 // })
 
-                .state('dashboard.sensors',{
-                    templateUrl:'components/agents/agentsView.html',
-                    title: 'Quản lý Sensors - WebAssistant',
-                    url:'/sensors',
-                    controller:'agentsController',
-                    data: {
-                        permissions: {
-                            only: '5',
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/agents/agentsController.js'
-                                ]
-                            })
-                        }
-                    }
-                })
 
                 .state('dashboard.student_management',{
                     templateUrl:'components/alerts/alertsView.html',
@@ -313,163 +289,7 @@
                         }
                     }
                 })
-                .state('dashboard.alerts.positive',{
-                    url: '/positive',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/alerts/positive/positiveController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: ['6','10'],
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'positive': {
-                            templateUrl:'components/alerts/positive/positiveView.html',
-                            controller: 'positiveController'
-                        }
-                    }
-                })
-                .state('dashboard.alerts.negative',{
-                    url: '/negative',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/alerts/negative/negativeController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: '10',
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'negative': {
-                            templateUrl:'components/alerts/negative/negativeView.html',
-                            controller: 'negativeController'
-                        }
-                    }
-                })
-                .state('dashboard.alerts.done',{
-                    url: '/done',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/alerts/done/doneController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: '10',
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'done': {
-                            templateUrl:'components/alerts/done/doneView.html',
-                            controller: 'doneController'
-                        }
-                    }
-                })
-                .state('dashboard.alerts.rules',{
-                    url: '/rules',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/alerts/rules/rulesController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: '10',
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'rules': {
-                            templateUrl:'components/alerts/rules/rulesView.html',
-                            controller: 'rulesController'
-                        }
-                    }
-                })
-                .state('dashboard.alerts.trustedIp',{
-                    url: '/trustedIp',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/alerts/trustedIp/trustedIpController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: '10',
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'trustedIp': {
-                            templateUrl:'components/alerts/trustedIp/trustedIpView.html',
-                            controller: 'trustedIpController'
-                        }
-                    }
-                })
-                .state('dashboard.alerts.reports',{
-                    url: '/reports',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/alerts/reports/reportsController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: '10',
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'reports': {
-                            templateUrl:'components/alerts/reports/reportsView.html',
-                            controller: 'reportsController'
-                        }
-                    }
-                })
-
+                
                 .state('dashboard.course_registration',{
                     templateUrl:'components/register/registerView.html',
                     title: 'Course Registration',
@@ -515,74 +335,6 @@
                         }
                     }
                 })
-
-                .state('dashboard.managements',{
-                    templateUrl:'components/managements/managementsView.html',
-                    title: 'Quản lý - WebAssistant',
-                    url:'/managements',
-                    data: {
-                        permissions: {
-                            only: ['1','2','3','8'],
-                            redirectTo: {
-                                "1":"dashboard.managements.users",
-                                "8":"dasboard.managements.config",
-                                default:"dashboard.profile"
-                            }
-                        }
-                    },
-                    controller:'managementsController',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/managements/managementsController.js'
-                                ]
-                            })
-                        }
-                    }
-                })
-                .state('dashboard.managements.configs',{
-                    title: 'Quản lý cấu hình hệ thống - WebAssistant',
-                    url:'/configs',
-                    views: {
-                        'configs': {
-                            templateUrl:'components/managements/configs/configsView.html',
-                            controller: 'managementsController'
-                        }
-                    }
-                })
-                .state('dashboard.managements.users',{
-                    title: 'Quản lý người dùng - WebAssistant',
-                    url:'/users',
-                    views: {
-                        'users': {
-                            templateUrl:'components/managements/users/usersView.html',
-                            controller: 'managementsController'
-                        }
-                    }
-                })
-                .state('dashboard.managements.groups',{
-                    title: 'Quản lý nhóm người dùng - WebAssistant',
-                    url:'/groups',
-                    views: {
-                        'groups': {
-                            templateUrl:'components/managements/groups/groupsView.html',
-                            controller: 'managementsController'
-                        }
-                    }
-                })
-                .state('dashboard.managements.permissions',{
-                    title: 'Quản lý quyền người dùng - WebAssistant',
-                    url:'/permissions',
-                    views: {
-                        'permissions': {
-                            templateUrl:'components/managements/permissions/permissionsView.html',
-                            controller: 'managementsController'
-                        }
-                    }
-                })
-
 
                 .state('dashboard.profile',{
                     templateUrl:'components/profile/profileView.html',
@@ -695,10 +447,10 @@
     $rootScope.$state = $state;
     $rootScope.wrongInfo = false;
     $rootScope.onLogin = false;
-    $rootScope.apiUrl = 'http://localhost:8000';
-    $rootScope.downloadUrl = 'http://localhost:8000';
-    $rootScope.webUrl = 'http://localhost:8000';
-    $rootScope.webUrlHttp = 'http://localhost:8000';
+    $rootScope.apiUrl = 'http://ictk59-api.herokuapp.com';
+    $rootScope.downloadUrl = 'http://ictk59-api.herokuapp.com';
+    $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
+    $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
 
     $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
         $rootScope.stateIsLoading = {value : true};

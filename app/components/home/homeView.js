@@ -67,6 +67,7 @@ angular.module('webix')
                 return new Promise(function(resolve, reject) {
                     $http.get($rootScope.apiUrl + '/students/')
                     .then(function (response) {
+                        console.log(response)
                         if(response.data.results !== false) {
                              $scope.panelResult[0].info = response.data.count;
                             resolve();

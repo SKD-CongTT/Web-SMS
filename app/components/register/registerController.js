@@ -3,6 +3,7 @@ angular.module('webix')
     .controller('registerController', function($scope,$rootScope,$http,auth,$interval,$state,$timeout,searchQuery,$mdToast,$mdDialog) {
         if(auth.isAuthed()){
             $scope.showCourse = [];
+            $scope.showClass = [];
              $scope.loadingCourseList = false;
         var getAllCourse = function(){
         if (auth.isAuthed()){
@@ -33,8 +34,20 @@ angular.module('webix')
         var select = function (value){
         $scope.selectedCourse = value;
         $scope.selectedCourse.require = value.requirements[0];
-        for (i = 1; i < value.requirements.length; i++){
-            $scope.selectedCourse.require = $scope.selectedCourse.require + "; " + value.requirements[i];
+                if (auth.isAuthed()){
+            return new Promise(function(resolve, reject) {
+                $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id)
+                .then(function (response) {
+                    if(response.data.results !== false) {
+                        console.log(response)
+                        $scope.showClass = response.data.results;
+                        resolve();
+                    } else {
+                        $scope.showCourse = [];
+                        reject();
+                    }
+                })
+            })
         }
         if (value.requirements.length == 0)
             $scope.selectedCourse.requirements = "Not Active";

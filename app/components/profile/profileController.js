@@ -15,9 +15,11 @@ angular.module('webix')
                 }
             };
             var refresh = function(){
-                $http.get($rootScope.apiUrl + ':81/students/4/?format=json')
+                $http.get($rootScope.apiUrl + '/students/')
                     .success(function (response) {
-                        $scope.userProfile = response;
+                        console.log(response)
+                        $scope.userProfile = response.results[0];
+                        console.log($scope.userProfile)
                         if($scope.userProfile.type){
                                 $scope.userProfile.type = "Hoc Sinh Tin Chi";
                         }
@@ -66,7 +68,7 @@ angular.module('webix')
                     if (auth.isAuthed) {    
                         $http({
                             method: 'PATCH',
-                            url: $rootScope.apiUrl + ':81/students/' + $scope.userProfile.id + "/",
+                            url: $rootScope.apiUrl + '/students/' + $scope.userProfile.id + "/" ,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                             transformRequest: function (obj) {
                                 var str = [];
