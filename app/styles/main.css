@@ -1206,7 +1206,7 @@ position: absolute;
 .time-slot              {  }
 .time-slot input     { display:none; }
 .time-slot label     { 
-  padding:10px 20px; 
+  padding:10px 15px; 
   color:#FFF; 
   cursor:pointer; 
   background:#EEE; 

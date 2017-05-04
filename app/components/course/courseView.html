@@ -52,16 +52,15 @@
             </md-content> -->
             <div flex="100" layout="column" layout-padding>
                 <br><br>
-                <h1 style="text-align: center">Course Information</h1><br>
+                <h1 style="text-align: center"><font color="#2196F3">Course Information</font></h1><br>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex= "50">Course ID :</div>
+                    <div flex-xs="30" flex= "50"><h2>Course ID :</h2></div>
                     <div flex-xs="70" flex>
-                            {{selectedCourse.id}}
+                            <h2>{{selectedCourse.id}}</h2>
                     </div>
                     <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)">
                         <md-icon class="material-icons">edit</md-icon>
                     </md-button>
-
                 </div>
                  <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
                     <div flex-xs="30" flex></div>
@@ -69,9 +68,9 @@
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Name :</div>
+                    <div flex-xs="30" flex><h2>Name :</h2></div>
                     <div flex-xs="70" flex>
-                            {{selectedCourse.name}}
+                            <h2>{{selectedCourse.name}}</h2>
                     </div>
                 </div>
                  <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
@@ -80,9 +79,9 @@
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Status :</div>
+                    <div flex-xs="30" flex><h2>Status :</h2></div>
                     <div flex-xs="70" flex>
-                           {{selectedCourse.status}}
+                           <h2>{{selectedCourse.status}}</h2>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
@@ -91,9 +90,9 @@
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Credits :</div>
+                    <div flex-xs="30" flex><h2>Credits :</h2></div>
                     <div flex-xs="70" flex>
-                            {{selectedCourse.cost}}
+                            <h2>{{selectedCourse.cost}}</h2>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
@@ -102,9 +101,10 @@
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
-                    <div flex-xs="30" flex>Requirements :</div>
+                    <div flex-xs="30" flex><h2>Requirements :</h2></div>
                     <div flex-xs="70" flex>
-                            {{selectedCourse.requirements}}
+                            <h2><span ng-if="selectedCourse.require">{{selectedCourse.require}}</span></h2>
+                             <h2><span ng-if="!selectedCourse.require && showCourse.length!=0">NOT ACTIVE</span></h2>
                     </div>
                 </div>
                 <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">

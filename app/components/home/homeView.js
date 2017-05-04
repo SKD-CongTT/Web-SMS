@@ -84,28 +84,28 @@ angular.module('webix')
                             name: 'Monday',
                             slots: {
                               1: {
-                                time: '9:00am',
-                                booked: false
+                                time: '9:00am - 11:00am',
+                                booked: false,
+                                room: 'D9',
+                                name: 'Database'
                               },
                              2: {
                                 time: '11:00am',
-                                booked: false
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math1'
                               },
                               3: {
                                 time: '1:00pm',
-                                booked: false
+                                booked: false,
+                                room: 'D9 - 408',
+                                name: 'Math2'
                               },
                               4: {
                                 time: '3:00pm',
-                                booked: false
-                              },
-                              5: {
-                                time: '5:00pm',
-                                booked: false
-                              },
-                              6: {
-                                time: '7:00pm',
-                                booked: false
+                                booked: false,
+                                room: 'SVD',
+                                name: 'Cau Long'
                               },
                               }
                         },
@@ -113,16 +113,22 @@ angular.module('webix')
                             name: 'Tuesday',
                             slots: {
                               1: {
-                                time: '9:00am',
-                                booked: false
+                                time: '9:00am - 11:00am',
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               },
                               2: {
                                 time: '11:00am',
-                                booked: false
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               },
                               3: {
                                 time: '1:00pm',
-                                booked: false
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               },
                               }
                         },
@@ -130,12 +136,16 @@ angular.module('webix')
                             name: 'Wednesday',
                             slots: {
                               1: {
-                                time: '5:00pm',
-                                booked: false
+                                time: '9:00am - 11:00am',
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               },
                               2: {
                                 time: '7:00pm',
-                                booked: false
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               }
                               }
                         },
@@ -143,12 +153,16 @@ angular.module('webix')
                             name: 'Thursday',
                             slots: {
                               1: {
-                                time: '5:00pm',
-                                booked: false
+                                time: '10:00am - 11:00am',
+                                booked: false,
+                                room: 'D9- 407',
+                                name: 'English Skill 1'
                               },
                               2: {
                                 time: '7:00pm',
-                                booked: false
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               }
                               }
                         },
@@ -156,12 +170,16 @@ angular.module('webix')
                             name: 'Friday',
                             slots: {
                               1: {
-                                time: '5:00pm',
-                                booked: false
+                                time: '9:00am - 11:00am',
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               },
                               2: {
                                 time: '7:00pm',
-                                booked: false
+                                booked: false,
+                                room: 'D9',
+                                name: 'Math2'
                               }
                               }
                         },

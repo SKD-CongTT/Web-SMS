@@ -125,8 +125,8 @@ angular.module('webix')
         for (i = 1; i < value.requirements.length; i++){
             $scope.selectedCourse.require = $scope.selectedCourse.require + "; " + value.requirements[i];
         }
-        if (value.requirements.length == 0)
-            $scope.selectedCourse.requirements = "Not Active";
+        // if (value.requirements.length == 0)
+        //     $scope.selectedCourse.requirements = "Not Active";
         if (value.active)
             $scope.selectedCourse.status = "Opening";
         else
