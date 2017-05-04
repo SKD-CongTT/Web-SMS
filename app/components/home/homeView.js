@@ -79,6 +79,93 @@ angular.module('webix')
             }
         };
         getMember();
+        $scope.days = {
+                        monday: {
+                            name: 'Monday',
+                            slots: {
+                              1: {
+                                time: '9:00am',
+                                booked: false
+                              },
+                             2: {
+                                time: '11:00am',
+                                booked: false
+                              },
+                              3: {
+                                time: '1:00pm',
+                                booked: false
+                              },
+                              4: {
+                                time: '3:00pm',
+                                booked: false
+                              },
+                              5: {
+                                time: '5:00pm',
+                                booked: false
+                              },
+                              6: {
+                                time: '7:00pm',
+                                booked: false
+                              },
+                              }
+                        },
+                        tuesday: {
+                            name: 'Tuesday',
+                            slots: {
+                              1: {
+                                time: '9:00am',
+                                booked: false
+                              },
+                              2: {
+                                time: '11:00am',
+                                booked: false
+                              },
+                              3: {
+                                time: '1:00pm',
+                                booked: false
+                              },
+                              }
+                        },
+                        wednesday: {
+                            name: 'Wednesday',
+                            slots: {
+                              1: {
+                                time: '5:00pm',
+                                booked: false
+                              },
+                              2: {
+                                time: '7:00pm',
+                                booked: false
+                              }
+                              }
+                        },
+                        thursday: {
+                            name: 'Thursday',
+                            slots: {
+                              1: {
+                                time: '5:00pm',
+                                booked: false
+                              },
+                              2: {
+                                time: '7:00pm',
+                                booked: false
+                              }
+                              }
+                        },
+                        friday: {
+                            name: 'Friday',
+                            slots: {
+                              1: {
+                                time: '5:00pm',
+                                booked: false
+                              },
+                              2: {
+                                time: '7:00pm',
+                                booked: false
+                              }
+                              }
+                        },
+                 }
     } else {
         alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại');
         auth.logout();

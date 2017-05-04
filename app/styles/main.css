@@ -1200,3 +1200,24 @@ height: 15%;
 border-bottom: 1px solid #A9A9A9;
 position: absolute;
 }
+.times   { margin-bottom:50px; }
+
+/* checkbox - each time slot */
+.time-slot              {  }
+.time-slot input     { display:none; }
+.time-slot label     { 
+  padding:10px 20px; 
+  color:#FFF; 
+  cursor:pointer; 
+  background:#EEE; 
+  border-radius:5px; 
+}
+
+.time-slot input:checked ~ label { 
+  background:#f2dede; 
+  cursor:not-allowed;
+}
+
+.time-slot input:not(:checked) ~ label { 
+  background:#6AB074; 
+}
