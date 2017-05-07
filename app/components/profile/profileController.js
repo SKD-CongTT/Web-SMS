@@ -1,7 +1,7 @@
 angular.module('webix')
 
     .controller('profileController',function ($scope,$state,auth,$rootScope,$http,$mdDialog,$mdToast) {
-        if (auth.isAuthed) {
+        if (auth.isAuthed()) {
             $scope.userProfile = {};
             $scope.loading = true;
 
@@ -17,14 +17,12 @@ angular.module('webix')
             var refresh = function(){
                 $http.get($rootScope.apiUrl + '/students/')
                     .success(function (response) {
-                        console.log(response)
                         $scope.userProfile = response.results[0];
-                        console.log($scope.userProfile)
-                        if($scope.userProfile.type){
-                                $scope.userProfile.type = "Hoc Sinh Tin Chi";
+                        if(auth.getGroup() == "lecturer"){
+                                $scope.userProfile.type = "Teacher";
                         }
                         else{
-                             $scope.userProfile.type = "Hoc Sinh Thuong";
+                             $scope.userProfile.type = "Student";
                         }
                     });
             };
@@ -132,28 +130,22 @@ angular.module('webix')
             $scope.saveChangePwd = function () {
                 if (auth.isAuthed) {
                     $http({
-                        method: 'POST',
-                        url: $rootScope.apiUrl + '/update_user_pwd',
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                        transformRequest: function (obj) {
-                            var str = [];
-                            for (var p in obj)
-                                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                            return str.join("&");
-                        },
+                        method: 'PATCH',
+                        url: $rootScope.apiUrl + '/users/' + $scope.userProfile.id + "/" ,
+                        // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        // transformRequest: function (obj) {
+                        //     var str = [];
+                        //     for (var p in obj)
+                        //         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        //     return str.join("&");
+                        // },
                         data: {
-                            username: $rootScope.profileName,
-                            password: $scope.userPwd.passwordOld,
-                            passwordNew: $scope.userPwd.password
+                            password: $scope.userPwd.password
                         }
                     }).success(function (response) {
                         $mdDialog.hide();
-                        if(response['result']) {
-                            $mdToast.show(toastSuccess);
-                            $state.reload();
-                        } else {
-                            $mdToast.show(toastFail);
-                        }
+                        $mdToast.show(toastSuccess);
+                        $state.reload();
                     }).error(function () {
                         $mdDialog.hide();
                         $mdToast.show(toastFail);

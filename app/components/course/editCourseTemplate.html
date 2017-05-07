@@ -38,20 +38,13 @@
                         <div ng-message="min">Minimum credit is 0</div>
                     </div>
                 </md-input-container>
-          <div layout="row" layout-align="space-between center" style="width:250px; height:76px;">
-        <span>Status</span>
-        <md-select ng-model="courseInfo.active" placeholder="Status" class="md-no-underline">
-          <md-option value="true">Opening</md-option>
-          <md-option value="false">Closed</md-option>
-        </md-select>
-      </div>
                 <md-input-container class="md-block">
                     <span>Requirement</span>
                       <div flex="100" flex-gt-sm="50" layout="column">
                         <div>
                           <fieldset class="standard" >
                             <div layout="row" layout-wrap flex>
-                              <div flex="50" ng-repeat="item in courseInfo.requirements">
+                              <div flex="50" ng-repeat="item in allCourse">
                                 <md-checkbox ng-checked="exist(item)" ng-click = "toggle(item)">
                                   {{ item }}
                                 </md-checkbox>

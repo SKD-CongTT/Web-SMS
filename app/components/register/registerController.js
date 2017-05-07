@@ -39,7 +39,6 @@ angular.module('webix')
                 $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id)
                 .then(function (response) {
                     if(response.data.results !== false) {
-                        console.log(response)
                         $scope.showClass = response.data.results;
                         resolve();
                     } else {

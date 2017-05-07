@@ -7,12 +7,12 @@
  .factory('searchQueryAlert', searchQueryAlert)
  .service('user', userService)
  .service('auth', authService)
+.factory('profile', userProfile)
  .factory('$exceptionHandler', ['$log', function($log) {
     return function myExceptionHandler(exception, cause) {
         $log.warn(exception, cause);
     };
 }]);
-
  function authService($localStorage,$location,$window) {
     var srvc = this;
 
@@ -25,7 +25,9 @@
     srvc.saveToken = function (token) {
         $localStorage.jwtToken = token;
     };
-
+    srvc.saveGroup = function (group) {
+        $localStorage.group = group;
+    };
     srvc.saveProfile = function (profile) {
         $localStorage.profile = profile;
     };
@@ -45,7 +47,9 @@
     srvc.getToken = function () {
         return $localStorage.jwtToken;
     };
-
+    srvc.getGroup = function (){
+        return $localStorage.group;
+    };
     srvc.getProfile = function () {
         return $localStorage.profile;
     };
@@ -63,7 +67,6 @@
 
 function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter, auth) {
     var srvc = this;
-
     srvc.login = function (username, password) {
         $rootScope.errorLogin = "";
         $rootScope.onLogin = true;
@@ -89,11 +92,33 @@ function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter,
             }
         }, function(response){
             $rootScope.errorLogin = "Username or Password is Incorrect";
-            console.log(1);
         })
     };
 }
-
+function userProfile($http, $rootScope, auth) {
+    return {
+    getProfile : function (){
+    if (auth.getGroup() == "lecturer"){
+        $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
+             if(response.data.results !== false) {
+                        return response;
+                    } else {
+                        $location.path('/login')
+            }
+        })
+    }
+    else{
+        $http.get($rootScope.apiUrl + '/students/').then(function (response){
+             if(response.data.results !== false) {
+                        return response;
+                    } else {
+                        $location.path('/login')
+            }
+        })
+    }
+}
+}
+}
 function authInterceptor($rootScope, auth) {
     return {
         // automatically attach Authorization header
@@ -108,6 +133,7 @@ function authInterceptor($rootScope, auth) {
         response: function(res) {
             if(res.config.url.indexOf($rootScope.apiUrl) === 0 && res.data.token) {
                 auth.saveToken(res.data.token);
+                auth.saveGroup(res.data.group);
                 auth.saveProfile(res.data.username);
             }
             return res;

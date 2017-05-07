@@ -18,7 +18,7 @@ angular.module('webix')
         $scope.editCourseModal = function (value){
             if(auth.isAuthed()) {
                 $mdDialog.show({
-                    locals: {courseInfo : value},
+                    locals: {courseInfo : value, allCourse : $scope.showCourse},
                     controller: DialogEditController,
                     templateUrl: 'components/course/editCourseTemplate.html',
                     parent: angular.element(document.body),
@@ -30,8 +30,12 @@ angular.module('webix')
                 auth.logout();
             }
         }
-        function DialogEditController($scope, courseInfo) {
+        function DialogEditController($scope, courseInfo, allCourse) {
             $scope.courseInfo = courseInfo;
+            $scope.allCourse = [];
+            for (var each in allCourse)
+                $scope.allCourse.push(allCourse[each].id);
+            $scope.allCourse.splice($scope.allCourse.indexOf($scope.courseInfo.id), 1);
             $scope.requirements = angular.copy(courseInfo.requirements);
             var toastSuccess = $mdToast.simple()
             .textContent('Course Information Updated Successfully.')
@@ -66,10 +70,11 @@ angular.module('webix')
           };
 
           $scope.edit = function () {
+            console.log($scope.requirements)
             if (auth.isAuthed) {
                 $http({
                     method: 'PATCH',
-                    url: $rootScope.apiUrl + '/course/' + $scope.courseInfo.id + "/",
+                    url: $rootScope.apiUrl + '/courses/' + $scope.courseInfo.id + "/",
                     // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     // transformRequest: function (obj) {
                     //     var str = [];
@@ -81,17 +86,12 @@ angular.module('webix')
                         id: $scope.courseInfo.id,
                         name: $scope.courseInfo.name,
                         cost: $scope.courseInfo.cost,
-                        active: $scope.courseInfo.active,
                         requirements: $scope.requirements
                     }
                 }).success(function (response) {
                     $mdDialog.hide();
-                    if(response['result']) {
                         $mdToast.show(toastSuccess);
                         refresh();
-                    } else {
-                        $mdToast.show(toastFail);
-                    }
                 }).error(function () {
                     $mdDialog.hide();
                     $mdToast.show(toastFail);
@@ -108,8 +108,15 @@ angular.module('webix')
                 $http.get($rootScope.apiUrl + '/courses/?limit=10000')
                 .then(function (response) {
                     if(response.data.results !== false) {
-                        console.log(response)
                         $scope.showCourse = response.data.results;
+                        $scope.showCourse.sort(function(a, b){
+                            var idA=a.id.toLowerCase(), idB=b.id.toLowerCase()
+                            if (idA < idB) //sort string ascending
+                                return -1 
+                            if (idA > idB)
+                                return 1
+                            return 0 //default return value (no sorting)
+                        });
                         resolve();
                     } else {
                         $scope.showCourse = [];
@@ -150,7 +157,7 @@ angular.module('webix')
             console.log($scope.allCourseList)
             if(auth.isAuthed()) {
                 $mdDialog.show({
-                    locals: {allCourseList: $scope.allCourseList},
+                    locals: {allCourse : $scope.showCourse},
                     controller: DialogAddController,
                     templateUrl: 'components/course/addCourseTemplate.html',
                     parent: angular.element(document.body),
@@ -161,21 +168,6 @@ angular.module('webix')
                 alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
                 auth.logout();
             }
-        };
-
-        $scope.editWebsiteModal = function () {
-            $scope.selectedWebsite = angular.copy(this.value);
-            $scope.selectedWebsite.port = Number(this.value.port);
-            $scope.selectedWebsite.learningTime = Number(this.value.learningTime);
-
-            $mdDialog.show({
-                locals: {selectedWebsite: $scope.selectedWebsite},
-                controller: DialogEditController,
-                templateUrl: 'components/course/editCourseTemplate.html',
-                parent: angular.element(document.body),
-                clickOutsideToClose:true,
-                fullscreen: true
-            })
         };
 
         var toastSuccess = $mdToast.simple()
@@ -218,15 +210,19 @@ angular.module('webix')
             }
         };
 
-        function DialogAddController($scope, $mdDialog, allCourseList) {
-            $scope.addedCourse = {}
-            $scope.newList = allCourseList;
+        function DialogAddController($scope, allCourse) {
+            $scope.addedCourse = {};
+            $scope.allCourse = [];
+            for (var each in allCourse)
+                $scope.allCourse.push(allCourse[each].id);
+            // $scope.allCourse.splice($scope.allCourse.indexOf($scope.courseInfo.id), 1);
+            $scope.requirements = []
             var toastSuccess = $mdToast.simple()
-            .textContent('Success To Add New Course.')
+            .textContent('Course Information Added Successfully.')
             .position('right bottom');
 
             var toastFail = $mdToast.simple()
-            .textContent('Failed To Add New Course.')
+            .textContent('Course Information Added Failed.')
             .position('right bottom');
 
             $scope.hide = function() {
@@ -236,51 +232,58 @@ angular.module('webix')
             $scope.cancel = function() {
                 $mdDialog.cancel();
             };
-
-            $scope.onRequest = false;
-
-            $scope.add = function () {
-                if(auth.isAuthed()) {
-                    $scope.onRequest = true;
-
-                    $http({
-                        method: 'POST',
-                        url: $rootScope.apiUrl+':81/courses/',
-                        // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                        // transformRequest: function (obj) {
-                        //     var str = [];
-                        //     for (var p in obj)
-                        //         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        //     return str.join("&");
-                        // },
-                        data: {
-                            id: $scope.addedCourse.id,
-                            name: $scope.addedCourse.name,
-                            cost: $scope.addedCourse.cost,
-                            requirements: $scope.addedCourse.requirements,
-                            active: $scope.addedCourse.active
-                        }
-                    }).success(function (response) {
-                        $scope.onRequest = false;
-                        $mdDialog.hide();
-                        $scope.websiteModal = {};
-                        console.log(response)
-
-                        if (response['result']) {
-                            $mdToast.show(toastSuccess);
-                        } else {
-                            $mdToast.show(toastFail);
-                        }
-                    }).error(function () {
-                        $scope.onRequest = false;
-                        $mdToast.show(toastFail);
-                    })
-                } else {
-                    alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
-                    auth.logout();
-                }
+            $scope.exist = function(item) {
+                var idx = $scope.requirements.indexOf(item);
+                if (idx > -1)
+                    return true;
+                else
+                    return false;
             };
-        }
+            $scope.toggle = function (item) {
+                var idx = $scope.requirements.indexOf(item);
+                if (idx > -1) {
+                  $scope.requirements.splice(idx, 1);
+              }
+              else {
+                  $scope.requirements.push(item);
+              }
+          };
+
+          $scope.add = function () {
+            console.log($scope.requirements)
+            if (auth.isAuthed) {
+                $http({
+                    method: 'POST',
+                    url: $rootScope.apiUrl + '/courses/',
+                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    // transformRequest: function (obj) {
+                    //     var str = [];
+                    //     for (var p in obj)
+                    //         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    //     return str.join("&");
+                    // },
+                    data: {
+                        id: $scope.addedCourse.id,
+                        name: $scope.addedCourse.name,
+                        cost: $scope.addedCourse.cost,
+                        active: $scope.addedCourse.active,
+                        requirements: $scope.requirements,
+                        session: $scope.addedCourse.session
+                    }
+                }).success(function (response) {
+                    $mdDialog.hide();
+                        $mdToast.show(toastSuccess);
+                        refresh();
+                }).error(function () {
+                    $mdDialog.hide();
+                    $mdToast.show(toastFail);
+                })
+            } else {
+                alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                auth.logout();
+            }
+        };
+    }
 
     } else {
         alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');

@@ -58,16 +58,34 @@
           </div>
         </md-input-container>
         <md-input-container class="md-block">
-          <span>Requirements</span>{{addedCourse.requirement}}
-          <md-select ng-model="addedCourse.requirements"
-          multiple
-          required
-          name="requirements">
-          <md-option ng-repeat="u in newList" value="{{u.id}}">{{u.name}}</md-option>
-        </md-select>
-        <div ng-messages="addCourse.requirements.$error" ng-show="addCourse.requirements.$touched">
-          <div ng-message="required">This field cannot be blank</div>
-        </div>
+          <span>Session number</span>
+          <input type="number"
+          name="session"
+          ng-model="addedCourse.session"
+          max="5"
+          min="1"
+          required/>
+          <div ng-messages="addCourse.session.$error" ng-show="addCourse.session.$touched">
+            <div ng-message="required">This field cannot be blank</div>
+            <div ng-message="max">Maximum credit is 5</div>
+            <div ng-message="min">Minimum credit is 1</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <span>Requirements</span>
+          <div flex="100" flex-gt-sm="50" layout="column">
+                        <div>
+                          <fieldset class="standard" >
+                            <div layout="row" layout-wrap flex>
+                              <div flex="50" ng-repeat="item in allCourse">
+                                <md-checkbox ng-checked="exist(item)" ng-click = "toggle(item)">
+                                  {{ item }}
+                                </md-checkbox>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
       </md-input-container>
     </div>
   </md-dialog-content>

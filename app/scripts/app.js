@@ -142,7 +142,7 @@
                 controller: 'dashboardController',
                 data: {
                     permissions: {
-                        only: ['1','2','3','4','5','6','7','8','9'],
+                        only: ['1','2'],
                         redirectTo: 'dashboard.profile'
                     }
                 },
@@ -284,7 +284,7 @@
                     url:'/student_management',
                     data: {
                         permissions: {
-                            only: ['6','10'],
+                            only: '1',
                             redirectTo: 'dashboard.profile'
                         }
                     }
@@ -297,7 +297,7 @@
                     controller:'registerController',
                     data: {
                         permissions: {
-                            only: '4',
+                            only: '2',
                             redirectTo: 'dashboard.profile'
                         }
                     },
@@ -319,7 +319,7 @@
                     controller:'courseController',
                     data: {
                         permissions: {
-                            only: '7',
+                            only: ['1', '2'],
                             redirectTo: 'dashboard.profile'
                         }
                     },
@@ -458,24 +458,15 @@
             $rootScope.stateIsLoading.value = false;
         }, 1000);
 
-        var publicPages = ['/login','/forgot','/signup','/reConfirmEmail'];
+        var publicPages = ['/login'];
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
 
         var forgotPage = publicPages.indexOf($location.path()) === 1;
         var signupPage = publicPages.indexOf($location.path()) === 2;
         var reConfirmEmailPage = publicPages.indexOf($location.path()) === 3;
 
-        if (!auth.isAuthed() && !forgotPage && !signupPage && !reConfirmEmailPage) {
+        if (!auth.isAuthed()) {
             $location.path('/login');
-            $urlRouter.sync();
-        } else if(!auth.isAuthed() && forgotPage){
-            $location.path('/forgot');
-            $urlRouter.sync();
-        } else if(!auth.isAuthed() && signupPage){
-            $location.path('/signup');
-            $urlRouter.sync();
-        } else if(!auth.isAuthed() && reConfirmEmailPage){
-            $location.path('/reConfirmEmail');
             $urlRouter.sync();
         } else {
                 // $rootScope.profileName = auth.getProfile();
@@ -495,7 +486,10 @@
                 //         // Also enable router to listen to url changes
                 //         $urlRouter.listen();
                 //     });
-                var permissions = ['1','2','3','4','5','6','7','8','9'];
+                if (auth.getGroup() == "lecturer")
+                    var permissions = ['1'];
+                else
+                    var permissions = ['2'];
                 PermPermissionStore
                 .defineManyPermissions(permissions, function (permissionName) {
                     return _.contains(permissions, permissionName);
