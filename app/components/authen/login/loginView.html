@@ -1,6 +1,7 @@
 <md-content class="front-panel transbox">
     <div class="panel-heading">
-        <h3 class="panel-title-other text-center"><strong>ĐĂNG NHẬP</strong></h3>
+
+        <h3 class="panel-title-other text-center"><img src = "/images/sms.png" width="80" height="80" ><strong>  Student Management System</strong></h3>
     </div>
     <form role="form" name="loginForm" novalidate ng-submit="doLogin()">
         <div class="panel-body">
@@ -21,7 +22,7 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                     </div>
                     <p ng-show="loginForm.username.$invalid && !loginForm.username.$pristine"
-                       class="help-block">*Tên đăng nhập là bắt buộc
+                       class="help-block">*Username must not be blank
                     </p>
                 </div>
                 <div class="form-group"
@@ -36,13 +37,13 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                     </div>
                     <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine"
-                       class="help-block">*Mật khẩu là bắt buộc
+                       class="help-block">*Password must not be blank
                     </p>
                 </div>
-                <div class="pointer" style="margin-bottom: 10px;"><a ui-sref="authen.forgot">Quên mật khẩu?</a></div>
+                <div class="pointer" style="margin-bottom: 10px;"><a ui-sref="authen.forgot">Forgot Password?</a></div>
                 <button type="submit"
                         class="btn btn-lg btn-success btn-block"
-                        ng-disabled="loginForm.$invalid && !onLogin">ĐĂNG NHẬP
+                        ng-disabled="loginForm.$invalid && !onLogin">SIGN IN
                 </button>
             </fieldset>
         </div>

@@ -124,9 +124,7 @@ angular.module('webix')
                     }
                 })
             }
-            else{
                  select($rootScope.showCourse[0]);
-            }
     })
         }
     };

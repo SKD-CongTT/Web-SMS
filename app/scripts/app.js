@@ -360,7 +360,7 @@
                 })
 
                 .state('authen.login',{
-                    title: 'Đăng nhập - Student Management System',
+                    title: 'Sign in - Student Management System',
                     url:'/login',
                     bodyClass: 'login-background',
                     resolve: {
@@ -381,30 +381,8 @@
                     }
                 })
 
-                .state('authen.signup',{
-                    title: 'Đăng ký - WebAssistant',
-                    url:'/signup',
-                    bodyClass: 'login-background',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                'components/authen/signup/signupController.js'
-                                ]
-                            })
-                        }
-                    },
-                    views: {
-                        'signup': {
-                            templateUrl:'components/authen/signup/signupView.html',
-                            controller:'signupController'
-                        }
-                    }
-                })
-
                 .state('authen.forgot',{
-                    title: 'Quên mật khẩu - WebAssistant',
+                    title: 'Forgot password - Student Management System',
                     url:'/forgot',
                     bodyClass: 'login-background',
                     resolve: {
@@ -426,7 +404,7 @@
                 })
 
                 .state('logout',{
-                    title: 'Đăng xuất - WebAssistant',
+                    title: 'Sign out - Student Management System',
                     url:'/logout',
                     controller:'logoutController',
                     resolve: {

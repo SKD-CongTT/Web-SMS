@@ -2,23 +2,33 @@
 angular.module('webix')
     .controller('registerController', function($scope,$rootScope,$http,auth,$interval,$state,$timeout,searchQuery,$mdToast,$mdDialog) {
         if(auth.isAuthed()){
-            $scope.showCourse = [];
             $scope.showClass = [];
              $scope.loadingCourseList = false;
-        var getAllCourse = function(){
+         var getAllCourse = function(force){
         if (auth.isAuthed()){
             return new Promise(function(resolve, reject) {
+                if (force == 1 || $rootScope.showCourse.length == 0){
                 $http.get($rootScope.apiUrl + '/courses/?limit=10000')
                 .then(function (response) {
                     if(response.data.results !== false) {
-                        $scope.showCourse = response.data.results;
+                        $rootScope.showCourse = response.data.results;
+                        $rootScope.showCourse.sort(function(a, b){
+                            var idA=a.id.toLowerCase(), idB=b.id.toLowerCase()
+                            if (idA < idB) //sort string ascending
+                                return -1 ;
+                            if (idA > idB)
+                                return 1;
+                            return 0; //default return value (no sorting)
+                        });
                         resolve();
                     } else {
-                        $scope.showCourse = [];
+                        $rootScope.showCourse = [];
                         reject();
                     }
                 })
-            })
+            }
+                 select($rootScope.showCourse[0]);
+    })
         }
     };
     $scope.selectedRowCallback = function(rows){
@@ -56,7 +66,7 @@ angular.module('webix')
             $scope.selectedCourse.status = "Closed";
     }
     $scope.select = select;
-        getAllCourse().then(function(){
+        getAllCourse(0).then(function(){
                 select($scope.showCourse[0]);
         });
         } else {

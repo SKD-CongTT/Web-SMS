@@ -9,7 +9,6 @@ angular.module('webix')
         $scope.panelResult = [{
             name : "Member",
             info : 0,
-            href : "dashboard.logs"
         },{
             name : "Course Available",
             info : 0,
@@ -34,6 +33,7 @@ angular.module('webix')
         var getAvailableCourse = function () {
             if (auth.isAuthed()){
                 return new Promise(function(resolve, reject) {
+                   if ($rootScope.showCourse.length == 0){
                     $http.get($rootScope.apiUrl + '/courses/?limit=10000')
                     .then(function (response) {
                         if(response.data.results !== false) {
@@ -50,7 +50,16 @@ angular.module('webix')
                             reject();
                         }
                     })
-                })
+                }
+                else{
+                    for ( i = 0; i < $rootScope.showCourse.length; i ++){
+                        if ($rootScope.showCourse[i].active){
+                                    $scope.availableCourse.push($rootScope.showCourse[i]);
+                                    $scope.panelResult[1].info += 1;
+                                }
+                    }
+                }
+              })
             }
         };
         getAvailableCourse();
@@ -65,9 +74,8 @@ angular.module('webix')
          var getMember = function () {
             if (auth.isAuthed()){
                 return new Promise(function(resolve, reject) {
-                    $http.get($rootScope.apiUrl + '/students/')
+                    $http.get($rootScope.apiUrl + '/students/count_all_student/')
                     .then(function (response) {
-                        console.log(response)
                         if(response.data.results !== false) {
                              $scope.panelResult[0].info = response.data.count;
                             resolve();
