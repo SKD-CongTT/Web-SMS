@@ -8,7 +8,7 @@
             <div flex-xs="30" flex>Username :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <span>{{userProfile.username}}</span>
+                    <span>{{profile.username}}</span>
                 </md-input-container>
             </div>
             <div class="line"></div>
@@ -17,7 +17,7 @@
             <div flex-xs="30" flex>First name :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <span>{{userProfile.first_name}}</span>  
+                    <span>{{profile.first_name}}</span>  
                 </md-input-container>
             </div>
             <div class="line"></div>
@@ -26,16 +26,25 @@
             <div flex-xs="30" flex>Last name :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <span>{{userProfile.last_name}}</span>  
+                    <span>{{profile.last_name}}</span>  
                 </md-input-container>
             </div>
             <div class="line"></div>
         </div>
-            <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div ng-if = "profile.class_id"layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
             <div flex-xs="30" flex>Class :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <span>{{userProfile.class_id}}</span>  
+                    <span>{{profile.class_id}}</span>  
+                </md-input-container>
+            </div>
+            <div class="line"></div>
+        </div>
+        <div ng-if = "profile.department"layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Department :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span>{{profile.department}}</span>  
                 </md-input-container>
             </div>
             <div class="line"></div>
@@ -69,7 +78,7 @@
             <div flex-xs="30" flex>Group :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
-                    <span>{{userProfile.type}}</span>
+                    <span>{{profile.type}}</span>
                 </md-input-container>
             </div>
         </div>

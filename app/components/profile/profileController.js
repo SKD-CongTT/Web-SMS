@@ -14,24 +14,29 @@ angular.module('webix')
                     }
                 }
             };
-            var refresh = function(){
-                $http.get($rootScope.apiUrl + '/students/')
-                    .success(function (response) {
-                        $scope.userProfile = response.results[0];
-                        if(auth.getGroup() == "lecturer"){
-                                $scope.userProfile.type = "Teacher";
-                        }
-                        else{
-                             $scope.userProfile.type = "Student";
-                        }
-                    });
-            };
-            refresh();
+        //     var refresh = function(){
+        //           if(auth.getGroup() == "lecturer"){
+        //             $rootScope.profile.type = "Teacher";
+        //             $http.get($rootScope.apiUrl + '/lecturers/')
+        //             .success(function (response) {
+        //                     $scope.userProfile = response.results[0];
+        //                         $scope.userProfile.type = "Teacher";
+        //             });
+        //             }
+        //             else {
+        //                      $http.get($rootScope.apiUrl + '/students/')
+        //                 .success(function (response) {
+        //                     $scope.userProfile = response.results[0];
+        //                         $scope.userProfile.type = "Students";
+        //             });
+        //     }
+        // };
+            // refresh();
 
             $scope.editProfileModal = function () {
                 if(auth.isAuthed()) {
                     $mdDialog.show({
-                        locals: {userProfile : $scope.userProfile},
+                        locals: {userProfile : $rootScope.profile},
                         controller: DialogEditController,
                         templateUrl: 'components/profile/editProfileTemplate.html',
                         parent: angular.element(document.body),
@@ -64,9 +69,15 @@ angular.module('webix')
 
                 $scope.edit = function () {
                     if (auth.isAuthed) {    
+                        if(auth.getGroup() == "lecturer"){
+                                var URL = $rootScope.apiUrl + '/lecturers/';
+                        }
+                        else {
+                            var URL = $rootScope.apiUrl + '/lecturers/';
+                        }
                         $http({
                             method: 'PATCH',
-                            url: $rootScope.apiUrl + '/students/' + $scope.userProfile.id + "/" ,
+                            url: URL + $scope.userProfile.id + "/" ,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                             transformRequest: function (obj) {
                                 var str = [];
@@ -77,15 +88,16 @@ angular.module('webix')
                             data: {
                                 first_name: $scope.userProfile.first_name,
                                 last_name: $scope.userProfile.last_name,
-                                email: $scope.userProfile.email,
-                                bio: $scope.userProfile.bio,
                             }
                         }).success(function (response) {
                             $mdDialog.hide();
-                            console.log(response)
                             if(response['id'] == $scope.userProfile.id) {
                                 $mdToast.show(toastSuccess);
-                                refresh();
+                                $rootScope.profile.first_name = $scope.userProfile.first_name;
+                                $rootScope.profile.last_name = $scope.userProfile.last_name;
+                                $rootScope.profile.Name = $scope.userProfile.last_name + " "+$scope.userProfile.first_name;
+                                // console.log($rootScope.profile)
+                                // refresh();
                             } else {
                                 $mdToast.show(toastFail);
                             }

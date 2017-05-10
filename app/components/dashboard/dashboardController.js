@@ -44,23 +44,4 @@ angular.module('webix')
         $scope.toggleLeftSidebar = function () {
             $mdSidenav('left').toggle();
         }
-        $scope.profileName;
-         if (auth.getGroup() == "lecturer"){
-            $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
-                 if(response.data.results !== false) {
-                            $scope.profileName = response.data.results[0].last_name + " " + response.data.results[0].first_name;
-                        } else {
-                            $location.path('/login')
-                }
-            })
-        }
-        else{
-            $http.get($rootScope.apiUrl + '/students/').then(function (response){
-                 if(response.data.results !== false) {
-                            $scope.profileName = response.data.results[0].last_name + " " + response.data.results[0].first_name;
-                        } else {
-                            $location.path('/login')
-                }
-            })
-        }
     });

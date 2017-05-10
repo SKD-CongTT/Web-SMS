@@ -3,7 +3,6 @@ angular.module('webix')
 .controller('courseController',function ($scope,$rootScope,$http,$mdToast,auth,$timeout,$mdDialog) {
     if(auth.isAuthed()) {
         $scope.allCourseList = [];
-        $scope.showCourse = [];
         $scope.isNumber = angular.isNumber;
         $scope.chartConfig = {};
         $scope.countChartConfig = {};
@@ -18,7 +17,7 @@ angular.module('webix')
         $scope.editCourseModal = function (value){
             if(auth.isAuthed()) {
                 $mdDialog.show({
-                    locals: {courseInfo : value, allCourse : $scope.showCourse},
+                    locals: {courseInfo : value, allCourse : $rootScope.showCourse},
                     controller: DialogEditController,
                     templateUrl: 'components/course/editCourseTemplate.html',
                     parent: angular.element(document.body),
@@ -91,7 +90,7 @@ angular.module('webix')
                 }).success(function (response) {
                     $mdDialog.hide();
                         $mdToast.show(toastSuccess);
-                        refresh();
+                        getAllCourse(1);
                 }).error(function () {
                     $mdDialog.hide();
                     $mdToast.show(toastFail);
@@ -102,28 +101,33 @@ angular.module('webix')
             }
         };
     }
-    var getAllCourse = function(){
+    var getAllCourse = function(force){
         if (auth.isAuthed()){
             return new Promise(function(resolve, reject) {
+                if (force == 1 || $rootScope.showCourse.length == 0){
                 $http.get($rootScope.apiUrl + '/courses/?limit=10000')
                 .then(function (response) {
                     if(response.data.results !== false) {
-                        $scope.showCourse = response.data.results;
-                        $scope.showCourse.sort(function(a, b){
+                        $rootScope.showCourse = response.data.results;
+                        $rootScope.showCourse.sort(function(a, b){
                             var idA=a.id.toLowerCase(), idB=b.id.toLowerCase()
                             if (idA < idB) //sort string ascending
-                                return -1 
+                                return -1 ;
                             if (idA > idB)
-                                return 1
-                            return 0 //default return value (no sorting)
+                                return 1;
+                            return 0; //default return value (no sorting)
                         });
                         resolve();
                     } else {
-                        $scope.showCourse = [];
+                        $rootScope.showCourse = [];
                         reject();
                     }
                 })
-            })
+            }
+            else{
+                 select($rootScope.showCourse[0]);
+            }
+    })
         }
     };
     var select = function (value){
@@ -141,8 +145,8 @@ angular.module('webix')
     }
     $scope.select = select;
 
-        getAllCourse().then(function(){
-                select($scope.showCourse[0]);
+        getAllCourse(0).then(function(){
+                select($rootScope.showCourse[0]);
         });
 
         $scope.selectWebsite = function (id,hostName) {
@@ -154,10 +158,9 @@ angular.module('webix')
         };
 
         $scope.addCourseModal = function () {
-            console.log($scope.allCourseList)
             if(auth.isAuthed()) {
                 $mdDialog.show({
-                    locals: {allCourse : $scope.showCourse},
+                    locals: {allCourse : $rootScope.showCourse},
                     controller: DialogAddController,
                     templateUrl: 'components/course/addCourseTemplate.html',
                     parent: angular.element(document.body),
@@ -268,12 +271,13 @@ angular.module('webix')
                         cost: $scope.addedCourse.cost,
                         active: $scope.addedCourse.active,
                         requirements: $scope.requirements,
-                        session: $scope.addedCourse.session
+                        session: $scope.addedCourse.session,
+                        department: $rootScope.profile.department
                     }
                 }).success(function (response) {
                     $mdDialog.hide();
                         $mdToast.show(toastSuccess);
-                        refresh();
+                        getAllCourse(1);
                 }).error(function () {
                     $mdDialog.hide();
                     $mdToast.show(toastFail);

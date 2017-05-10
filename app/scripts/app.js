@@ -451,7 +451,8 @@
     $rootScope.downloadUrl = 'http://ictk59-api.herokuapp.com';
     $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
     $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
-
+    $rootScope.showCourse = [];
+    var permissions = []
     $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
         $rootScope.stateIsLoading = {value : true};
         $timeout(function () {
@@ -469,27 +470,38 @@
             $location.path('/login');
             $urlRouter.sync();
         } else {
-                // $rootScope.profileName = auth.getProfile();
-                // $http
-                //     .get($rootScope.apiUrl+'/user_permissions')
-                //     .then(function(response){
-                //         var permissions = response.data[0].controllerId;
-                //         PermPermissionStore
-                //             .defineManyPermissions(permissions, function (permissionName) {
-                //                 return _.contains(permissions, permissionName);
-                //             });
-                //     })
-                //     .then(function(){
-                //         // Once permissions are set-up
-                //         // kick-off router and start the application rendering
-                //         $urlRouter.sync();
-                //         // Also enable router to listen to url changes
-                //         $urlRouter.listen();
-                //     });
-                if (auth.getGroup() == "lecturer")
-                    var permissions = ['1'];
-                else
-                    var permissions = ['2'];
+            $rootScope.profile;
+            try {
+                    $rootScope.profile.notExist;
+            }
+            catch (e){
+            if (auth.getGroup() == "lecturer"){
+                  permissions = ['1', '2'];
+                $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
+                 if(response.data.results !== false) {
+                            $rootScope.profile = response.data.results[0];
+                            $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
+                            $rootScope.profile.type = "LECTURER";
+                            $rootScope.profile.notExist = false;
+                        } else {
+                            $location.path('/login');
+                }
+            })
+        }
+        else{
+                permissions = ['2'];
+                 $http.get($rootScope.apiUrl + '/students/').then(function (response){
+                 if(response.data.results !== false) {
+                             $rootScope.profile = response.data.results[0];
+                            $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
+                            $rootScope.profile.type = "STUDENT";
+                            $rootScope.profile.notExist = false;
+                        } else {
+                            $location.path('/login');
+                }
+            })
+        }
+        }                  
                 PermPermissionStore
                 .defineManyPermissions(permissions, function (permissionName) {
                     return _.contains(permissions, permissionName);
