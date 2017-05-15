@@ -17,28 +17,23 @@
                 <p class="noThing" ng-if="!loadingCourseList && showCourse.length==0"><em>No Course Available!</em></p>
                 <md-list-item ng-click="select(value)" ng-if="!loadingCourseList" ng-repeat="value in showCourse | filter : id"
                 ng-class="selectedId==value.id?'label-grey':''" >
-                <p class="longText">{{value.id}}</p>
+               <strong><p class="longText">{{value.id}}</p></strong>
 
                     <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
                     md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
                 </md-list-item>
-
-
-                         <div style="text-align: center">
-                            <md-button style="alignment: center" ng-show="hasMoreItemsToShow() && query.length == 0 && itemRemain > 0" ng-click="showMoreItems()">
-                                Xem thêm ({{itemRemain}})<md-icon class="material-icons">arrow_drop_down</md-icon>
-                            </md-button>
-                        </div>
                     </md-list>
                 </md-content>
                 <div layout="column" layout-gt-md="row" flex flex-gt-md="70" layout-margin>
-    <div flex layout="column" class="md-whiteframe-1dp">
+    <div flex layout="column" >
+    <strong>
         <md-toolbar>
-            <div class="md-toolbar-tools">
+            <div class="md-toolbar-tools" class="md-whiteframe-1dp">
                 Opening Class
             </div>
         </md-toolbar>
         <md-content>
+            <p class="noThing" ng-show="loadClass && showClass.length == 0"><em>No class available at the moment</em></p>
             <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
                         selectable-rows="true",
                         selected-row-callback="selectedRowCallback(rows)",
@@ -63,6 +58,36 @@
             </mdt-table>
 
         </md-content>
+        </strong>
     </div>
     </div>
+    </div>
+    <div flex layout="column" class="md-whiteframe-1dp">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                Registered Class
+            </div>
+        </md-toolbar>
+        <md-content>
+            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+                       mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                       mdt-row="{
+                       data : availableCourse,
+                      'column-keys': [
+                          'id',
+                          'name',
+                          'cost',
+                          'department'
+                        ]
+                      }">
+                <mdt-header-row>
+                    <mdt-column align-rule="center">Id</mdt-column>
+                    <mdt-column align-rule="center">Time</mdt-column>
+                    <mdt-column align-rule="center">Course Id</mdt-column>
+                    <mdt-column align-rule="center">Credit</mdt-column>
+                    <mdt-column align-rule="center">Semester</mdt-column>
+                </mdt-header-row>
+            </mdt-table>
+
+        </md-content>
     </div>

@@ -3,6 +3,7 @@ angular.module('webix')
     .controller('registerController', function($scope,$rootScope,$http,auth,$interval,$state,$timeout,searchQuery,$mdToast,$mdDialog) {
         if(auth.isAuthed()){
             $scope.showClass = [];
+            $scope.loadClass = false;
              $scope.loadingCourseList = false;
          var getAllCourse = function(force){
         if (auth.isAuthed()){
@@ -44,18 +45,36 @@ angular.module('webix')
         var select = function (value){
         $scope.selectedCourse = value;
         $scope.selectedCourse.require = value.requirements[0];
-                if (auth.isAuthed()){
+            if (auth.isAuthed()){
+            $scope.loadClass = false;
+
             return new Promise(function(resolve, reject) {
                 $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id)
                 .then(function (response) {
+                    $scope.loadClass = true;
                     if(response.data.results !== false) {
                         $scope.showClass = response.data.results;
+                        console.log($scope.showClass);
                         resolve();
                     } else {
-                        $scope.showCourse = [];
+                        $scope.showClass = [];
                         reject();
                     }
-                })
+                });
+                $http.get($rootScope.apiUrl + '/sessions/count_enroll_by_course/?course_id=' + $scope.selectedCourse.id)
+                .then(function (response) {
+                    $scope.loadClass = true;
+                    if(response.data.results !== false) {
+
+                        // for (var i = 0; i < $scope.showClass.length; i ++)
+                        //         $scope.showClass[i] += response.data.detail[i];
+                        console.log(response.data);
+                        resolve();
+                    } else {
+                        $scope.showClass = [];
+                        reject();
+                    }
+                });
             })
         }
         if (value.requirements.length == 0)
