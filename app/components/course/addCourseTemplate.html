@@ -15,10 +15,10 @@
         <md-input-container class="md-block">
           <span>Course ID</span>
           <input type="text"
-          name="id"
-          ng-model="addedCourse.id"
-          md-maxlength="10"
-          required/>
+                 name="id"
+                 ng-model="addedCourse.id"
+                 md-maxlength="10"
+                 required/>
           <div ng-messages="addCourse.id.$error" ng-show="addCourse.id.$touched">
             <div ng-message="required">This field cannot be blank</div>
             <div ng-message="md-maxlength">Course ID is too long</div>
@@ -27,10 +27,10 @@
         <md-input-container class="md-block">
           <span>Course name</span>
           <input type="text"
-          name="name"
-          ng-model="addedCourse.name"
-          md-maxlength="64"
-          required/>
+                 name="name"
+                 ng-model="addedCourse.name"
+                 md-maxlength="64"
+                 required/>
           <div ng-messages="addCourse.name.$error" ng-show="addCourse.name.$touched">
             <div ng-message="required">This field cannot be blank</div>
             <div ng-message="md-maxlength">Course name is too long</div>
@@ -46,11 +46,11 @@
         <md-input-container class="md-block">
           <span>Credit</span>
           <input type="number"
-          name="cost"
-          ng-model="addedCourse.cost"
-          max="10"
-          min="0"
-          required/>
+                 name="cost"
+                 ng-model="addedCourse.cost"
+                 max="10"
+                 min="0"
+                 required/>
           <div ng-messages="addCourse.cost.$error" ng-show="addCourse.cost.$touched">
             <div ng-message="required">This field cannot be blank</div>
             <div ng-message="max">Maximum credit is 10</div>
@@ -60,11 +60,11 @@
         <md-input-container class="md-block">
           <span>Session number</span>
           <input type="number"
-          name="session"
-          ng-model="addedCourse.session"
-          max="5"
-          min="1"
-          required/>
+                 name="session"
+                 ng-model="addedCourse.session"
+                 max="5"
+                 min="1"
+                 required/>
           <div ng-messages="addCourse.session.$error" ng-show="addCourse.session.$touched">
             <div ng-message="required">This field cannot be blank</div>
             <div ng-message="max">Maximum credit is 5</div>
@@ -74,32 +74,32 @@
         <md-input-container class="md-block">
           <span>Requirements</span>
           <div flex="100" flex-gt-sm="50" layout="column">
-                        <div>
-                          <fieldset class="standard" >
-                            <div layout="row" layout-wrap flex>
-                              <div flex="50" ng-repeat="item in allCourse">
-                                <md-checkbox ng-checked="exist(item)" ng-click = "toggle(item)">
-                                  {{ item }}
-                                </md-checkbox>
-                              </div>
-                            </div>
-                          </fieldset>
-                        </div>
-                      </div>
-      </md-input-container>
-    </div>
-  </md-dialog-content>
+            <div>
+              <fieldset class="standard" >
+                <div layout="row" layout-wrap flex>
+                  <div flex="50" ng-repeat="item in allCourse">
+                    <md-checkbox ng-checked="exist(item)" ng-click = "toggle(item)">
+                      {{ item }}
+                    </md-checkbox>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
 
-  <md-dialog-actions layout="row">
-    <span flex></span>
-    <md-button class="md-warn" ng-click="cancel()">
-      Hủy bỏ
-    </md-button>
-    <md-button class="md-primary" ng-disabled="addWebsite.$invalid || onRequest"
-    md-auto-focus
-    ng-click="add()">
-    Thêm mới
-  </md-button>
-</md-dialog-actions>
-</form>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button class="md-warn" ng-click="cancel()">
+        Hủy bỏ
+      </md-button>
+      <md-button class="md-primary" ng-disabled="addWebsite.$invalid || onRequest"
+                 md-auto-focus
+                 ng-click="add()">
+        Thêm mới
+      </md-button>
+    </md-dialog-actions>
+  </form>
 </md-dialog>

@@ -14,23 +14,23 @@ angular.module('webix')
                     }
                 }
             };
-        //     var refresh = function(){
-        //           if(auth.getGroup() == "lecturer"){
-        //             $rootScope.profile.type = "Teacher";
-        //             $http.get($rootScope.apiUrl + '/lecturers/')
-        //             .success(function (response) {
-        //                     $scope.userProfile = response.results[0];
-        //                         $scope.userProfile.type = "Teacher";
-        //             });
-        //             }
-        //             else {
-        //                      $http.get($rootScope.apiUrl + '/students/')
-        //                 .success(function (response) {
-        //                     $scope.userProfile = response.results[0];
-        //                         $scope.userProfile.type = "Students";
-        //             });
-        //     }
-        // };
+            //     var refresh = function(){
+            //           if(auth.getGroup() == "lecturer"){
+            //             $rootScope.profile.type = "Teacher";
+            //             $http.get($rootScope.apiUrl + '/lecturers/')
+            //             .success(function (response) {
+            //                     $scope.userProfile = response.results[0];
+            //                         $scope.userProfile.type = "Teacher";
+            //             });
+            //             }
+            //             else {
+            //                      $http.get($rootScope.apiUrl + '/students/')
+            //                 .success(function (response) {
+            //                     $scope.userProfile = response.results[0];
+            //                         $scope.userProfile.type = "Students";
+            //             });
+            //     }
+            // };
             // refresh();
 
             $scope.editProfileModal = function () {
@@ -68,9 +68,9 @@ angular.module('webix')
                 };
 
                 $scope.edit = function () {
-                    if (auth.isAuthed) {    
+                    if (auth.isAuthed) {
                         if(auth.getGroup() == "lecturer"){
-                                var URL = $rootScope.apiUrl + '/lecturers/';
+                            var URL = $rootScope.apiUrl + '/lecturers/';
                         }
                         else {
                             var URL = $rootScope.apiUrl + '/lecturers/';

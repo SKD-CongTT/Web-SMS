@@ -1,19 +1,19 @@
- 'use strict';
+'use strict';
 
- angular
- .module('webix')
- .factory('authInterceptor', authInterceptor)
- .factory('searchQuery', searchQuery)
- .factory('searchQueryAlert', searchQueryAlert)
- .service('user', userService)
- .service('auth', authService)
-.factory('profile', userProfile)
- .factory('$exceptionHandler', ['$log', function($log) {
-    return function myExceptionHandler(exception, cause) {
-        $log.warn(exception, cause);
-    };
-}]);
- function authService($localStorage,$location,$window) {
+angular
+    .module('webix')
+    .factory('authInterceptor', authInterceptor)
+    .factory('searchQuery', searchQuery)
+    .factory('searchQueryAlert', searchQueryAlert)
+    .service('user', userService)
+    .service('auth', authService)
+    .factory('profile', userProfile)
+    .factory('$exceptionHandler', ['$log', function($log) {
+        return function myExceptionHandler(exception, cause) {
+            $log.warn(exception, cause);
+        };
+    }]);
+function authService($localStorage,$location,$window) {
     var srvc = this;
 
     srvc.parseJwt = function (token) {
@@ -97,27 +97,27 @@ function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter,
 }
 function userProfile($http, $rootScope, auth) {
     return {
-    getProfile : function (){
-    if (auth.getGroup() == "lecturer"){
-        $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
-             if(response.data.results !== false) {
+        getProfile : function (){
+            if (auth.getGroup() == "lecturer"){
+                $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
+                    if(response.data.results !== false) {
                         return response;
                     } else {
                         $location.path('/login')
+                    }
+                })
             }
-        })
-    }
-    else{
-        $http.get($rootScope.apiUrl + '/students/').then(function (response){
-             if(response.data.results !== false) {
+            else{
+                $http.get($rootScope.apiUrl + '/students/').then(function (response){
+                    if(response.data.results !== false) {
                         return response;
                     } else {
                         $location.path('/login')
+                    }
+                })
             }
-        })
+        }
     }
-}
-}
 }
 function authInterceptor($rootScope, auth) {
     return {

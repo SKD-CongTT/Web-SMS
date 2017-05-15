@@ -46,17 +46,17 @@
 </div>
 
 <strong>
-<div layout="column" layout-gt-md="row" layout-margin class="noLeftRightMargin">
-    <div flex layout="column" class="md-whiteframe-1dp">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                Opening Course
-            </div>
-        </md-toolbar>
-        <md-content>
-            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
-                       mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
-                       mdt-row="{
+    <div layout="column" layout-gt-md="row" layout-margin class="noLeftRightMargin">
+        <div flex layout="column" class="md-whiteframe-1dp">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    Opening Course
+                </div>
+            </md-toolbar>
+            <md-content>
+                <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+                           mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                           mdt-row="{
                        data : availableCourse,
                       'column-keys': [
                           'id',
@@ -65,57 +65,57 @@
                           'department'
                         ]
                       }">
-                <mdt-header-row>
-                    <mdt-column align-rule="left">Course</mdt-column>
-                    <mdt-column align-rule="left">Name</mdt-column>
-                    <mdt-column align-rule="left">Credit</mdt-column>
-                    <mdt-column align-rule="left">Department</mdt-column>
-                </mdt-header-row>
-            </mdt-table>
+                    <mdt-header-row>
+                        <mdt-column align-rule="left">Course</mdt-column>
+                        <mdt-column align-rule="left">Name</mdt-column>
+                        <mdt-column align-rule="left">Credit</mdt-column>
+                        <mdt-column align-rule="left">Department</mdt-column>
+                    </mdt-header-row>
+                </mdt-table>
 
-        </md-content>
+            </md-content>
+        </div>
     </div>
-    </div>
-    </strong>
-    <div class="row times" style="height:auto; display: flex; width: 1455px; margin-left: 8px;">
+</strong>
+<div class="row times" style="height:auto; display: flex; width: 1455px; margin-left: 8px;">
     <div class="col-xs-2 text-center" style="background: #2196F3; width:10%; border-left:1px ;flex: 1 1 20%;border-style: groove;
 ">
-    <h2><font color="white"><label>Time Table</label></font></h2>
+        <h2><font color="white"><label>Time Table</label></font></h2>
     </div>
     <div class="col-xs-2 text-left" ng-repeat="day in days" style="background: white; border-style: groove;">
-      <h2 class= "text-center"><font color="#2196F3">{{ day.name }}</font></h2>
-      <div class="time-slot" ng-repeat="slot in day.slots">     
-        <input id="{{ day.name }}-{{ $index }}" ng-model="slot.booked" ng-disabled="slot.booked">
-        <label for="{{ day.name }}-{{ $index }}">Time: {{ slot.time }}<br>Room: {{ slot.room }} <br> {{ slot.name}} <br>
-        </label>
-      </div>
-    </div>       
-      
-  </div>    
+        <h2 class= "text-center"><font color="#2196F3">{{ day.name }}</font></h2>
+        <div class="time-slot" ng-repeat="slot in day.slots">
+            <input id="{{ day.name }}-{{ $index }}" ng-model="slot.booked" ng-disabled="slot.booked">
+            <label for="{{ day.name }}-{{ $index }}">Time: {{ slot.time }}<br>Room: {{ slot.room }} <br> {{ slot.name}} <br>
+            </label>
+        </div>
+    </div>
+
+</div>
 
 
 
 <!--<uib-tabset active="activeTabDashboard" class="tab-menu">-->
-    <!--<uib-tab ui-sref=".system" index="1" >-->
-        <!--<uib-tab-heading>-->
-            <!--<i class="fa fa-desktop"></i> Hệ thống chung-->
-        <!--</uib-tab-heading>-->
-    <!--</uib-tab>-->
-    <!--<uib-tab ui-sref=".security" index="2">-->
-        <!--<uib-tab-heading>-->
-            <!--<i class="fa fa-exclamation-triangle"></i> An ninh-->
-        <!--</uib-tab-heading>-->
-    <!--</uib-tab>-->
-    <!--&lt;!&ndash;<uib-tab ui-sref=".uptime" index="3">&ndash;&gt;-->
-        <!--&lt;!&ndash;<uib-tab-heading>&ndash;&gt;-->
-            <!--&lt;!&ndash;<i class="fa fa-globe"></i> Uptime&ndash;&gt;-->
-        <!--&lt;!&ndash;</uib-tab-heading>&ndash;&gt;-->
-    <!--&lt;!&ndash;</uib-tab>&ndash;&gt;-->
-    <!--<uib-tab ui-sref=".logs-centralize" index="4">-->
-        <!--<uib-tab-heading>-->
-            <!--<i class="fa fa-database"></i> Thống kê Logs-->
-        <!--</uib-tab-heading>-->
-    <!--</uib-tab>-->
+<!--<uib-tab ui-sref=".system" index="1" >-->
+<!--<uib-tab-heading>-->
+<!--<i class="fa fa-desktop"></i> Hệ thống chung-->
+<!--</uib-tab-heading>-->
+<!--</uib-tab>-->
+<!--<uib-tab ui-sref=".security" index="2">-->
+<!--<uib-tab-heading>-->
+<!--<i class="fa fa-exclamation-triangle"></i> An ninh-->
+<!--</uib-tab-heading>-->
+<!--</uib-tab>-->
+<!--&lt;!&ndash;<uib-tab ui-sref=".uptime" index="3">&ndash;&gt;-->
+<!--&lt;!&ndash;<uib-tab-heading>&ndash;&gt;-->
+<!--&lt;!&ndash;<i class="fa fa-globe"></i> Uptime&ndash;&gt;-->
+<!--&lt;!&ndash;</uib-tab-heading>&ndash;&gt;-->
+<!--&lt;!&ndash;</uib-tab>&ndash;&gt;-->
+<!--<uib-tab ui-sref=".logs-centralize" index="4">-->
+<!--<uib-tab-heading>-->
+<!--<i class="fa fa-database"></i> Thống kê Logs-->
+<!--</uib-tab-heading>-->
+<!--</uib-tab>-->
 <!--</uib-tabset>-->
 
 <!--<div ui-view="system" ng-if="$state.includes('dashboard.home.system')"></div>-->

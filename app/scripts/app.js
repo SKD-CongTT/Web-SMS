@@ -7,80 +7,80 @@
  *
  * Main module of the application.
  */
- angular
- .module('webix', [
-    'oc.lazyLoad',
-    'ui.router',
-    'ui.bootstrap',
-    'angularUtils.directives.dirPagination',
-    'highcharts-ng',
-    'ngStorage',
-    'ngAnimate',
-    'ngSanitize',
-    'permission',
-    'permission.ui',
-    'ngclipboard',
-    'angular-web-notification',
-    'mgcrea.ngStrap',
-    'checklist-model',
-    'ngMaterial',
-    'ngMessages',
-    'mdDataTable',
-    'angular-toArrayFilter',
-    'smDateTimeRangePicker',
-    'textAngular','ui.codemirror'
+angular
+    .module('webix', [
+        'oc.lazyLoad',
+        'ui.router',
+        'ui.bootstrap',
+        'angularUtils.directives.dirPagination',
+        'highcharts-ng',
+        'ngStorage',
+        'ngAnimate',
+        'ngSanitize',
+        'permission',
+        'permission.ui',
+        'ngclipboard',
+        'angular-web-notification',
+        'mgcrea.ngStrap',
+        'checklist-model',
+        'ngMaterial',
+        'ngMessages',
+        'mdDataTable',
+        'angular-toArrayFilter',
+        'smDateTimeRangePicker',
+        'textAngular','ui.codemirror'
     ])
 
- .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider','$httpProvider','$mdThemingProvider','pickerProvider',
-    function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider,$httpProvider,$mdThemingProvider,pickerProvider) {
-        $mdThemingProvider.theme('input', 'default')
-        .primaryPalette('grey');
+    .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider','$httpProvider','$mdThemingProvider','pickerProvider',
+        function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider,$httpProvider,$mdThemingProvider,pickerProvider) {
+            $mdThemingProvider.theme('input', 'default')
+                .primaryPalette('grey');
 
-        $mdThemingProvider
-        .theme('dark-blue')
-        .backgroundPalette('blue',{
-            'default': '500'
-        }).dark();
+            $mdThemingProvider
+                .theme('dark-blue')
+                .backgroundPalette('blue',{
+                    'default': '500'
+                }).dark();
 
-        $mdThemingProvider
-        .theme('default')
-        .primaryPalette('blue', {
-            'default': '500'
-        })
-        .accentPalette('red', {
-            'default': '500'
-        })
-        .warnPalette('defaultPrimary');
+            $mdThemingProvider
+                .theme('default')
+                .primaryPalette('blue', {
+                    'default': '500'
+                })
+                .accentPalette('red', {
+                    'default': '500'
+                })
+                .warnPalette('defaultPrimary');
 
-        $mdThemingProvider.theme('dark', 'default')
-        .primaryPalette('defaultPrimary')
-        .dark();
+            $mdThemingProvider.theme('dark', 'default')
+                .primaryPalette('defaultPrimary')
+                .dark();
 
-        $mdThemingProvider.theme('custom', 'default')
-        .primaryPalette('defaultPrimary', {
-            'hue-1': '50'
-        });
+            $mdThemingProvider.theme('custom', 'default')
+                .primaryPalette('defaultPrimary', {
+                    'hue-1': '50'
+                });
 
-        $mdThemingProvider.definePalette('defaultPrimary', {
-            '50':  '#FFFFFF',
-            '100': 'rgb(255, 198, 197)',
-            '200': '#E75753',
-            '300': '#E75753',
-            '400': '#E75753',
-            '500': '#E75753',
-            '600': '#E75753',
-            '700': '#E75753',
-            '800': '#E75753',
-            '900': '#E75753',
-            'A100': '#E75753',
-            'A200': '#E75753',
-            'A400': '#E75753',
-            'A700': '#E75753'
-        });
+            $mdThemingProvider.definePalette('defaultPrimary', {
+                '50':  '#FFFFFF',
+                '100': 'rgb(255, 198, 197)',
+                '200': '#E75753',
+                '300': '#E75753',
+                '400': '#E75753',
+                '500': '#E75753',
+                '600': '#E75753',
+                '700': '#E75753',
+                '800': '#E75753',
+                '900': '#E75753',
+                'A100': '#E75753',
+                'A200': '#E75753',
+                'A400': '#E75753',
+                'A700': '#E75753'
+            });
 
-        /*config daterange-picker*/
-        pickerProvider.setOkLabel('Chọn');
-        pickerProvider.setCancelLabel('Đóng');
+            /*config daterange-picker*/
+            pickerProvider.setOkLabel('Chọn');
+            pickerProvider.setCancelLabel('Đóng');
             pickerProvider.setDayHeader('single'); //Options 'single','shortName', 'fullName'
             pickerProvider.setDaysNames([
                 {'single':'CN','shortName':'CN','fullName':'Chủ nhật'},
@@ -90,39 +90,39 @@
                 {'single':'T5','shortName':'Th 5','fullName':'Thứ 5'},
                 {'single':'T6','shortName':'Th 6','fullName':'Thứ 6'},
                 {'single':'T7','shortName':'Th 7','fullName':'Thứ 7'}
-                ]);
+            ]);
             pickerProvider.setMonthNames(["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]);
             pickerProvider.setRangeDefaultList([
-            {
-                label:'Hôm nay',
-                startDate:moment().startOf('day'),
-                endDate:moment().endOf('day')
-            },
-            {
-                label:'1 Tuần trước',
-                startDate: moment().subtract(7,'d'),
-                endDate:moment()
-            },
-            {
-                label:'Tháng hiện tại',
-                startDate:moment().startOf('month'),
-                endDate: moment().endOf('month')
-            },
-            {
-                label:'1 Tháng trước',
-                startDate:moment().subtract(1,'month'),
-                endDate: moment()
-            },
-            {
-                label:'2 Tháng trước',
-                startDate:moment().subtract(2,'month'),
-                endDate: moment()
-            },
-            {
-                label: 'Quý hiện tại',
-                startDate: moment().startOf('quarter'),
-                endDate: moment().endOf('quarter')
-            }
+                {
+                    label:'Hôm nay',
+                    startDate:moment().startOf('day'),
+                    endDate:moment().endOf('day')
+                },
+                {
+                    label:'1 Tuần trước',
+                    startDate: moment().subtract(7,'d'),
+                    endDate:moment()
+                },
+                {
+                    label:'Tháng hiện tại',
+                    startDate:moment().startOf('month'),
+                    endDate: moment().endOf('month')
+                },
+                {
+                    label:'1 Tháng trước',
+                    startDate:moment().subtract(1,'month'),
+                    endDate: moment()
+                },
+                {
+                    label:'2 Tháng trước',
+                    startDate:moment().subtract(2,'month'),
+                    endDate: moment()
+                },
+                {
+                    label: 'Quý hiện tại',
+                    startDate: moment().startOf('quarter'),
+                    endDate: moment().endOf('quarter')
+                }
             ]);
             pickerProvider.setRangeCustomStartEnd(['Ngày bắt đầu', 'Ngày kết thúc']);
 
@@ -136,31 +136,31 @@
 
             $urlRouterProvider.otherwise('/home');
             $stateProvider
-            .state('dashboard', {
-                url: '',
-                templateUrl: 'components/dashboard/dashboardView.html',
-                controller: 'dashboardController',
-                data: {
-                    permissions: {
-                        only: ['1','2'],
-                        redirectTo: 'dashboard.profile'
+                .state('dashboard', {
+                    url: '',
+                    templateUrl: 'components/dashboard/dashboardView.html',
+                    controller: 'dashboardController',
+                    data: {
+                        permissions: {
+                            only: ['1','2'],
+                            redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    abstract: true ,
+                    resolve: {
+                        loadMyDirectives:function($ocLazyLoad){
+                            return $ocLazyLoad.load(
+                                {
+                                    name:'webix',
+                                    files:[
+                                        'components/dashboard/dashboardController.js'
+                                    ]
+                                })
+                        }
                     }
-                },
-                abstract: true ,
-                resolve: {
-                    loadMyDirectives:function($ocLazyLoad){
-                        return $ocLazyLoad.load(
-                        {
-                            name:'webix',
-                            files:[
-                            'components/dashboard/dashboardController.js'
-                            ]
-                        })
-                    }
-                }
-            })
-            .state('dashboard.home',{
-                url: '/home',
+                })
+                .state('dashboard.home',{
+                    url: '/home',
                     // title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
                     // data: {
                     //     permissions: {
@@ -187,12 +187,12 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/home/homeView.js'
+                                    'components/home/homeView.js'
                                 ]
                             })
                         }
                     },
-                    
+
                 })
                 // .state('dashboard.home.general',{
                 //     url: '/general',
@@ -289,7 +289,7 @@
                         }
                     }
                 })
-                
+
                 .state('dashboard.course_registration',{
                     templateUrl:'components/register/registerView.html',
                     title: 'Course Registration',
@@ -306,7 +306,7 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/register/registerController.js'
+                                    'components/register/registerController.js'
                                 ]
                             })
                         }
@@ -328,7 +328,7 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/course/courseController.js',
+                                    'components/course/courseController.js',
 
                                 ]
                             })
@@ -346,7 +346,7 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/profile/profileController.js'
+                                    'components/profile/profileController.js'
                                 ]
                             })
                         }
@@ -368,7 +368,7 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/authen/login/loginController.js'
+                                    'components/authen/login/loginController.js'
                                 ]
                             })
                         }
@@ -390,7 +390,7 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/authen/forgot/forgotController.js'
+                                    'components/authen/forgot/forgotController.js'
                                 ]
                             })
                         }
@@ -412,111 +412,111 @@
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                'components/logout/logoutController.js'
+                                    'components/logout/logoutController.js'
                                 ]
                             })
                         }
                     }
                 })
-            }])
+        }])
 
-.run(function ($anchorScroll, $rootScope, $localStorage, $location, auth, $window, $urlRouter, $http, PermPermissionStore, $state, $timeout)
-{
-    $rootScope.$state = $state;
-    $rootScope.wrongInfo = false;
-    $rootScope.onLogin = false;
-    $rootScope.apiUrl = 'http://ictk59-api.herokuapp.com';
-    $rootScope.downloadUrl = 'http://ictk59-api.herokuapp.com';
-    $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
-    $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
-    $rootScope.showCourse = [];
-    var permissions = []
-    $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
-        $rootScope.stateIsLoading = {value : true};
-        $timeout(function () {
-            $rootScope.stateIsLoading.value = false;
-        }, 1000);
+    .run(function ($anchorScroll, $rootScope, $localStorage, $location, auth, $window, $urlRouter, $http, PermPermissionStore, $state, $timeout)
+    {
+        $rootScope.$state = $state;
+        $rootScope.wrongInfo = false;
+        $rootScope.onLogin = false;
+        $rootScope.apiUrl = 'http://ictk59-api.herokuapp.com';
+        $rootScope.downloadUrl = 'http://ictk59-api.herokuapp.com';
+        $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
+        $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
+        $rootScope.showCourse = [];
+        var permissions = []
+        $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
+            $rootScope.stateIsLoading = {value : true};
+            $timeout(function () {
+                $rootScope.stateIsLoading.value = false;
+            }, 1000);
 
-        var publicPages = ['/login'];
-        var restrictedPage = publicPages.indexOf($location.path()) === -1;
+            var publicPages = ['/login'];
+            var restrictedPage = publicPages.indexOf($location.path()) === -1;
 
-        var forgotPage = publicPages.indexOf($location.path()) === 1;
-        var signupPage = publicPages.indexOf($location.path()) === 2;
-        var reConfirmEmailPage = publicPages.indexOf($location.path()) === 3;
+            var forgotPage = publicPages.indexOf($location.path()) === 1;
+            var signupPage = publicPages.indexOf($location.path()) === 2;
+            var reConfirmEmailPage = publicPages.indexOf($location.path()) === 3;
 
-        if (!auth.isAuthed()) {
-            $location.path('/login');
-            $urlRouter.sync();
-        } else {
-            $rootScope.profile;
-            try {
+            if (!auth.isAuthed()) {
+                $location.path('/login');
+                $urlRouter.sync();
+            } else {
+                $rootScope.profile;
+                try {
                     $rootScope.profile.notExist;
-            }
-            catch (e){
-            if (auth.getGroup() == "lecturer"){
-                  permissions = ['1', '2'];
-                $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
-                 if(response.data.results !== false) {
-                            $rootScope.profile = response.data.results[0];
-                            $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
-                            $rootScope.profile.type = "LECTURER";
-                            $rootScope.profile.notExist = false;
-                        } else {
-                            $location.path('/login');
                 }
-            })
-        }
-        else{
-                permissions = ['2'];
-                 $http.get($rootScope.apiUrl + '/students/').then(function (response){
-                 if(response.data.results !== false) {
-                             $rootScope.profile = response.data.results[0];
-                            $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
-                            $rootScope.profile.type = "STUDENT";
-                            $rootScope.profile.notExist = false;
-                        } else {
-                            $location.path('/login');
+                catch (e){
+                    if (auth.getGroup() == "lecturer"){
+                        permissions = ['1', '2'];
+                        $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
+                            if(response.data.results !== false) {
+                                $rootScope.profile = response.data.results[0];
+                                $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
+                                $rootScope.profile.type = "LECTURER";
+                                $rootScope.profile.notExist = false;
+                            } else {
+                                $location.path('/login');
+                            }
+                        })
+                    }
+                    else{
+                        permissions = ['2'];
+                        $http.get($rootScope.apiUrl + '/students/').then(function (response){
+                            if(response.data.results !== false) {
+                                $rootScope.profile = response.data.results[0];
+                                $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
+                                $rootScope.profile.type = "STUDENT";
+                                $rootScope.profile.notExist = false;
+                            } else {
+                                $location.path('/login');
+                            }
+                        })
+                    }
                 }
-            })
-        }
-        }                  
                 PermPermissionStore
-                .defineManyPermissions(permissions, function (permissionName) {
-                    return _.contains(permissions, permissionName);
-                });
+                    .defineManyPermissions(permissions, function (permissionName) {
+                        return _.contains(permissions, permissionName);
+                    });
                 $urlRouter.sync();
                 $urlRouter.listen();
             }
         });
 
-    $rootScope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
-        $rootScope.bodyClass = toState.bodyClass;
-        $window.document.title = toState.title;
-        $rootScope.currentNavItem = toState.name;
-    });
-})
+        $rootScope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
+            $rootScope.bodyClass = toState.bodyClass;
+            $window.document.title = toState.title;
+            $rootScope.currentNavItem = toState.name;
+        });
+    })
 
-.filter('myTimeFormat', function(){
-    return function(x) {
-        if(x) {
-            var str = x.replace("T"," ");
-            return str;
-        }
-        return "";
-    };
-})
-.filter('myHostNameFormat', function(){
-    return function(y) {
-        var str1 = y.replace("-",":");
-        return str1;
-    };
-})
-.filter('longStringFormat', function(){
-    return function(y) {
-        var str1 = y.replace("-",":");
-        return str1;
-    };
-});
+    .filter('myTimeFormat', function(){
+        return function(x) {
+            if(x) {
+                var str = x.replace("T"," ");
+                return str;
+            }
+            return "";
+        };
+    })
+    .filter('myHostNameFormat', function(){
+        return function(y) {
+            var str1 = y.replace("-",":");
+            return str1;
+        };
+    })
+    .filter('longStringFormat', function(){
+        return function(y) {
+            var str1 = y.replace("-",":");
+            return str1;
+        };
+    });
 
 
 

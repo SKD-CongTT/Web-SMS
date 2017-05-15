@@ -1,43 +1,43 @@
 <div ng-controller="registerController as ctrl" ng-cloak>
-           <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 450px">
-            <md-content flex="nogrow" flex-gt-md="30" layout="column">
+    <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 450px">
+        <md-content flex="nogrow" flex-gt-md="30" layout="column">
             <div layout="row">
                 <form flex ng-submit="searchCourse(query)" name="formSearch">
                     <md-input-container ng-form="formSearch" class="md-icon-float md-icon-right mb-block">
                         <!-- Use floating label instead of placeholder -->
                         <md-icon md-font-set="material-icons"> search </md-icon>
-                        <label>Course Searching</label>
-                        <input ng-model="id" type="text">
+                        <label for="search">Course Searching</label>
+                        <input ng-model="id" id="search" type="text">
                     </md-input-container>
                 </form>
             </div>
-                
+
             <md-list flex class="max-heigh-content">
                 <md-progress-linear ng-show="loadingCourseList" md-mode="indeterminate" class="md-accent"></md-progress-linear>
                 <p class="noThing" ng-if="!loadingCourseList && showCourse.length==0"><em>No Course Available!</em></p>
                 <md-list-item ng-click="select(value)" ng-if="!loadingCourseList" ng-repeat="value in showCourse | filter : id"
-                ng-class="selectedId==value.id?'label-grey':''" >
-               <strong><p class="longText">{{value.id}}</p></strong>
+                              ng-class="selectedId==value.id?'label-grey':''" >
+                    <p class="longText"><strong>{{value.id}}</strong></p>
 
                     <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
-                    md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
+                             md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
                 </md-list-item>
-                    </md-list>
-                </md-content>
-                <div layout="column" layout-gt-md="row" flex flex-gt-md="70" layout-margin>
-    <div flex layout="column" >
-    <strong>
-        <md-toolbar>
-            <div class="md-toolbar-tools" class="md-whiteframe-1dp">
-                Opening Class
-            </div>
-        </md-toolbar>
-        <md-content>
-            <p class="noThing" ng-show="loadClass && showClass.length == 0"><em>No class available at the moment</em></p>
-            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
-                        selectable-rows="true",
-                        selected-row-callback="selectedRowCallback(rows)",
-                       mdt-row="{
+            </md-list>
+        </md-content>
+        <div layout="column" layout-gt-md="row" flex flex-gt-md="70" layout-margin>
+            <div flex layout="column">
+                <strong>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            Opening Class
+                        </div>
+                    </md-toolbar>
+                    <md-content class="md-whiteframe-1dp">
+                        <h1 class="noThing" ng-show="loadClass && showClass.length === 0"><em>No class available at the moment</em></h1>
+                        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                                   selectable-rows="true"
+                                   selected-row-callback="selectedRowCallback(rows)"
+                                   mdt-row="{
                        data : showClass,
                        'table-row-id-key': 'id',
                       'column-keys': [
@@ -48,19 +48,18 @@
                           'year'
                         ]
                       }">
-                <mdt-header-row>
-                    <mdt-column align-rule="left">Id</mdt-column>
-                    <mdt-column align-rule="left">Semester</mdt-column>
-                    <mdt-column align-rule="left">Enroll</mdt-column>
-                    <mdt-column align-rule="left">Max enroll</mdt-column>
-                    <mdt-column align-rule="left">Year</mdt-column>
-                </mdt-header-row>
-            </mdt-table>
-
-        </md-content>
-        </strong>
-    </div>
-    </div>
+                            <mdt-header-row>
+                                <mdt-column align-rule="left">Id</mdt-column>
+                                <mdt-column align-rule="left">Semester</mdt-column>
+                                <mdt-column align-rule="left">Enroll</mdt-column>
+                                <mdt-column align-rule="left">Max enroll</mdt-column>
+                                <mdt-column align-rule="left">Year</mdt-column>
+                            </mdt-header-row>
+                        </mdt-table>
+                    </md-content>
+                </strong>
+            </div>
+        </div>
     </div>
     <div flex layout="column" class="md-whiteframe-1dp">
         <md-toolbar>
@@ -69,7 +68,7 @@
             </div>
         </md-toolbar>
         <md-content>
-            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+            <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
                        mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
                        mdt-row="{
                        data : availableCourse,
