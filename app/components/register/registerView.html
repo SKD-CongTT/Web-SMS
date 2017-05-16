@@ -38,12 +38,12 @@
                                    selectable-rows="true"
                                    selected-row-callback="selectedRowCallback(rows)"
                                    mdt-row="{
-                       data : showClass,
-                       'table-row-id-key': 'id',
-                      'column-keys': [
+                        data : showClass,
+                        'table-row-id-key': 'part_index',
+                        'column-keys': [
                           'id',
                           'semester',
-                          'count',
+                          'enrolled',
                           'max_enroll',
                           'year'
                         ]
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <div flex layout="column" class="md-whiteframe-1dp">
+    <div flex layout="column" class="md-whiteframe-1dp" ng-show="loadRoom">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 Registered Class
@@ -90,3 +90,4 @@
 
         </md-content>
     </div>
+</div>

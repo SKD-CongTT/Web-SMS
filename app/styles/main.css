@@ -59,12 +59,12 @@ body {
 .header,
 .marketing,
 .footer {
-  padding-left: 15px;
-  padding-right: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .row {
-     margin-right: 0;
-     margin-left: 0;
+    margin-right: 0;
+    margin-left: 0;
 }
 .page-header {
 
@@ -74,68 +74,68 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
 }
 
 /* Custom page footer */
 .footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
 }
 
 /* Customize container */
 @media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+    .container {
+        max-width: 730px;
+    }
 }
 .container-narrow > hr {
-  margin: 30px 0;
+    margin: 30px 0;
 }
 
 /* Main marketing message and sign up button */
 .jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
 }
 .jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+    font-size: 21px;
+    padding: 14px 24px;
 }
 
 /* Supporting marketing content */
 .marketing {
-  margin: 40px 0;
+    margin: 40px 0;
 }
 .marketing p + h4 {
-  margin-top: 28px;
+    margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
 
 }
 .panel-title-other {
@@ -209,13 +209,13 @@ body {
 
 /* style for logs page */
 .card {
-  background-color: white;
-  border: 1px solid;
+    background-color: white;
+    border: 1px solid;
 
-  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
-  border-radius: 0;
-  margin-bottom: 5px;
-  padding: 10px 10px;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 0;
+    margin-bottom: 5px;
+    padding: 10px 10px;
     box-shadow: 1px 1px 2px 0 #ccc;
 }
 .panel-default {
@@ -325,11 +325,11 @@ body {
 
 
 .form-input {
-  border-radius: 0;
+    border-radius: 0;
 }
 
 .pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .sample-show-hide {
@@ -1039,54 +1039,54 @@ md-backdrop.md-sidenav-backdrop {
     background-color: rgba(0, 0, 0, 0.12); }
 
 /*@media screen and (max-width: 768px) {*/
-    /*.table-responsive-vertical > .table {*/
-        /*margin-bottom: 0;*/
-        /*background-color: transparent; }*/
-    /*.table-responsive-vertical > .table > thead,*/
-    /*.table-responsive-vertical > .table > tfoot {*/
-        /*display: none; }*/
-    /*.table-responsive-vertical > .table > tbody {*/
-        /*display: block; }*/
-    /*.table-responsive-vertical > .table > tbody > tr {*/
-        /*display: block;*/
-        /*border: 1px solid #e0e0e0;*/
-        /*border-radius: 2px;*/
-        /*margin-bottom: 1.2rem; }*/
-    /*.table-responsive-vertical > .table > tbody > tr > td {*/
-        /*background-color: #fff;*/
-        /*display: block;*/
-        /*vertical-align: middle;*/
-        /*text-align: right; }*/
-    /*.table-responsive-vertical > .table > tbody > tr > td[data-title]:before {*/
-        /*content: attr(data-title);*/
-        /*float: left;*/
-        /*font-size: inherit;*/
-        /*font-weight: 400;*/
-        /*color: #757575;*/
-        /*padding-right: 10px; }*/
-    /*.table-responsive-vertical.shadow-z-1 {*/
-        /*-webkit-box-shadow: none;*/
-        /*-moz-box-shadow: none;*/
-        /*box-shadow: none; }*/
-    /*.table-responsive-vertical.shadow-z-1 > .table > tbody > tr {*/
-        /*border: none; }*/
-    /*.table-responsive-vertical > .table-bordered {*/
-        /*border: 0; }*/
-    /*.table-responsive-vertical > .table-bordered > tbody > tr > td {*/
-        /*border: 0;*/
-        /*border-bottom: 1px solid #e0e0e0; }*/
-    /*.table-responsive-vertical > .table-bordered > tbody > tr > td:last-child {*/
-        /*border-bottom: 0; }*/
-    /*.table-responsive-vertical > .table-striped > tbody > tr > td,*/
-    /*.table-responsive-vertical > .table-striped > tbody > tr:nth-child(odd) {*/
-        /*background-color: #fff; }*/
-    /*.table-responsive-vertical > .table-striped > tbody > tr > td:nth-child(odd) {*/
-        /*background-color: #f5f5f5; }*/
-    /*.table-responsive-vertical > .table-hover > tbody > tr:hover > td,*/
-    /*.table-responsive-vertical > .table-hover > tbody > tr:hover {*/
-        /*background-color: #fff; }*/
-    /*.table-responsive-vertical > .table-hover > tbody > tr > td:hover {*/
-        /*background-color: rgba(0, 0, 0, 0.12); } }*/
+/*.table-responsive-vertical > .table {*/
+/*margin-bottom: 0;*/
+/*background-color: transparent; }*/
+/*.table-responsive-vertical > .table > thead,*/
+/*.table-responsive-vertical > .table > tfoot {*/
+/*display: none; }*/
+/*.table-responsive-vertical > .table > tbody {*/
+/*display: block; }*/
+/*.table-responsive-vertical > .table > tbody > tr {*/
+/*display: block;*/
+/*border: 1px solid #e0e0e0;*/
+/*border-radius: 2px;*/
+/*margin-bottom: 1.2rem; }*/
+/*.table-responsive-vertical > .table > tbody > tr > td {*/
+/*background-color: #fff;*/
+/*display: block;*/
+/*vertical-align: middle;*/
+/*text-align: right; }*/
+/*.table-responsive-vertical > .table > tbody > tr > td[data-title]:before {*/
+/*content: attr(data-title);*/
+/*float: left;*/
+/*font-size: inherit;*/
+/*font-weight: 400;*/
+/*color: #757575;*/
+/*padding-right: 10px; }*/
+/*.table-responsive-vertical.shadow-z-1 {*/
+/*-webkit-box-shadow: none;*/
+/*-moz-box-shadow: none;*/
+/*box-shadow: none; }*/
+/*.table-responsive-vertical.shadow-z-1 > .table > tbody > tr {*/
+/*border: none; }*/
+/*.table-responsive-vertical > .table-bordered {*/
+/*border: 0; }*/
+/*.table-responsive-vertical > .table-bordered > tbody > tr > td {*/
+/*border: 0;*/
+/*border-bottom: 1px solid #e0e0e0; }*/
+/*.table-responsive-vertical > .table-bordered > tbody > tr > td:last-child {*/
+/*border-bottom: 0; }*/
+/*.table-responsive-vertical > .table-striped > tbody > tr > td,*/
+/*.table-responsive-vertical > .table-striped > tbody > tr:nth-child(odd) {*/
+/*background-color: #fff; }*/
+/*.table-responsive-vertical > .table-striped > tbody > tr > td:nth-child(odd) {*/
+/*background-color: #f5f5f5; }*/
+/*.table-responsive-vertical > .table-hover > tbody > tr:hover > td,*/
+/*.table-responsive-vertical > .table-hover > tbody > tr:hover {*/
+/*background-color: #fff; }*/
+/*.table-responsive-vertical > .table-hover > tbody > tr > td:hover {*/
+/*background-color: rgba(0, 0, 0, 0.12); } }*/
 
 /*# sourceMappingURL=table.css.map */
 
@@ -1194,30 +1194,30 @@ md-autocomplete md-autocomplete-wrap md-progress-linear.md-inline {
 .md-blue {
     background-color: #2A87E3;
 }
- .line{
-width: 96%;
-height: 15%;
-border-bottom: 1px solid #A9A9A9;
-position: absolute;
+.line{
+    width: 96%;
+    height: 15%;
+    border-bottom: 1px solid #A9A9A9;
+    position: absolute;
 }
 .times   { margin-bottom:50px; }
 
 /* checkbox - each time slot */
 .time-slot              {  }
 .time-slot input     { display:none; }
-.time-slot label     { 
-  padding:10px 15px; 
-  color:#FFF; 
-  cursor:pointer; 
-  background:#EEE; 
-  border-radius:5px; 
+.time-slot label     {
+    padding:10px 15px;
+    color:#FFF;
+    cursor:pointer;
+    background:#EEE;
+    border-radius:5px;
 }
 
-.time-slot input:checked ~ label { 
-  background:#f2dede; 
-  cursor:not-allowed;
+.time-slot input:checked ~ label {
+    background:#f2dede;
+    cursor:not-allowed;
 }
 
-.time-slot input:not(:checked) ~ label { 
-  background:#6AB074; 
+.time-slot input:not(:checked) ~ label {
+    background:#6AB074;
 }

@@ -3,7 +3,9 @@ angular.module('webix')
     .controller('registerController', function($scope,$rootScope,$http,auth,$interval,$state,$timeout,searchQuery,$mdToast,$mdDialog) {
         if(auth.isAuthed()){
             $scope.showClass = [];
+            $scope.registerRoom = [];
             $scope.loadClass = false;
+            $scope.loadRoom = false;
             $scope.loadingCourseList = false;
             var getAllCourse = function(force){
                 if (auth.isAuthed()){
@@ -33,14 +35,35 @@ angular.module('webix')
                 }
             };
             $scope.selectedRowCallback = function(rows){
+                var messages = "";
+                console.log(rows.length)
+                if (rows.length == 1){
+
+                    $scope.registerRoom += $scope.showClass
+                    $scope.loadRoom = true;
+
+                    messages = 'Selected class id(s): ' + rows;
+                    // $mdToast.show(
+                    //     $mdToast.simple()
+                    //         .content('Selected class id(s): ' + rows)
+                    //         .hideDelay(2000)
+                    //         .position('right bottom')
+                    // );
+                }
+                else
+                    messages = 'You cannot select more than 1 class in the same course';
                 $mdToast.show(
                     $mdToast.simple()
-                        .content('Selected row id(s): '+rows)
-                        .hideDelay(3000)
+                        .content(messages)
+                        .hideDelay(2000)
+                        .position('right bottom')
                 );
             };
             var getAllSession = function(courseId){
 
+            };
+            $scope.register = function (value) {
+                console.log(1);
             };
             var select = function (value){
                 $scope.selectedCourse = value;
@@ -53,6 +76,8 @@ angular.module('webix')
                             .then(function (response) {
                                 if(response.data.results !== false) {
                                     $scope.showClass = response.data.results;
+                                    for (var i = 0; i < $scope.showClass.length; i++)
+                                        $scope.showClass[i].part_index = i+1;
                                     console.log($scope.showClass);
                                     $scope.loadClass = true;
                                     resolve();

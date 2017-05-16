@@ -14,8 +14,8 @@
     /*width: 300px;*/
 
     -webkit-transition: all ease .5s;
-         -o-transition: all ease .5s;
-            transition: all ease .5s;
+    -o-transition: all ease .5s;
+    transition: all ease .5s;
 
     color: #fff;
     border-radius: 0;
@@ -33,8 +33,8 @@
 .ui-notification.killed
 {
     -webkit-transition: opacity ease 1s;
-         -o-transition: opacity ease 1s;
-            transition: opacity ease 1s;
+    -o-transition: opacity ease 1s;
+    transition: opacity ease 1s;
 
     opacity: 0;
 }
