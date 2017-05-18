@@ -71,12 +71,15 @@
             <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
                        mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
                        mdt-row="{
-                       data : availableCourse,
+                       data : registerRoom,
                       'column-keys': [
                           'id',
-                          'name',
-                          'cost',
-                          'department'
+                          'time',
+                          'course_id',
+                          'credit',
+                          'semester',
+                          'requirements',
+                          'part_index'
                         ]
                       }">
                 <mdt-header-row>
@@ -85,9 +88,22 @@
                     <mdt-column align-rule="center">Course Id</mdt-column>
                     <mdt-column align-rule="center">Credit</mdt-column>
                     <mdt-column align-rule="center">Semester</mdt-column>
+                    <mdt-column align-rule="center">Requirements</mdt-column>
+                    <mdt-column align-rule="center">Remove</mdt-column>
                 </mdt-header-row>
+                <mdt-custom-cell column-key="requirements">
+                    <label class="label label-success ng-scope ng-hide" ng-show="value.length > 0" aria-hidden="true">{{value}}</label>
+                    <label class="label label-warning ng-scope" ng-show="value.length === 0" aria-hidden="false">NOT ACTIVE</label>
+                </mdt-custom-cell>
+                <mdt-custom-cell column-key="part_index">
+                    <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.remove(value)" md-colors="{background: 'red'}">close </md-icon>
+                </mdt-custom-cell>
             </mdt-table>
 
         </md-content>
+    </div>
+    <div layout="row" layout-align="center center">
+        <button class="md-raised md-success md-button" type="button" ng-disabled="error">Confirm</button>
+        <button class="md-raised md-warn md-button" type="button">Cancel</button>
     </div>
 </div>

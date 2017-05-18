@@ -282,10 +282,21 @@ angular
                     templateUrl:'components/alerts/alertsView.html',
                     title: 'Student Management',
                     url:'/student_management',
+                    controller:'studentController',
                     data: {
                         permissions: {
                             only: '1',
                             redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    resolve: {
+                        loadMyFiles:function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'webix',
+                                files:[
+                                    'components/alerts/alertsController.js'
+                                ]
+                            })
                         }
                     }
                 })
@@ -453,31 +464,28 @@ angular
                     $rootScope.profile.notExist;
                 }
                 catch (e){
-                    if (auth.getGroup() == "lecturer"){
-                        permissions = ['1', '2'];
-                        $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
-                            if(response.data.results !== false) {
-                                $rootScope.profile = response.data.results[0];
-                                $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
+                    $http.get($rootScope.apiUrl + '/users/').then(function (response){
+                        if(response.data.results !== false) {
+                            $rootScope.profile = response.data;
+                            $rootScope.profile.Name = response.data.last_name + " " + response.data.first_name;
+                            $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("T", " ");
+                            $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("Z", " ");
+                            if (auth.getGroup() === "lecturer"){
                                 $rootScope.profile.type = "LECTURER";
-                                $rootScope.profile.notExist = false;
-                            } else {
-                                $location.path('/login');
                             }
-                        })
+                            else{
+                                $rootScope.profile.type = "STUDENT";
+                            }
+                            $rootScope.profile.notExist = false;
+                        } else {
+                            $location.path('/login');
+                        }
+                    });
+                    if (auth.getGroup() === "lecturer"){
+                        permissions = ['1', '2'];
                     }
                     else{
                         permissions = ['2'];
-                        $http.get($rootScope.apiUrl + '/students/').then(function (response){
-                            if(response.data.results !== false) {
-                                $rootScope.profile = response.data.results[0];
-                                $rootScope.profile.Name = response.data.results[0].last_name + " " + response.data.results[0].first_name;
-                                $rootScope.profile.type = "STUDENT";
-                                $rootScope.profile.notExist = false;
-                            } else {
-                                $location.path('/login');
-                            }
-                        })
                     }
                 }
                 PermPermissionStore

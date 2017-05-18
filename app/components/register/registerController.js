@@ -6,7 +6,60 @@ angular.module('webix')
             $scope.registerRoom = [];
             $scope.loadClass = false;
             $scope.loadRoom = false;
+            $scope.error = true;
             $scope.loadingCourseList = false;
+            $scope.selectedCourse;
+            var time = {
+                1 : {
+                    'start_at':'6h45',
+                    'end_at' : '7h30'
+                },
+                2 : {
+                    'start_at':'7h35',
+                    'end_at' : '8h20'
+                },
+                3 : {
+                    'start_at':'8h30',
+                    'end_at' : '9h15'
+                },
+                4 : {
+                    'start_at':'9h20',
+                    'end_at' : '10h05'
+                },
+                5 : {
+                    'start_at':'10h15',
+                    'end_at' : '11h00'
+                },
+                6 : {
+                    'start_at':'11h05',
+                    'end_at' : '11h50'
+                },
+                7 : {
+                    'start_at':'12h30',
+                    'end_at' : '13h15'
+                },
+                8 : {
+                    'start_at':'13h20',
+                    'end_at' : '14h05'
+                },
+                9 : {
+                    'start_at':'14h15',
+                    'end_at' : '15h00'
+                },
+                10 : {
+                    'start_at':'15h05',
+                    'end_at' : '15h50'
+                },
+                11 : {
+                    'start_at':'16h00',
+                    'end_at' : '16h45'
+                },
+                12 : {
+                    'start_at':'16h50',
+                    'end_at' : '17h35'
+                }
+            };
+            var lastindex = -1;
             var getAllCourse = function(force){
                 if (auth.isAuthed()){
                     return new Promise(function(resolve, reject) {
@@ -36,22 +89,48 @@ angular.module('webix')
             };
             $scope.selectedRowCallback = function(rows){
                 var messages = "";
-                console.log(rows.length)
-                if (rows.length == 1){
+                var setbreak = false;
+                if (rows.length === 1){
+                    for ( var i = 0; i < $scope.registerRoom.length; i++){
+                        if ($scope.showClass[rows-1].id === $scope.registerRoom[i].id) {
+                            setbreak = true;
+                            lastindex = i;
+                        }
+                        if ($scope.showClass[rows-1].id !== $scope.registerRoom[i].id && $scope.showClass[rows-1].course_id === $scope.registerRoom[i].course_id){
+                            lastindex = -1;
+                            $scope.error = true;
+                            messages = 'You cannot select more than 1 class in the same course';
+                            $mdToast.show(
+                                $mdToast.simple()
+                                    .content(messages)
+                                    .hideDelay(2000)
+                                    .position('right bottom')
+                            );
+                            return;
+                        }
+                    }
 
-                    $scope.registerRoom += $scope.showClass
+                    if (!setbreak) {
+                        lastindex += 1;
+                        $scope.registerRoom.push($scope.showClass[rows - 1]);
+                        messages = 'Selected class id: ' + $scope.showClass[rows - 1].id;
+                        console.log( $scope.registerRoom);
+                    }
+                    else
+                        messages = 'Already selected class id: ' + $scope.showClass[rows - 1].id;
+
                     $scope.loadRoom = true;
-
-                    messages = 'Selected class id(s): ' + rows;
-                    // $mdToast.show(
-                    //     $mdToast.simple()
-                    //         .content('Selected class id(s): ' + rows)
-                    //         .hideDelay(2000)
-                    //         .position('right bottom')
-                    // );
+                    $scope.error = false;
                 }
-                else
+                else if(rows.length === 0 && lastindex !== -1) {
+                    messages = 'Remove selected class id: ' + $scope.registerRoom[lastindex].id;
+                    $scope.registerRoom.splice(lastindex, 1);
+                }
+                else{
+                    lastindex = -1;
+                    $scope.error = true;
                     messages = 'You cannot select more than 1 class in the same course';
+                }
                 $mdToast.show(
                     $mdToast.simple()
                         .content(messages)
@@ -59,15 +138,21 @@ angular.module('webix')
                         .position('right bottom')
                 );
             };
-            var getAllSession = function(courseId){
+            // var getAllSession = function(courseId){
+            //
+            // };
+            $scope.remove = function (value) {
+                for ( var i = 0; i < $scope.registerRoom.length; i++){
+                    if ($scope.registerRoom[i].part_index === value) {
+                        $scope.registerRoom.splice(i, 1);
+                    }
+                }
+            }
+            $scope.register = function () {
 
-            };
-            $scope.register = function (value) {
-                console.log(1);
-            };
+            }
             var select = function (value){
                 $scope.selectedCourse = value;
-                $scope.selectedCourse.require = value.requirements[0];
                 if (auth.isAuthed()){
                     $scope.loadClass = false;
 
@@ -76,9 +161,12 @@ angular.module('webix')
                             .then(function (response) {
                                 if(response.data.results !== false) {
                                     $scope.showClass = response.data.results;
-                                    for (var i = 0; i < $scope.showClass.length; i++)
-                                        $scope.showClass[i].part_index = i+1;
-                                    console.log($scope.showClass);
+                                    for (var i = 0; i < $scope.showClass.length; i++) {
+                                        $scope.showClass[i].part_index = i + 1;
+                                        $scope.showClass[i].credit = $scope.selectedCourse.cost;
+                                        $scope.showClass[i].requirements = $scope.selectedCourse.requirements;
+                                        $scope.showClass[i].time = time[$scope.showClass[i].start_at]['start_at'] + " - " + time[$scope.showClass[i].end_at]['end_at'];
+                                    }
                                     $scope.loadClass = true;
                                     resolve();
                                 } else {
@@ -86,20 +174,6 @@ angular.module('webix')
                                     reject();
                                 }
                             });
-                        // $http.get($rootScope.apiUrl + '/sessions/count_enroll_by_course/?course_id=' + $scope.selectedCourse.id)
-                        //     .then(function (response) {
-                        //         $scope.loadClass = true;
-                        //         if(response.data.results !== false) {
-                        //
-                        //             // for (var i = 0; i < $scope.showClass.length; i ++)
-                        //             //         $scope.showClass[i] += response.data.detail[i];
-                        //             console.log(response.data);
-                        //             resolve();
-                        //         } else {
-                        //             $scope.showClass = [];
-                        //             reject();
-                        //         }
-                        //     });
                     })
                 }
                 if (value.requirements.length === 0)
