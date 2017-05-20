@@ -69,15 +69,9 @@ angular.module('webix')
 
                 $scope.edit = function () {
                     if (auth.isAuthed) {
-                        if(auth.getGroup() == "lecturer"){
-                            var URL = $rootScope.apiUrl + '/lecturers/';
-                        }
-                        else {
-                            var URL = $rootScope.apiUrl + '/lecturers/';
-                        }
                         $http({
                             method: 'PATCH',
-                            url: URL + $scope.userProfile.id + "/" ,
+                            url: $rootScope.apiUrl + '/users/' + $scope.userProfile.id + "/" ,
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                             transformRequest: function (obj) {
                                 var str = [];
@@ -88,6 +82,7 @@ angular.module('webix')
                             data: {
                                 first_name: $scope.userProfile.first_name,
                                 last_name: $scope.userProfile.last_name,
+                                email: $scope.userProfile.email
                             }
                         }).success(function (response) {
                             $mdDialog.hide();

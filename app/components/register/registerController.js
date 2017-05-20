@@ -148,9 +148,52 @@ angular.module('webix')
                     }
                 }
             }
-            $scope.register = function () {
+            var toastSuccess = $mdToast.simple()
+                .textContent('Register successfully')
+                .position('right bottom');
 
-            }
+            var toastFail = $mdToast.simple()
+                .textContent('Register unsuccessfully')
+                .position('right bottom');
+
+            $scope.register = function () {
+                if (auth.isAuthed) {
+                    var sessions_id = [];
+                    for (var i = 0; i < $scope.registerRoom.length; i ++){
+                        sessions_id.push($scope.registerRoom[i].id);
+                    }
+                    $http({
+                        method: 'POST',
+                        url: $rootScope.apiUrl + '/scores/register_many/',
+                        data: {
+                            session_ids: sessions_id,
+                        }
+                    }).success(function (response) {
+                        $mdDialog.hide();
+                        if(response.result === true) {
+                            $mdToast.show(toastSuccess);
+                        } else {
+                            $mdToast.show(toastFail);
+                        }
+                    }).error(function () {
+                        $mdDialog.hide();
+                        $mdToast.show(toastFail);
+                    })
+                } else {
+                    alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                    auth.logout();
+                }
+            };
+            $scope.cancel = function () {
+                if (auth.isAuthed) {
+                    $scope.registerRoom = [];
+                    $scope.loadRoom = false;
+                    $scope.error = true;
+                } else {
+                    alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                    auth.logout();
+                }
+            };
             var select = function (value){
                 $scope.selectedCourse = value;
                 if (auth.isAuthed()){
@@ -164,7 +207,7 @@ angular.module('webix')
                                     for (var i = 0; i < $scope.showClass.length; i++) {
                                         $scope.showClass[i].part_index = i + 1;
                                         $scope.showClass[i].credit = $scope.selectedCourse.cost;
-                                        $scope.showClass[i].requirements = $scope.selectedCourse.requirements;
+                                        $scope.showClass[i].requirements = $scope.selectedCourse.requirements.toString();
                                         $scope.showClass[i].time = time[$scope.showClass[i].start_at]['start_at'] + " - " + time[$scope.showClass[i].end_at]['end_at'];
                                     }
                                     $scope.loadClass = true;

@@ -36,19 +36,19 @@
                         <div ng-message="md-maxlength">Profile name is too long!</div>
                     </div>
                 </md-input-container>
-                <!--                 <md-input-container class="md-block">
-                                    <span>Email address</span>
-                                    <input type="email"
-                                           name="email"
-                                           ng-model="userProfile.email"
-                                           md-maxlength="128"
-                                           required/>
-                                    <div ng-messages="editInfo.email.$error" ng-show="editInfo.email.$dirty">
-                                        <div ng-message="required">This field cannot be blank!</div>
-                                        <div ng-message="email">Invalid email address format!</div>
-                                        <div ng-message="md-maxlength">Email address is too long!</div>
-                                    </div>
-                                </md-input-container> -->
+                <md-input-container class="md-block">
+                    <span>Email address</span>
+                    <input type="email"
+                           name="email"
+                           ng-model="userProfile.email"
+                           md-maxlength="128"
+                           required/>
+                    <div ng-messages="editInfo.email.$error" ng-show="editInfo.email.$dirty">
+                        <div ng-message="required">This field cannot be blank!</div>
+                        <div ng-message="email">Invalid email address format!</div>
+                        <div ng-message="md-maxlength">Email address is too long!</div>
+                    </div>
+                </md-input-container>
                 <!--  <md-input-container class="md-block">
                      <span>Favorite</span>
                      <input type="text"

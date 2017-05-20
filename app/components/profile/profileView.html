@@ -31,6 +31,16 @@
             </div>
             <div class="line"></div>
         </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Email :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span ng-if="profile.email !== ''">{{profile.email}}</span>
+                    <span ng-if="profile.email === ''">Not Active</span>
+                </md-input-container>
+            </div>
+            <div class="line"></div>
+        </div>
         <div ng-if = "profile.class_id"layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
             <div flex-xs="30" flex>Class :</div>
             <div flex-xs="70" flex>

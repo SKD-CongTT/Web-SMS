@@ -98,7 +98,7 @@ function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter,
 function userProfile($http, $rootScope, auth) {
     return {
         getProfile : function (){
-            if (auth.getGroup() == "lecturer"){
+            if (auth.getGroup() === "lecturer"){
                 $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
                     if(response.data.results !== false) {
                         return response;

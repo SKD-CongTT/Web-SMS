@@ -133,7 +133,7 @@ angular
                 debug:false,
                 events:true
             });
-
+            $urlRouterProvider.when('/alerts', '/alerts/positive');
             $urlRouterProvider.otherwise('/home');
             $stateProvider
                 .state('dashboard', {
@@ -280,23 +280,168 @@ angular
 
                 .state('dashboard.student_management',{
                     templateUrl:'components/alerts/alertsView.html',
-                    title: 'Student Management',
-                    url:'/student_management',
-                    controller:'studentController',
+                    title: 'Cảnh báo - WebAssistant',
+                    url:'/alerts',
                     data: {
                         permissions: {
-                            only: '1',
+                            only: ['1','2'],
                             redirectTo: 'dashboard.profile'
                         }
-                    },
+                    }
+                })
+                .state('dashboard.student_management.positive',{
+                    url: '/positive',
+                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
                     resolve: {
-                        loadMyFiles:function ($ocLazyLoad) {
+                        loadMyFiles:function($ocLazyLoad) {
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/alertsController.js'
+                                    'components/alerts/positive/positiveController.js'
                                 ]
                             })
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1','2'],
+                            redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    views: {
+                        'positive': {
+                            templateUrl:'components/alerts/positive/positiveView.html',
+                            controller: 'positiveController'
+                        }
+                    }
+                })
+                .state('dashboard.student_management.negative',{
+                    url: '/negative',
+                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                    resolve: {
+                        loadMyFiles:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'webix',
+                                files:[
+                                    'components/alerts/negative/negativeController.js'
+                                ]
+                            })
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1','2'],
+                            redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    views: {
+                        'negative': {
+                            templateUrl:'components/alerts/negative/negativeView.html',
+                            controller: 'negativeController'
+                        }
+                    }
+                })
+                .state('dashboard.student_management.done',{
+                    url: '/done',
+                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                    resolve: {
+                        loadMyFiles:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'webix',
+                                files:[
+                                    'components/alerts/done/doneController.js'
+                                ]
+                            })
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1','2'],
+                            redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    views: {
+                        'done': {
+                            templateUrl:'components/alerts/done/doneView.html',
+                            controller: 'doneController'
+                        }
+                    }
+                })
+                .state('dashboard.student_management.rules',{
+                    url: '/rules',
+                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                    resolve: {
+                        loadMyFiles:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'webix',
+                                files:[
+                                    'components/alerts/rules/rulesController.js'
+                                ]
+                            })
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1','2'],
+                            redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    views: {
+                        'rules': {
+                            templateUrl:'components/alerts/rules/rulesView.html',
+                            controller: 'rulesController'
+                        }
+                    }
+                })
+                .state('dashboard.student_management.trustedIp',{
+                    url: '/trustedIp',
+                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                    resolve: {
+                        loadMyFiles:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'webix',
+                                files:[
+                                    'components/alerts/trustedIp/trustedIpController.js'
+                                ]
+                            })
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1','2'],
+                            redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    views: {
+                        'trustedIp': {
+                            templateUrl:'components/alerts/trustedIp/trustedIpView.html',
+                            controller: 'trustedIpController'
+                        }
+                    }
+                })
+                .state('dashboard.student_management.reports',{
+                    url: '/reports',
+                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                    resolve: {
+                        loadMyFiles:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'webix',
+                                files:[
+                                    'components/alerts/reports/reportsController.js'
+                                ]
+                            })
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1','2'],
+                            redirectTo: 'dashboard.profile'
+                        }
+                    },
+                    views: {
+                        'reports': {
+                            templateUrl:'components/alerts/reports/reportsView.html',
+                            controller: 'reportsController'
                         }
                     }
                 })

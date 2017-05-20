@@ -18,9 +18,6 @@
                 <md-list-item ng-click="select(value)" ng-if="!loadingCourseList" ng-repeat="value in showCourse | filter : id"
                               ng-class="selectedId==value.id?'label-grey':''" >
                     <p class="longText"><strong>{{value.id}}</strong></p>
-
-                    <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>
                 </md-list-item>
             </md-list>
         </md-content>
@@ -96,14 +93,14 @@
                     <label class="label label-warning ng-scope" ng-show="value.length === 0" aria-hidden="false">NOT ACTIVE</label>
                 </mdt-custom-cell>
                 <mdt-custom-cell column-key="part_index">
-                    <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.remove(value)" md-colors="{background: 'red'}">close </md-icon>
+                    <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.remove(value)" md-colors="{background: 'red'}" title="Remove This Session">close </md-icon>
                 </mdt-custom-cell>
             </mdt-table>
 
         </md-content>
     </div>
     <div layout="row" layout-align="center center">
-        <button class="md-raised md-success md-button" type="button" ng-disabled="error">Confirm</button>
-        <button class="md-raised md-warn md-button" type="button">Cancel</button>
+        <button class="md-raised md-success md-button" type="button" ng-disabled="error" ng-click="register()">Confirm</button>
+        <button class="md-raised md-warn md-button" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </div>

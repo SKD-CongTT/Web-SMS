@@ -11,7 +11,10 @@
                     </md-input-container>
                 </form>
                 <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="addCourseModal()" permission permission-only="['1']">
-                    <md-icon md-colors="{color:'green-500'}" md-font-set="material-icons"> add_box </md-icon>
+                    <md-icon md-colors="{color:'green-500'}" md-font-set="material-icons" title="Add New Course"> add_box </md-icon>
+                </md-button>
+                <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="addCourseModal()" permission permission-only="['1']">
+                    <md-icon md-colors="{color:'blue-500'}" md-font-set="material-icons" title="Add New Session"> add_box </md-icon>
                 </md-button>
             </div>
 
@@ -22,7 +25,7 @@
                               ng-class="selectedId==value.id?'label-grey':''" >
                     <p class="longText"><b>{{value.id}}</b></p>
                     <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}" permission permission-only="['1']">delete</md-icon>
+                             md-font-set="material-icons" md-colors="{color:'red-500'}" permission permission-only="['1']" title="Delete This Course">delete</md-icon>
                 </md-list-item>
             </md-list>
             <!--<md-list flex>-->
@@ -60,7 +63,7 @@
                             <span>{{selectedCourse.id}}</span>
                         </div>
                         <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)" permission permission-only="['1']">
-                            <md-icon class="material-icons">edit</md-icon>
+                            <md-icon class="material-icons" title="Edit Course's Infomation">edit</md-icon>
                         </md-button>
                     </div>
                     <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
