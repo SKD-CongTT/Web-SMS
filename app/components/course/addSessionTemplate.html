@@ -1,0 +1,128 @@
+<md-dialog flex="30">
+    <form ng-cloak name="addSession">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Assign {{selectedCourse.id}} Session</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">cancel</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-progress-linear ng-show="loading" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+                <p class="noThing" ng-if="loading"><em>Loading Information </em></p>
+                <md-input-container class="md-block">
+                    <div layout="row" layout-align="space-between center">
+                        <span><strong>Selected Course:&nbsp&nbsp&nbsp&nbsp{{selectedCourse.id}} - {{selectedCourse.name}}</strong></span>
+                    </div>
+                </md-input-container>
+                <p ng-show="!is_full && !loading" md-colors="{color:'green-500'}" ><strong>&nbsp{{selectedCourse.id}} - {{selectedCourse.name}} is opening {{selectedCourse.session_num}} session(s).<br>
+                    &nbspYou can assign for {{selectedCourse.session_num - count}} session(s) more.</strong></p>
+                <p ng-show="is_full && !loading" md-colors="{color:'red-500'}" ><strong>&nbsp{{selectedCourse.id}} - {{selectedCourse.name}} is fully assigned.</strong></p>
+                <!--<md-input-container class="md-block">-->
+                <!--<div layout="row" layout-align="space-between center">-->
+                <!--<span>Select Session Number: </span>-->
+                <!--<md-select ng-model="session" placeholder="Session Number" class="md-no-underline" required multiple name="session">-->
+                <!--<md-option value="{{value}}" ng-repeat="value in selectedCourse.session">{{value}}</md-option>-->
+                <!--</md-select>-->
+                <!--</div>-->
+                <!--<div ng-messages="addSession.session.$error" ng-show="addSession.session.$touched">-->
+                <!--<div ng-message="required">Session must be selected!</div>-->
+                <!--</div>-->
+                <!--</md-input-container>-->
+                <div id="rcorner" class="md-dialog-content" ng-show="!is_full && !loading">
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>Select Year: </span>
+                            <md-select ng-model="info.year" placeholder="Year" class="md-no-underline" required name="year">
+                                <md-option value="{{year_option}}">{{year_option}}</md-option>
+                                <md-option value="{{year_option + 1}}">{{year_option + 1}}</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.year.$error" ng-show="addSession.year.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>Select Semester: </span>
+                            <md-select ng-model="info.semester" placeholder="Semester" class="md-no-underline" required name="semester">
+                                <md-option value="1">1</md-option>
+                                <md-option value="2">2</md-option>
+                                <md-option value="3">3</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.semester.$error" ng-show="addSession.semester.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <span>Max enroll:</span>
+                        <input type="number"
+                               name="max_enroll"
+                               ng-model="info.max_enroll"
+                               max="100"
+                               min="0"
+                               required/>
+                        <div ng-messages="addSession.max_enroll.$error" ng-show="addSession.max_enroll.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                            <div ng-message="max">Maximum enroll is 100</div>
+                            <div ng-message="min">Minimum enroll is 0</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>Start at Period: </span>
+                            <md-select ng-model="info.start_at" placeholder="Start at Period" class="md-no-underline" required name="start_at">
+                                <md-option value="{{value.period}}" ng-repeat="value in period">{{value.period}} - Start at: {{value.start_at}} - End at: {{value.end_at}}</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.start_at.$error" ng-show="addSession.start_at.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>End at Period: </span>
+                            <md-select ng-model="info.end_at" placeholder="End at Period" class="md-no-underline" required name="end_at">
+                                <md-option value="{{value.period}}" ng-repeat="value in period">{{value.period}} - Start at: {{value.start_at}} - End at: {{value.end_at}}</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.end_at.$error" ng-show="addSession.end_at.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>Day of Week: </span>
+                            <md-select ng-model="info.day" placeholder="Day of Week" class="md-no-underline" required name="day">
+                                <md-option value="2">2 - Monday</md-option>
+                                <md-option value="3">3 - Tuesday</md-option>
+                                <md-option value="4">4 - Wednesday</md-option>
+                                <md-option value="5">5 - Thursday</md-option>
+                                <md-option value="6">6 - Friday</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.day.$error" ng-show="addSession.day.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-primary md-raised" ng-disabled="addCourse.$invalid || onRequest || is_full"
+                       md-auto-focus
+                       ng-click="add()">
+                Confirm
+            </md-button>
+            <md-button class="md-warn md-raised" ng-click="cancel()">
+                Cancel
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

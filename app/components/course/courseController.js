@@ -2,12 +2,74 @@ angular.module('webix')
 
     .controller('courseController',function ($scope,$rootScope,$http,$mdToast,auth,$timeout,$mdDialog) {
         if(auth.isAuthed()) {
+            var time = {
+                1 : {
+                    'period' : 1,
+                    'start_at':'6h45',
+                    'end_at' : '7h30'
+                },
+                2 : {
+                    'period' : 2,
+                    'start_at':'7h35',
+                    'end_at' : '8h20'
+                },
+                3 : {
+                    'period' : 3,
+                    'start_at':'8h30',
+                    'end_at' : '9h15'
+                },
+                4 : {
+                    'period' : 4,
+                    'start_at':'9h20',
+                    'end_at' : '10h05'
+                },
+                5 : {
+                    'period' : 5,
+                    'start_at':'10h15',
+                    'end_at' : '11h00'
+                },
+                6 : {
+                    'period' : 6,
+                    'start_at':'11h05',
+                    'end_at' : '11h50'
+                },
+                7 : {
+                    'period' : 7,
+                    'start_at':'12h30',
+                    'end_at' : '13h15'
+                },
+                8 : {
+                    'period' : 8,
+                    'start_at':'13h20',
+                    'end_at' : '14h05'
+                },
+                9 : {
+                    'period' : 9,
+                    'start_at':'14h15',
+                    'end_at' : '15h00'
+                },
+                10 : {
+                    'period' : 10,
+                    'start_at':'15h05',
+                    'end_at' : '15h50'
+                },
+                11 : {
+                    'period' : 11,
+                    'start_at':'16h00',
+                    'end_at' : '16h45'
+                },
+                12 : {
+                    'period' : 12,
+                    'start_at':'16h50',
+                    'end_at' : '17h35'
+                }
+            };
             $scope.allCourseList = [];
             $scope.department = [];
             $scope.isNumber = angular.isNumber;
             $scope.chartConfig = {};
             $scope.countChartConfig = {};
-            $scope.loadingCourseList = false;
+            $scope.loadingCourseList = true;
             $scope.loadingChart = true;
             $scope.loadingChartPie = true;
             $scope.selectedWebsite = {};
@@ -70,7 +132,6 @@ angular.module('webix')
                 };
 
                 $scope.edit = function () {
-                    console.log($scope.requirements)
                     if (auth.isAuthed) {
                         $http({
                             method: 'PATCH',
@@ -119,13 +180,17 @@ angular.module('webix')
                                             return 0; //default return value (no sorting)
                                         });
                                         select($rootScope.showCourse[0]);
+                                        $scope.loadingCourseList = false;
                                         resolve();
                                     } else {
+                                        $scope.loadingCourseList = false;
                                         $rootScope.showCourse = [];
                                         reject();
                                     }
                                 })
                         }
+                        else
+                            $scope.loadingCourseList = false;
                     })
                 }
             };
@@ -145,7 +210,6 @@ angular.module('webix')
             $scope.select = select;
 
             getAllCourse(0).then(function(){
-                console.log(1);
                 select($rootScope.showCourse[0]);
             });
 
@@ -160,7 +224,6 @@ angular.module('webix')
                 if (auth.isAuthed) {
                     $http.get($rootScope.apiUrl + '/departments/'
                     ).then(function (response) {
-                        console.log(response);
                         if(response.statusText === 'OK') {
                             $scope.department = response.data.results;
                         } else {
@@ -180,6 +243,21 @@ angular.module('webix')
                         locals: {allCourse : $rootScope.showCourse, allDepartment : $scope.department},
                         controller: DialogAddController,
                         templateUrl: 'components/course/addCourseTemplate.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose:true,
+                        fullscreen: true
+                    })
+                } else {
+                    alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                    auth.logout();
+                }
+            };
+            $scope.addSessionModal = function (value) {
+                if(auth.isAuthed()) {
+                    $mdDialog.show({
+                        locals: {value : value, time: time},
+                        controller: DialogAddSController,
+                        templateUrl: 'components/course/addSessionTemplate.html',
                         parent: angular.element(document.body),
                         clickOutsideToClose:true,
                         fullscreen: true
@@ -268,7 +346,6 @@ angular.module('webix')
                 };
 
                 $scope.add = function () {
-                    console.log($scope.requirements)
                     if (auth.isAuthed) {
                         $http({
                             method: 'POST',
@@ -288,6 +365,82 @@ angular.module('webix')
                                 requirements: $scope.requirements,
                                 session: $scope.addedCourse.session,
                                 department: $scope.department
+                            }
+                        }).success(function (response) {
+                            $mdDialog.hide();
+                            $mdToast.show(toastSuccess);
+                            getAllCourse(1);
+                        }).error(function () {
+                            $mdDialog.hide();
+                            $mdToast.show(toastFail);
+                        })
+                    } else {
+                        alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                        auth.logout();
+                    }
+                };
+            }
+            function DialogAddSController($scope, value, time) {
+                $scope.selectedCourse = value;
+                $scope.count = 0;
+                $scope.is_full = true;
+                $scope.loading = true;
+                var d = new Date();
+                $scope.year_option = d.getFullYear();
+                $scope.info = {};
+                $scope.period = time;
+                var toastSuccess = $mdToast.simple()
+                    .textContent('Assign Successfully.')
+                    .position('right bottom');
+
+                var toastFail = $mdToast.simple()
+                    .textContent('Assign Unsuccessfully. May be your input data is invalid or because of duplication of timetable.')
+                    .position('right bottom');
+                var toastFailConnect = $mdToast.simple()
+                    .textContent('Unable to Connect to Server.')
+                    .position('right bottom');
+
+                $scope.hide = function() {
+                    $mdDialog.hide();
+                };
+
+                $scope.cancel = function() {
+                    $mdDialog.cancel();
+                };
+                if ($scope.selectedCourse.active) {
+                    $http({
+                        method: 'GET',
+                        url: $rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id
+                    }).success(function (response) {
+                        $scope.count = response.count;
+                        console.log(response);
+                        if ($scope.selectedCourse.session_num <= response.count)
+                            $scope.is_full = true;
+                        else
+                            $scope.is_full = false;
+                        $scope.loading = false;
+                    }).error(function () {
+                        $mdDialog.hide();
+                        $mdToast.show(toastFailConnect);
+                    })
+                }
+                else {
+                    $scope.is_full = false;
+                }
+                $scope.add = function () {
+                    if (auth.isAuthed) {
+                        $http({
+                            method: 'POST',
+                            url: $rootScope.apiUrl + '/sessions/',
+                            data: {
+                                year: $scope.info.year,
+                                semester: $scope.info.semester,
+                                start_at: $scope.info.start_at,
+                                end_at: $scope.info.end_at,
+                                max_enroll: $scope.info.max_enroll,
+                                lecturer_id: $rootScope.profile.id,
+                                course_id: $scope.selectedCourse.id,
+                                week_day: $scope.info.day
                             }
                         }).success(function (response) {
                             $mdDialog.hide();

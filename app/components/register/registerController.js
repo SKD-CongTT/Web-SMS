@@ -7,8 +7,9 @@ angular.module('webix')
             $scope.loadClass = false;
             $scope.loadRoom = false;
             $scope.error = true;
-            $scope.loadingCourseList = false;
+            $scope.loadingCourseList = true;
             $scope.selectedCourse;
+            $scope.valid = true;
             var time = {
                 1 : {
                     'start_at':'6h45',
@@ -76,6 +77,7 @@ angular.module('webix')
                                                 return 1;
                                             return 0; //default return value (no sorting)
                                         });
+                                        $scope.loadingCourseList = false;
                                         resolve();
                                     } else {
                                         $rootScope.showCourse = [];
@@ -83,6 +85,8 @@ angular.module('webix')
                                     }
                                 })
                         }
+                        else
+                            $scope.loadingCourseList = false;
                         select($rootScope.showCourse[0]);
                     })
                 }
@@ -196,35 +200,35 @@ angular.module('webix')
             };
             var select = function (value){
                 $scope.selectedCourse = value;
-                if (auth.isAuthed()){
+                if (auth.isAuthed()) {
                     $scope.loadClass = false;
-
-                    return new Promise(function(resolve, reject) {
-                        $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id)
-                            .then(function (response) {
-                                if(response.data.results !== false) {
-                                    $scope.showClass = response.data.results;
-                                    for (var i = 0; i < $scope.showClass.length; i++) {
-                                        $scope.showClass[i].part_index = i + 1;
-                                        $scope.showClass[i].credit = $scope.selectedCourse.cost;
-                                        $scope.showClass[i].requirements = $scope.selectedCourse.requirements.toString();
-                                        $scope.showClass[i].time = time[$scope.showClass[i].start_at]['start_at'] + " - " + time[$scope.showClass[i].end_at]['end_at'];
+                    if (value.active) {
+                        $scope.valid = true;
+                        return new Promise(function (resolve, reject) {
+                            $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id)
+                                .then(function (response) {
+                                    if (response.data.results !== false) {
+                                        $scope.showClass = response.data.results;
+                                        for (var i = 0; i < $scope.showClass.length; i++) {
+                                            $scope.showClass[i].part_index = i + 1;
+                                            $scope.showClass[i].credit = $scope.selectedCourse.cost;
+                                            $scope.showClass[i].requirements = $scope.selectedCourse.requirements.toString();
+                                            $scope.showClass[i].time = time[$scope.showClass[i].start_at]['start_at'] + " - " + time[$scope.showClass[i].end_at]['end_at'];
+                                        }
+                                        $scope.loadClass = true;
+                                        resolve();
+                                    } else {
+                                        $scope.showClass = [];
+                                        reject();
                                     }
-                                    $scope.loadClass = true;
-                                    resolve();
-                                } else {
-                                    $scope.showClass = [];
-                                    reject();
-                                }
-                            });
-                    })
+                                });
+                        })
+                    }
+                    else{
+                        $scope.valid = false;
+                        $scope.showClass = [];
+                    }
                 }
-                if (value.requirements.length === 0)
-                    $scope.selectedCourse.requirements = "Not Active";
-                if (value.active)
-                    $scope.selectedCourse.status = "Opening";
-                else
-                    $scope.selectedCourse.status = "Closed";
             };
             $scope.select = select;
             getAllCourse(0).then(function(){

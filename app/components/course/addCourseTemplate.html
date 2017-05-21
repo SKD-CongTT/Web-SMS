@@ -69,7 +69,7 @@
           </div>
         </md-input-container>
         <md-input-container class="md-block">
-          <span>Session number</span>
+          <span>Number of Session</span>
           <input type="number"
                  name="session"
                  ng-model="addedCourse.session"
@@ -106,10 +106,10 @@
       <md-button class="md-primary md-raised" ng-disabled="addCourse.$invalid || onRequest"
                  md-auto-focus
                  ng-click="add()">
-        Thêm mới
+        Confirm
       </md-button>
       <md-button class="md-warn md-raised" ng-click="cancel()">
-        Hủy bỏ
+        Cancel
       </md-button>
     </md-dialog-actions>
   </form>

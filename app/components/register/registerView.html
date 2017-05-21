@@ -15,8 +15,13 @@
             <md-list flex class="max-heigh-content">
                 <md-progress-linear ng-show="loadingCourseList" md-mode="indeterminate" class="md-accent"></md-progress-linear>
                 <p class="noThing" ng-if="!loadingCourseList && showCourse.length==0"><em>No Course Available!</em></p>
+                <p class="noThing" ng-if="loadingCourseList && showCourse.length==0"><em>Loading All Course</em></p>
                 <md-list-item ng-click="select(value)" ng-if="!loadingCourseList" ng-repeat="value in showCourse | filter : id"
                               ng-class="selectedId==value.id?'label-grey':''" >
+                    <md-icon hide-sm hide-xs ng-if="!value.active"
+                             md-font-set="material-icons" md-colors="{color:'red-500'}" title="Close">highlight_off</md-icon>
+                    <md-icon hide-sm hide-xs ng-if="value.active"
+                             md-font-set="material-icons" md-colors="{color:'green-500'}" title="Opening">check_circle</md-icon>
                     <p class="longText"><strong>{{value.id}}</strong></p>
                 </md-list-item>
             </md-list>
@@ -31,8 +36,10 @@
                     </md-toolbar>
                     <md-content class="md-whiteframe-1dp">
                         <h1 class="noThing" ng-show="loadClass && showClass.length === 0"><em>No class available at the moment</em></h1>
+                        <h1 class="noThing" ng-show="!valid"><em>This course is not opened yet</em></h1>
                         <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
-                                   selectable-rows="true"
+                                   selectable-rows="valid"
+                                   ng-disable="valid"
                                    selected-row-callback="selectedRowCallback(rows)"
                                    mdt-row="{
                         data : showClass,
@@ -74,6 +81,7 @@
                           'time',
                           'course_id',
                           'credit',
+                          'lecturer_name',
                           'semester',
                           'requirements',
                           'part_index'
@@ -84,6 +92,7 @@
                     <mdt-column align-rule="center">Time</mdt-column>
                     <mdt-column align-rule="center">Course Id</mdt-column>
                     <mdt-column align-rule="center">Credit</mdt-column>
+                    <mdt-column align-rule="center">Lecturer name</mdt-column>
                     <mdt-column align-rule="center">Semester</mdt-column>
                     <mdt-column align-rule="center">Requirements</mdt-column>
                     <mdt-column align-rule="center">Remove</mdt-column>
