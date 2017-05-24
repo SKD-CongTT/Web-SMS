@@ -161,23 +161,6 @@ angular
                 })
                 .state('dashboard.home',{
                     url: '/home',
-                    // title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    // data: {
-                    //     permissions: {
-                    //         only: '9',
-                    //         redirectTo: 'dashboard.profile'
-                    //     }
-                    // },
-                    // resolve: {
-                    //     loadMyFiles:function($ocLazyLoad) {
-                    //         return $ocLazyLoad.load({
-                    //             name:'webix',
-                    //             files:[
-                    //                 'scripts/directives/dashboard/stats/stats.js'
-                    //             ]
-                    //         })
-                    //     }
-                    // },
                     templateUrl:'components/home/homeView.html',
                     controller: 'generalController',
 
@@ -586,8 +569,73 @@ angular
         $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
         $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
         $rootScope.showCourse = [];
+        $rootScope.loading = true;
         var permissions = []
+        var period = {
+            1 : {
+                'period' : 1,
+                'start_at':'6h45',
+                'end_at' : '7h30'
+            },
+            2 : {
+                'period' : 2,
+                'start_at':'7h35',
+                'end_at' : '8h20'
+            },
+            3 : {
+                'period' : 3,
+                'start_at':'8h30',
+                'end_at' : '9h15'
+            },
+            4 : {
+                'period' : 4,
+                'start_at':'9h20',
+                'end_at' : '10h05'
+            },
+            5 : {
+                'period' : 5,
+                'start_at':'10h15',
+                'end_at' : '11h00'
+            },
+            6 : {
+                'period' : 6,
+                'start_at':'11h05',
+                'end_at' : '11h50'
+            },
+            7 : {
+                'period' : 7,
+                'start_at':'12h30',
+                'end_at' : '13h15'
+            },
+            8 : {
+                'period' : 8,
+                'start_at':'13h20',
+                'end_at' : '14h05'
+            },
+            9 : {
+                'period' : 9,
+                'start_at':'14h15',
+                'end_at' : '15h00'
+            },
+            10 : {
+                'period' : 10,
+                'start_at':'15h05',
+                'end_at' : '15h50'
+            },
+            11 : {
+                'period' : 11,
+                'start_at':'16h00',
+                'end_at' : '16h45'
+            },
+            12 : {
+                'period' : 12,
+                'start_at':'16h50',
+                'end_at' : '17h35'
+            }
+        };
+        // var building = ['A', 'B', 'C', 'D', 'TC', 'SVD'];
         $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
+            $rootScope.loading = true;
             $rootScope.stateIsLoading = {value : true};
             $timeout(function () {
                 $rootScope.stateIsLoading.value = false;
@@ -607,11 +655,13 @@ angular
                 $rootScope.profile;
                 try {
                     $rootScope.profile.notExist;
+                    $rootScope.loading = false;
                 }
                 catch (e){
                     $http.get($rootScope.apiUrl + '/users/').then(function (response){
                         if(response.data.results !== false) {
                             $rootScope.profile = response.data;
+                            $rootScope.loading = false;
                             $rootScope.profile.Name = response.data.last_name + " " + response.data.first_name;
                             $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("T", " ");
                             $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("Z", " ");
@@ -622,12 +672,51 @@ angular
                                 $rootScope.profile.type = "STUDENT";
                             }
                             $rootScope.profile.notExist = false;
+                            $rootScope.days = [
+                                {
+                                    name: 'Monday',
+                                    slots: [
+
+                                    ]
+                                },{
+                                    name: 'Tuesday',
+                                    slots: [
+
+                                    ]
+                                },{
+                                    name: 'Wednesday',
+                                    slots: [
+
+                                    ]
+                                },{
+                                    name: 'Thursday',
+                                    slots: [
+
+                                    ]
+                                },{
+                                    name: 'Friday',
+                                    slots: [
+
+                                    ]
+                                }
+                            ];
+                            for (var i = 0; i < $rootScope.profile.sessions.length; i++){
+                                var time = period[$rootScope.profile.sessions[i].start_at].start_at + " - " + period[$rootScope.profile.sessions[i].end_at].end_at;
+                                var room = 1 + Math.floor((Math.random() * 10)) + (1 + Math.floor((Math.random() * 5)))*100;
+                                var temp = {
+                                    'time' : time,
+                                    'name' : $rootScope.profile.sessions[i].course_id,
+                                    'room' : room
+                                };
+                                $rootScope.days[$rootScope.profile.sessions[i].week_day - 2].slots.push(temp);
+                            }
+                            console.log($rootScope.days);
                         } else {
                             $location.path('/login');
                         }
                     });
                     if (auth.getGroup() === "lecturer"){
-                        permissions = ['1', '2'];
+                        permissions = ['1'];
                     }
                     else{
                         permissions = ['2'];

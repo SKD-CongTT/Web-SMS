@@ -40,7 +40,6 @@ angular.module('webix')
                 permission: ['1', '2']
             }
         ];
-
         $scope.toggleLeftSidebar = function () {
             $mdSidenav('left').toggle();
         }
