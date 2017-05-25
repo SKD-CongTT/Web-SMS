@@ -1,30 +1,30 @@
 <div layout="column" layout-gt-md="row" layout-margin>
     <div flex flex-gt-md="30" layout="row">
         <md-input-container flex>
-            <label>Kiểu sắp xếp</label>
+            <label>Select Class</label>
             <md-select ng-model="order_type">
                 <md-option value="1">Tăng dần</md-option>
                 <md-option value="-1">Giảm dần</md-option>
             </md-select>
         </md-input-container>
-        <md-input-container flex>
-            <label>Trường sắp xếp</label>
-            <md-select ng-model="field"
-                       ng-model-options="{trackBy: '$value.id'}">
-                <md-option ng-repeat="f in fieldValues" ng-value="{{f}}">{{f.name}}</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container flex>
-            <label>Bộ lọc</label>
-            <md-select ng-model="selectedFilter" multiple>
-                <md-optgroup label="Mức độ nguy hiểm">
-                    <md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'severity' }">{{valueFilter.name}}</md-option>
-                </md-optgroup>
-                <md-optgroup label="Gửi cảnh báo">
-                    <md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'is_alerted' }">{{valueFilter.name}}</md-option>
-                </md-optgroup>
-            </md-select>
-        </md-input-container>
+        <!--<md-input-container flex>-->
+            <!--<label>Trường sắp xếp</label>-->
+            <!--<md-select ng-model="field"-->
+                       <!--ng-model-options="{trackBy: '$value.id'}">-->
+                <!--<md-option ng-repeat="f in fieldValues" ng-value="{{f}}">{{f.name}}</md-option>-->
+            <!--</md-select>-->
+        <!--</md-input-container>-->
+        <!--<md-input-container flex>-->
+            <!--<label>Bộ lọc</label>-->
+            <!--<md-select ng-model="selectedFilter" multiple>-->
+                <!--<md-optgroup label="Mức độ nguy hiểm">-->
+                    <!--<md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'severity' }">{{valueFilter.name}}</md-option>-->
+                <!--</md-optgroup>-->
+                <!--<md-optgroup label="Gửi cảnh báo">-->
+                    <!--<md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'is_alerted' }">{{valueFilter.name}}</md-option>-->
+                <!--</md-optgroup>-->
+            <!--</md-select>-->
+        <!--</md-input-container>-->
     </div>
     <div flex flex-gt-md="30" layout="column">
         <md-input-container class="md-icon-right md-block">

@@ -9,6 +9,7 @@ angular.module('webix')
             $scope.panelResult = [{
                 name : "Member",
                 info : 0,
+                href : "dashboard.student_management"
             },{
                 name : "Course Available",
                 info : 0,

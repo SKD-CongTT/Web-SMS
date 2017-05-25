@@ -702,11 +702,10 @@ angular
                             ];
                             for (var i = 0; i < $rootScope.profile.sessions.length; i++){
                                 var time = period[$rootScope.profile.sessions[i].start_at].start_at + " - " + period[$rootScope.profile.sessions[i].end_at].end_at;
-                                var room = 1 + Math.floor((Math.random() * 10)) + (1 + Math.floor((Math.random() * 5)))*100;
                                 var temp = {
                                     'time' : time,
                                     'name' : $rootScope.profile.sessions[i].course_id,
-                                    'room' : room
+                                    'room' : $rootScope.profile.sessions[i].room
                                 };
                                 $rootScope.days[$rootScope.profile.sessions[i].week_day - 2].slots.push(temp);
                             }

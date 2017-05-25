@@ -64,6 +64,51 @@ angular.module('webix')
                     'end_at' : '17h35'
                 }
             };
+            var rooms = [
+                {
+                    'name' : 'B',
+                    'room' : []
+                },
+                {
+                    'name' : 'C',
+                    'room' : []
+                },
+                {
+                    'name' : 'D',
+                    'room' : []
+                },
+                {
+                    'name' : 'Stadium - Sân Vận Động',
+                    'room' : [
+                        'SVD-101', 'SVD-102', 'SVD'
+                    ]
+                },
+                {
+                    'name' : 'Indoor Stadium - Nhà Thi Đấu',
+                    'room' : [
+                        'NTD', 'NTD-101', 'NTD-102'
+                    ]
+                },
+                {
+                    'name' : 'Library - Thư Viện',
+                    'room' : [
+                        'TV-610', 'TV-611', 'TV-612', 'TV-613', 'TV-614',
+                        'TV-710', 'TV-711', 'TV-712', 'TV-713', 'TV-714',
+                        'TV-810', 'TV-811', 'TV-812', 'TV-813', 'TV-814'
+                    ]
+                }
+            ];
+            for (var i = 0; i < 3; i++){
+                for (var j = 1; j <= 9; j++){
+                    for (var k = 1; k <= 5; k++){
+                        for (var z = 1; z <= 7; z++) {
+                            var temp = rooms[i].name + j + "-" + (k * 100 + z);
+                           rooms[i].room.push(temp);
+                        }
+                    }
+                }
+            }
+            console.log(rooms);
             $scope.allCourseList = [];
             $scope.department = [];
             $scope.isNumber = angular.isNumber;
@@ -255,7 +300,7 @@ angular.module('webix')
             $scope.addSessionModal = function (value) {
                 if(auth.isAuthed()) {
                     $mdDialog.show({
-                        locals: {value : value, time: time},
+                        locals: {value : value, time: time, rooms : rooms},
                         controller: DialogAddSController,
                         templateUrl: 'components/course/addSessionTemplate.html',
                         parent: angular.element(document.body),
@@ -380,7 +425,8 @@ angular.module('webix')
                     }
                 };
             }
-            function DialogAddSController($scope, value, time) {
+            function DialogAddSController($scope, value, time, rooms) {
+                $scope.rooms = rooms;
                 $scope.selectedCourse = value;
                 $scope.count = 0;
                 $scope.is_full = true;
@@ -413,7 +459,6 @@ angular.module('webix')
                         url: $rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id
                     }).success(function (response) {
                         $scope.count = response.count;
-                        console.log(response);
                         if ($scope.selectedCourse.session_num <= response.count)
                             $scope.is_full = true;
                         else
@@ -427,6 +472,9 @@ angular.module('webix')
                 else {
                     $scope.is_full = false;
                 }
+                $scope.showRoom = function (value) {
+                    $scope.info.building = value;
+                };
                 $scope.add = function () {
                     if (auth.isAuthed) {
                         $http({
@@ -440,6 +488,7 @@ angular.module('webix')
                                 max_enroll: $scope.info.max_enroll,
                                 lecturer_id: $rootScope.profile.id,
                                 course_id: $scope.selectedCourse.id,
+                                room : $scope.info.room,
                                 week_day: $scope.info.day
                             }
                         }).success(function (response) {

@@ -3,35 +3,35 @@
                  permission-only = "['1','2']"
                  md-nav-sref="dashboard.student_management.positive"
                  name="dashboard.student_management.positive">
-        <i class="material-icons">add_alert</i><span hide-xs> Cảnh báo</span>
+        <i class="material-icons">list</i><span hide-xs>List students</span>
     </md-nav-item>
     <md-nav-item hide-xs permission
                  permission-only = "['1','2']"
                  md-nav-sref="dashboard.student_management.negative"
                  name="dashboard.student_management.negative">
-        <i class="material-icons">error</i><span hide-xs> Cảnh báo sai</span>
+        <i class="material-icons">spellcheck</i><span hide-xs>Student result</span>
     </md-nav-item>
     <md-nav-item hide-xs permission
                  permission-only = "['1','2']"
                  md-nav-sref="dashboard.student_management.done"
                  name="dashboard.student_management.done">
-        <i class="material-icons">check_circle</i><span hide-xs> Cảnh báo đã xử lý</span>
+        <i class="material-icons">verified_user</i><span hide-xs>Check graduate</span>
     </md-nav-item>
-    <md-nav-item hide-xs permission
-                 permission-only = "['1','2']"
-                 md-nav-sref="dashboard.student_management.rules" name="dashboard.student_management.rules">
-        <i class="material-icons">list</i><span hide-xs> Bộ nhận dạng</span>
-    </md-nav-item>
-    <md-nav-item hide-xs hide-sm permission
-                 permission-only = "['1','2']"
-                 md-nav-sref="dashboard.student_management.trustedIp" name="dashboard.student_management.trustedIp">
-        <i class="material-icons">playlist_add_check</i><span hide-xs> IP tin cậy</span>
-    </md-nav-item>
-    <md-nav-item hide-xs hide-sm permission
-                 permission-only = "['1','2']"
-                 md-nav-sref="dashboard.student_management.reports" name="dashboard.student_management.reports">
-        <i class="material-icons">show_chart</i><span hide-xs> Báo cáo</span>
-    </md-nav-item>
+    <!--<md-nav-item hide-xs permission-->
+                 <!--permission-only = "['1','2']"-->
+                 <!--md-nav-sref="dashboard.student_management.rules" name="dashboard.student_management.rules">-->
+        <!--<i class="material-icons">list</i><span hide-xs> Bộ nhận dạng</span>-->
+    <!--</md-nav-item>-->
+    <!--<md-nav-item hide-xs hide-sm permission-->
+                 <!--permission-only = "['1','2']"-->
+                 <!--md-nav-sref="dashboard.student_management.trustedIp" name="dashboard.student_management.trustedIp">-->
+        <!--<i class="material-icons">playlist_add_check</i><span hide-xs> IP tin cậy</span>-->
+    <!--</md-nav-item>-->
+    <!--<md-nav-item hide-xs hide-sm permission-->
+                 <!--permission-only = "['1','2']"-->
+                 <!--md-nav-sref="dashboard.student_management.reports" name="dashboard.student_management.reports">-->
+        <!--<i class="material-icons">show_chart</i><span hide-xs> Báo cáo</span>-->
+    <!--</md-nav-item>-->
 </md-nav-bar>
 
 <div ui-view="positive" ng-show="$state.includes('dashboard.student_management.positive')"></div>

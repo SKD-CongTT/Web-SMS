@@ -87,7 +87,6 @@ angular.module('webix')
                         }
                         else
                             $scope.loadingCourseList = false;
-                        select($rootScope.showCourse[0]);
                     })
                 }
             };
@@ -231,9 +230,7 @@ angular.module('webix')
                 }
             };
             $scope.select = select;
-            getAllCourse(0).then(function(){
-                select($scope.showCourse[0]);
-            });
+            getAllCourse(0);
         } else {
             alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại');
             auth.logout();
