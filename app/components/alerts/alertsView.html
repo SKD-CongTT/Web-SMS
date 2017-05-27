@@ -1,21 +1,21 @@
 <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
     <md-nav-item permission
                  permission-only = "['1','2']"
-                 md-nav-sref="dashboard.student_management.positive"
-                 name="dashboard.student_management.positive">
+                 md-nav-sref="dashboard.student_management.list_student"
+                 name="dashboard.student_management.list_student">
         <i class="material-icons">list</i><span hide-xs>List students</span>
     </md-nav-item>
     <md-nav-item hide-xs permission
                  permission-only = "['1','2']"
-                 md-nav-sref="dashboard.student_management.negative"
-                 name="dashboard.student_management.negative">
+                 md-nav-sref="dashboard.student_management.student_result"
+                 name="dashboard.student_management.student_result">
         <i class="material-icons">spellcheck</i><span hide-xs>Student result</span>
     </md-nav-item>
     <md-nav-item hide-xs permission
                  permission-only = "['1','2']"
-                 md-nav-sref="dashboard.student_management.done"
-                 name="dashboard.student_management.done">
-        <i class="material-icons">verified_user</i><span hide-xs>Check graduate</span>
+                 md-nav-sref="dashboard.student_management.schedule"
+                 name="dashboard.student_management.schedule">
+        <i class="material-icons">poll</i><span hide-xs>Schedule</span>
     </md-nav-item>
     <!--<md-nav-item hide-xs permission-->
                  <!--permission-only = "['1','2']"-->
@@ -34,9 +34,7 @@
     <!--</md-nav-item>-->
 </md-nav-bar>
 
-<div ui-view="positive" ng-show="$state.includes('dashboard.student_management.positive')"></div>
-<div ui-view="negative" ng-show="$state.includes('dashboard.student_management.negative')"></div>
-<div ui-view="done" ng-show="$state.includes('dashboard.student_management.done')"></div>
-<div ui-view="rules" ng-show="$state.includes('dashboard.student_management.rules')"></div>
-<div ui-view="trustedIp" ng-show="$state.includes('dashboard.student_management.trustedIp')"></div>
-<div ui-view="reports" ng-show="$state.includes('dashboard.student_management.reports')"></div>
+<div ui-view="positive" ng-show="$state.includes('dashboard.student_management.list_student')"></div>
+<div ui-view="negative" ng-show="$state.includes('dashboard.student_management.student_result')"></div>
+<div ui-view="done" ng-show="$state.includes('dashboard.student_management.schedule')"></div>
+

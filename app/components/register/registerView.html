@@ -19,7 +19,7 @@
                 <md-list-item ng-click="select(value)" ng-if="!loadingCourseList" ng-repeat="value in showCourse | filter : id"
                               ng-class="selectedId==value.id?'label-grey':''" >
                     <md-icon hide-sm hide-xs ng-if="!value.active"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}" title="Close">highlight_off</md-icon>
+                             md-font-set="material-icons" md-colors="{color:'red-500'}" title="Close">cancel</md-icon>
                     <md-icon hide-sm hide-xs ng-if="value.active"
                              md-font-set="material-icons" md-colors="{color:'green-500'}" title="Opening">check_circle</md-icon>
                     <p class="longText"><strong>{{value.id}}</strong></p>

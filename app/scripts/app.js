@@ -133,7 +133,7 @@ angular
                 debug:false,
                 events:true
             });
-            $urlRouterProvider.when('/alerts', '/alerts/positive');
+            $urlRouterProvider.when('/alerts', '/alerts/list_student');
             $urlRouterProvider.otherwise('/home');
             $stateProvider
                 .state('dashboard', {
@@ -263,7 +263,7 @@ angular
 
                 .state('dashboard.student_management',{
                     templateUrl:'components/alerts/alertsView.html',
-                    title: 'Cảnh báo - WebAssistant',
+                    title: 'Student Management',
                     url:'/alerts',
                     data: {
                         permissions: {
@@ -272,9 +272,9 @@ angular
                         }
                     }
                 })
-                .state('dashboard.student_management.positive',{
-                    url: '/positive',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                .state('dashboard.student_management.list_student',{
+                    url: '/list_student',
+                    title: 'List Student.',
                     resolve: {
                         loadMyFiles:function($ocLazyLoad) {
                             return $ocLazyLoad.load({
@@ -298,9 +298,9 @@ angular
                         }
                     }
                 })
-                .state('dashboard.student_management.negative',{
-                    url: '/negative',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                .state('dashboard.student_management.student_result',{
+                    url: '/student_result',
+                    title: 'Student Result',
                     resolve: {
                         loadMyFiles:function($ocLazyLoad) {
                             return $ocLazyLoad.load({
@@ -324,9 +324,9 @@ angular
                         }
                     }
                 })
-                .state('dashboard.student_management.done',{
-                    url: '/done',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
+                .state('dashboard.student_management.schedule',{
+                    url: '/schedule',
+                    title: 'Schedule',
                     resolve: {
                         loadMyFiles:function($ocLazyLoad) {
                             return $ocLazyLoad.load({
@@ -347,84 +347,6 @@ angular
                         'done': {
                             templateUrl:'components/alerts/done/doneView.html',
                             controller: 'doneController'
-                        }
-                    }
-                })
-                .state('dashboard.student_management.rules',{
-                    url: '/rules',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                    'components/alerts/rules/rulesController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: ['1','2'],
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'rules': {
-                            templateUrl:'components/alerts/rules/rulesView.html',
-                            controller: 'rulesController'
-                        }
-                    }
-                })
-                .state('dashboard.student_management.trustedIp',{
-                    url: '/trustedIp',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                    'components/alerts/trustedIp/trustedIpController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: ['1','2'],
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'trustedIp': {
-                            templateUrl:'components/alerts/trustedIp/trustedIpView.html',
-                            controller: 'trustedIpController'
-                        }
-                    }
-                })
-                .state('dashboard.student_management.reports',{
-                    url: '/reports',
-                    title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                    resolve: {
-                        loadMyFiles:function($ocLazyLoad) {
-                            return $ocLazyLoad.load({
-                                name:'webix',
-                                files:[
-                                    'components/alerts/reports/reportsController.js'
-                                ]
-                            })
-                        }
-                    },
-                    data: {
-                        permissions: {
-                            only: ['1','2'],
-                            redirectTo: 'dashboard.profile'
-                        }
-                    },
-                    views: {
-                        'reports': {
-                            templateUrl:'components/alerts/reports/reportsView.html',
-                            controller: 'reportsController'
                         }
                     }
                 })

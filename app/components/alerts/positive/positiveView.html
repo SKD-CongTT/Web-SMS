@@ -1,71 +1,65 @@
 <div layout="column" layout-gt-md="row" layout-margin>
     <div flex flex-gt-md="30" layout="row">
-        <md-input-container flex>
+        <md-input-container flex="80">
             <label>Select Class</label>
             <md-select ng-model="order_type">
-                <md-option value="1">Tăng dần</md-option>
-                <md-option value="-1">Giảm dần</md-option>
+                <md-option value="all" ng-click="getStudent('all')">All Class</md-option>
+                <md-option value="{{value.id}}" ng-repeat="value in classes" ng-click="getStudent(value)">{{value.id}}</md-option>
             </md-select>
         </md-input-container>
         <!--<md-input-container flex>-->
-            <!--<label>Trường sắp xếp</label>-->
-            <!--<md-select ng-model="field"-->
-                       <!--ng-model-options="{trackBy: '$value.id'}">-->
-                <!--<md-option ng-repeat="f in fieldValues" ng-value="{{f}}">{{f.name}}</md-option>-->
-            <!--</md-select>-->
+        <!--<label>Trường sắp xếp</label>-->
+        <!--<md-select ng-model="field"-->
+        <!--ng-model-options="{trackBy: '$value.id'}">-->
+        <!--<md-option ng-repeat="f in fieldValues" ng-value="{{f}}">{{f.name}}</md-option>-->
+        <!--</md-select>-->
         <!--</md-input-container>-->
         <!--<md-input-container flex>-->
-            <!--<label>Bộ lọc</label>-->
-            <!--<md-select ng-model="selectedFilter" multiple>-->
-                <!--<md-optgroup label="Mức độ nguy hiểm">-->
-                    <!--<md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'severity' }">{{valueFilter.name}}</md-option>-->
-                <!--</md-optgroup>-->
-                <!--<md-optgroup label="Gửi cảnh báo">-->
-                    <!--<md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'is_alerted' }">{{valueFilter.name}}</md-option>-->
-                <!--</md-optgroup>-->
-            <!--</md-select>-->
+        <!--<label>Bộ lọc</label>-->
+        <!--<md-select ng-model="selectedFilter" multiple>-->
+        <!--<md-optgroup label="Mức độ nguy hiểm">-->
+        <!--<md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'severity' }">{{valueFilter.name}}</md-option>-->
+        <!--</md-optgroup>-->
+        <!--<md-optgroup label="Gửi cảnh báo">-->
+        <!--<md-option ng-value="valueFilter" ng-repeat="valueFilter in valueFilters | filter: {category: 'is_alerted' }">{{valueFilter.name}}</md-option>-->
+        <!--</md-optgroup>-->
+        <!--</md-select>-->
         <!--</md-input-container>-->
     </div>
-    <div flex flex-gt-md="30" layout="column">
+    <div flex flex-gt-md="50" layout="column">
         <md-input-container class="md-icon-right md-block">
-            <label>Tìm kiếm </label>
-            <md-icon md-font-set="material-icons" ng-click="searchAlert()"> search </md-icon>
-            <input ng-model="queryAlert.data" type="text" placeholder="Nhập từ khóa tìm kiếm">
+            <label>Search</label>
+            <md-icon md-font-set="material-icons"> search </md-icon>
+            <input ng-model="expression" type="text" placeholder="Enter search query...">
         </md-input-container>
-    </div>
-    <div flex flex-gt-md="20" layout="column">
-        <md-button class="md-raised md-warn" ng-disabled="alertList.id.length == 0" ng-click="openReportModal()">Báo cáo cảnh báo sai</md-button>
-    </div>
-    <div flex flex-gt-md="20" layout="column">
-        <md-button class="md-raised md-success" ng-disabled="alertList.id.length == 0" ng-click="openDoneModal()">Xử lý cảnh báo</md-button>
+        <div ng-hide="true">
+            {{(filtedStudents = (students | filter: expression))}}
+        </div>
     </div>
 </div>
 <div layout="column" layout-margin>
     <div flex>
-        <mdt-table selectable-rows="true"
-                   selected-row-callback="selectedRowCallback(rows)"
-                   paginated-rows="{isEnabled: true, rowsPerPageValues: [20,50,100]}"
-                   mdt-row-paginator="refresh_alert(page, pageSize)"
+        <md-progress-linear ng-if="loadingStudent === true " md-mode="indeterminate" class="md-accent"></md-progress-linear>
+        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,30,40,50]}"
                    mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
-                   mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
                    mdt-row="{
-                                      'table-row-id-key': '_id.$id',
-                                      'column-keys': [
-                                          'update_at',
-                                          'name',
-                                          '_type',
-                                          'severity',
-                                          'is_alerted',
-                                          '_id.$id'
-                                      ]
-                                      }">
+                          data : filtedStudents,
+                          'column-keys': [
+                              'username',
+                              'last_name',
+                              'first_name',
+                              'class_id',
+                              'year',
+                              '_id.$id'
+                          ]
+                          }">
             <mdt-header-row>
-                <mdt-column align-rule="left">Thời gian</mdt-column>
-                <mdt-column align-rule="left">Cảnh báo</mdt-column>
-                <mdt-column align-rule="left">Đối tượng bị ảnh hưởng</mdt-column>
-                <mdt-column align-rule="left">Mức độ</mdt-column>
-                <mdt-column align-rule="left">Gửi cảnh báo</mdt-column>
-                <mdt-column align-rule="left">Chi tiết</mdt-column>
+                <mdt-column align-rule="left">Student ID</mdt-column>
+                <mdt-column align-rule="left">Last Name</mdt-column>
+                <mdt-column align-rule="left">First Name</mdt-column>
+                <mdt-column align-rule="left">Class</mdt-column>
+                <mdt-column align-rule="left">Year</mdt-column>
+                <mdt-column align-rule="left">Detail</mdt-column>
             </mdt-header-row>
             <mdt-custom-cell column-key="update_at">
                 <i class="fa fa-clock-o"></i> {{value*1000| date:'yyyy-MM-dd HH:mm:ss'}}
@@ -78,7 +72,7 @@
             </mdt-custom-cell>
             <mdt-custom-cell column-key="severity">
                 <!--<label class="label"-->
-                       <!--ng-class="value=='1'?'label-default':value=='2'?'label-warning':'label-'">{{value}}-->
+                <!--ng-class="value=='1'?'label-default':value=='2'?'label-warning':'label-'">{{value}}-->
                 <!--</label>-->
                 <label class="label label-default" ng-show="value=='1'">Thấp</label>
                 <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
@@ -102,7 +96,7 @@
                 </label>
             </mdt-custom-cell>
             <mdt-custom-cell column-key="_id.$id">
-                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showDetail(value)">more_horiz</md-icon>
+                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showDetail(value)">arrow_forward</md-icon>
             </mdt-custom-cell>
         </mdt-table>
     </div>

@@ -234,8 +234,10 @@ angular.module('webix')
                                     }
                                 })
                         }
-                        else
+                        else{
                             $scope.loadingCourseList = false;
+                            select($rootScope.showCourse[0]);
+                        }
                     })
                 }
             };
