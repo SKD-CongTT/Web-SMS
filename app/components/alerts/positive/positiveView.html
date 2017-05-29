@@ -43,14 +43,14 @@
         <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,30,40,50]}"
                    mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
                    mdt-row="{
-                          data : filtedStudents,
+                          data : filtedStudentsss,
                           'column-keys': [
                               'username',
                               'last_name',
                               'first_name',
                               'class_id',
                               'year',
-                              '_id.$id'
+                              'id'
                           ]
                           }">
             <mdt-header-row>
@@ -61,42 +61,8 @@
                 <mdt-column align-rule="left">Year</mdt-column>
                 <mdt-column align-rule="left">Detail</mdt-column>
             </mdt-header-row>
-            <mdt-custom-cell column-key="update_at">
-                <i class="fa fa-clock-o"></i> {{value*1000| date:'yyyy-MM-dd HH:mm:ss'}}
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="name">
-                <strong>{{value}}</strong>
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="_type">
-                <i class="fa fa-rocket"></i> {{value}}
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="severity">
-                <!--<label class="label"-->
-                <!--ng-class="value=='1'?'label-default':value=='2'?'label-warning':'label-'">{{value}}-->
-                <!--</label>-->
-                <label class="label label-default" ng-show="value=='1'">Thấp</label>
-                <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
-                <label class="label label-danger" ng-show="value=='3'">Cao</label>
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="is_alerted">
-                <label ng-show="value==1"
-                       class="label label-success hidden-sm"
-                       title="Đã có log">
-                    <i class="fa fa-check"></i> Đã gửi
-                </label>
-                <label ng-show="value==0"
-                       class="label label-warning hidden-sm"
-                       title="Chưa gửi cảnh báo tới quản trị.">
-                    <i class="fa fa-spinner fa-spin"></i> Pending
-                </label>
-                <label ng-show="value==-1"
-                       class="label label-danger hidden-sm"
-                       title="Chưa gửi cảnh báo tới quản trị.">
-                    Không gửi được
-                </label>
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="_id.$id">
-                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showDetail(value)">arrow_forward</md-icon>
+            <mdt-custom-cell column-key="id">
+                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showresult(value)">arrow_forward</md-icon>
             </mdt-custom-cell>
         </mdt-table>
     </div>

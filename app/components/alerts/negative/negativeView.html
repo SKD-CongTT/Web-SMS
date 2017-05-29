@@ -1,28 +1,71 @@
 <div layout="column" layout-gt-md="row" layout-margin>
-    <div flex flex-gt-md="30" layout="column">
-    </div>
-    <div flex flex-gt-md="40" layout="column">
-        <md-input-container class="md-icon-right md-block">
-            <label>Tìm kiếm </label>
-            <md-icon md-font-set="material-icons" ng-click="searchAlert()"> search </md-icon>
-            <input ng-model="filterName" type="text" placeholder="Nhập từ khóa tìm kiếm">
-            <div ng-hide="true">
-                {{(filteredItems = (wrong_alerts | filter: filterName))}}
+    <div layout="column" class="md-whiteframe-1dp" flex="70">
+        <div layout="column" layout-align="center center">
+            <div><h3>Student Information</h3></div>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Student Name :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span>{{selectedStudent.last_name}} {{selectedStudent.first_name}}</span>
+                </md-input-container>
             </div>
-        </md-input-container>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Student ID :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span>{{selectedStudent.username}}</span>
+                </md-input-container>
+            </div>
+        </div>
+        <!--<div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">-->
+            <!--<div flex-xs="30" flex>Email :</div>-->
+            <!--<div flex-xs="70" flex>-->
+                <!--<md-input-container>-->
+                    <!--<span ng-if="selectedStudent.email !== ''">{{selectedStudent.email}}</span>-->
+                    <!--<span ng-if="selectedStudent.email === ''">Not Active</span>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div ng-if = "selectedStudent.class_id"layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Class :</div>
+            <div flex-xs="70" flex>
+                <md-input-container>
+                    <span>{{selectedStudent.class_id}}</span>
+                </md-input-container>
+            </div>
+        </div>
+        <!--<div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">-->
+            <!--<div flex-xs="30" flex>Date joined :</div>-->
+            <!--<div flex-xs="70" flex>-->
+                <!--<md-input-container>-->
+                    <!--<span>{{selectedStudent.date_joined}}</span>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">-->
+            <!--<div flex-xs="30" flex>Last login :</div>-->
+            <!--<div flex-xs="70" flex>-->
+                <!--<md-input-container>-->
+                    <!--<span>{{selectedStudent.last_login}}</span>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
+        <!--</div>-->
+
     </div>
-    <div flex flex-gt-md="15" layout="column">
-        <md-button class="md-raised md-success" ng-disabled="alertList.id.length == 0" ng-click="openRestoreModal()">Khôi phục</md-button>
+    <div flex flex-gt-md="30" layout="column" >
     </div>
-    <div flex flex-gt-md="15" layout="column">
-        <md-button class="md-raised md-warn" ng-disabled="alertList.id.length == 0" ng-click="openDeleteModal()">Xóa cảnh báo sai</md-button>
+    <div flex flex-gt-md="30" layout="column" >
+        <md-button class="md-raised md-success" ng-disabled="alertList.id.length == 0" ng-click="openRestoreModal()" permission permission-only="['1']">Update Score</md-button>
     </div>
+    <div flex flex-gt-md="30" layout="column" >
+    </div>
+
 </div>
 <div layout="column" layout-margin>
     <div flex>
-        <mdt-table selectable-rows="true"
-                   selected-row-callback="selectedRowCallback(rows)"
-                   paginated-rows="{isEnabled: true, rowsPerPageValues: [20,50,100]}"
+        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [20,50,100]}"
                    mdt-row="{
                        data: filteredItems,
                       'table-row-id-key': '_id.$id',
@@ -36,47 +79,13 @@
                       ]
                       }">
             <mdt-header-row>
-                <mdt-column align-rule="left">Thời gian</mdt-column>
-                <mdt-column align-rule="left">Cảnh báo</mdt-column>
-                <mdt-column align-rule="left">Đối tượng bị ảnh hưởng</mdt-column>
-                <mdt-column align-rule="left">Mức độ</mdt-column>
-                <mdt-column align-rule="left">Gửi cảnh báo</mdt-column>
-                <mdt-column align-rule="left">Chi tiết</mdt-column>
+                <mdt-column align-rule="left">Semester</mdt-column>
+                <mdt-column align-rule="left">Course ID</mdt-column>
+                <mdt-column align-rule="left">Course Name</mdt-column>
+                <mdt-column align-rule="left">Credit</mdt-column>
+                <mdt-column align-rule="left">Score (number)</mdt-column>
+                <mdt-column align-rule="left">Score (text)</mdt-column>
             </mdt-header-row>
-            <mdt-custom-cell column-key="update_at">
-                <i class="fa fa-clock-o"></i> {{value*1000| date:'yyyy-MM-dd HH:mm:ss'}}
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="name">
-                <strong>{{value}}</strong>
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="_type">
-                <i class="fa fa-rocket"></i> {{value}}
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="severity">
-                <!--<label class="label"-->
-                       <!--ng-class="value=='low'?'label-default':value=='medium'?'label-warning':'label-danger'">{{value}}-->
-                <!--</label>-->
-                <label class="label label-default" ng-show="value=='1'">Thấp</label>
-                <label class="label label-warning" ng-show="value=='2'">Trung bình</label>
-                <label class="label label-danger" ng-show="value=='3'">Cao</label>
-            </mdt-custom-cell>
-            <mdt-custom-cell column-key="is_alerted">
-                <label ng-show="value==1"
-                       class="label label-success hidden-sm"
-                       title="Đã có log">
-                    <i class="fa fa-check-o"></i> Đã gửi
-                </label>
-                <label ng-show="value==0"
-                       class="label label-warning hidden-sm"
-                       title="Chưa gửi cảnh báo tới quản trị.">
-                    <i class="fa fa-spinner fa-spin"></i> Pending
-                </label>
-                <label ng-show="value==-1"
-                       class="label label-danger hidden-sm"
-                       title="Chưa gửi cảnh báo tới quản trị.">
-                    Không gửi được
-                </label>
-            </mdt-custom-cell>
             <mdt-custom-cell column-key="_id.$id">
                 <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showDetail(value)">more_horiz</md-icon>
             </mdt-custom-cell>

@@ -287,8 +287,8 @@ angular
                     },
                     data: {
                         permissions: {
-                            only: ['1','2'],
-                            redirectTo: 'dashboard.profile'
+                            only: ['1'],
+                            redirectTo: 'dashboard.student_management.student_result'
                         }
                     },
                     views: {
@@ -490,7 +490,10 @@ angular
         $rootScope.downloadUrl = 'http://ictk59-api.herokuapp.com';
         $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
         $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
+        $rootScope.selectedStudent = 0;
         $rootScope.showCourse = [];
+        $rootScope.classes = [];
+        $rootScope.filtedStudents = [];
         $rootScope.loading = true;
         var permissions = []
         var period = {
@@ -587,11 +590,14 @@ angular
                             $rootScope.profile.Name = response.data.last_name + " " + response.data.first_name;
                             $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("T", " ");
                             $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("Z", " ");
+                            $rootScope.profile.last_login = $rootScope.profile.last_login.replace("T", " ");
+                            $rootScope.profile.last_login = $rootScope.profile.last_login.replace("Z", " ");
                             if (auth.getGroup() === "lecturer"){
                                 $rootScope.profile.type = "LECTURER";
                             }
                             else{
                                 $rootScope.profile.type = "STUDENT";
+                                $rootScope.selectedStudent = $rootScope.profile;
                             }
                             $rootScope.profile.notExist = false;
                             $rootScope.days = [
