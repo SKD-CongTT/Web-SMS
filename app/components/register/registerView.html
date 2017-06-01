@@ -35,8 +35,9 @@
                         </div>
                     </md-toolbar>
                     <md-content class="md-whiteframe-1dp">
-                        <h1 class="noThing" ng-show="loadClass && showClass.length === 0"><em>No class available at the moment</em></h1>
+                        <h1 class="noThing" ng-show="loadClass && showClass.length === 0"><em>No class available for {{selectedCourse.name}}</em></h1>
                         <h1 class="noThing" ng-show="!valid"><em>This course is not opened yet</em></h1>
+                        <h1 class="noThing" ng-show="valid && showClass.length !== 0 && loadClass"><em>{{selectedCourse.name}}</em></h1>
                         <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
                                    selectable-rows="valid"
                                    ng-disable="valid"

@@ -199,6 +199,7 @@ angular.module('webix')
             };
             var select = function (value){
                 $scope.selectedCourse = value;
+                $scope.showClass = [];
                 if (auth.isAuthed()) {
                     $scope.loadClass = false;
                     if (value.active) {

@@ -22,13 +22,7 @@ angular.module('webix')
                 info : "2016 - 2017",
             }];
 
-            /*Agent chart*/
 
-            Highcharts.setOptions({
-                global: {
-                    timezoneOffset: 0
-                }
-            });
             var getAvailableCourse = function () {
                 if (auth.isAuthed()){
                     return new Promise(function(resolve, reject) {

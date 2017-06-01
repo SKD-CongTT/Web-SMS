@@ -19,16 +19,7 @@
                 </md-input-container>
             </div>
         </div>
-        <!--<div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">-->
-            <!--<div flex-xs="30" flex>Email :</div>-->
-            <!--<div flex-xs="70" flex>-->
-                <!--<md-input-container>-->
-                    <!--<span ng-if="selectedStudent.email !== ''">{{selectedStudent.email}}</span>-->
-                    <!--<span ng-if="selectedStudent.email === ''">Not Active</span>-->
-                <!--</md-input-container>-->
-            <!--</div>-->
-        <!--</div>-->
-        <div ng-if = "selectedStudent.class_id"layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
             <div flex-xs="30" flex>Class :</div>
             <div flex-xs="70" flex>
                 <md-input-container>
@@ -36,28 +27,28 @@
                 </md-input-container>
             </div>
         </div>
-        <!--<div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">-->
-            <!--<div flex-xs="30" flex>Date joined :</div>-->
-            <!--<div flex-xs="70" flex>-->
-                <!--<md-input-container>-->
-                    <!--<span>{{selectedStudent.date_joined}}</span>-->
-                <!--</md-input-container>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">-->
-            <!--<div flex-xs="30" flex>Last login :</div>-->
-            <!--<div flex-xs="70" flex>-->
-                <!--<md-input-container>-->
-                    <!--<span>{{selectedStudent.last_login}}</span>-->
-                <!--</md-input-container>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Degree :</div>
+            <div flex-xs="70" flex ng-if="selectedStudent.class_id">
+                <md-input-container>
+                    <span>Bachelor</span>
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+            <div flex-xs="30" flex>Status :</div>
+            <div flex-xs="70" flex ng-if="selectedStudent.class_id">
+                <md-input-container>
+                    <span>Undergraduate</span>
+                </md-input-container>
+            </div>
+        </div>
 
     </div>
     <div flex flex-gt-md="30" layout="column" >
     </div>
     <div flex flex-gt-md="30" layout="column" >
-        <md-button class="md-raised md-success" ng-disabled="alertList.id.length == 0" ng-click="openRestoreModal()" permission permission-only="['1']">Update Score</md-button>
+        <md-button class="md-raised md-success" ng-disabled="alertList.id.length == 0" ng-click="editScoreModal()" permission permission-only="['1']">Update Score</md-button>
     </div>
     <div flex flex-gt-md="30" layout="column" >
     </div>
@@ -65,17 +56,16 @@
 </div>
 <div layout="column" layout-margin>
     <div flex>
-        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [20,50,100]}"
+        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,30]}"
                    mdt-row="{
-                       data: filteredItems,
-                      'table-row-id-key': '_id.$id',
+                       data: score,
                       'column-keys': [
-                          'update_at',
-                          'name',
-                          '_type',
-                          'severity',
-                          'is_alerted',
-                          '_id.$id'
+                          'semester',
+                          'course_id',
+                          'course_name',
+                          'cost',
+                          'score',
+                          'text_score'
                       ]
                       }">
             <mdt-header-row>
@@ -86,8 +76,8 @@
                 <mdt-column align-rule="left">Score (number)</mdt-column>
                 <mdt-column align-rule="left">Score (text)</mdt-column>
             </mdt-header-row>
-            <mdt-custom-cell column-key="_id.$id">
-                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showDetail(value)">more_horiz</md-icon>
+            <mdt-custom-cell column-key="semester">
+                2016-{{value}}
             </mdt-custom-cell>
         </mdt-table>
     </div>

@@ -493,6 +493,7 @@ angular
         $rootScope.selectedStudent = 0;
         $rootScope.showCourse = [];
         $rootScope.classes = [];
+        $rootScope.sessions = [];
         $rootScope.filtedStudents = [];
         $rootScope.loading = true;
         var permissions = []
