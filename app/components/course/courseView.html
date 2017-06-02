@@ -1,6 +1,6 @@
 <div ng-controller="courseController as ctrl" ng-cloak>
-    <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 680px">
-        <md-content flex="nogrow" flex-gt-md="30" layout="column">
+    <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 563px">
+        <md-content flex="nogrow" flex-gt-md="30" layout="column" class="md-whiteframe-1dp">
             <div layout="row">
                 <form flex ng-submit="searchCourse(query)" name="formSearch">
                     <md-input-container ng-form="formSearch" class="md-icon-float md-icon-right mb-block">
@@ -33,42 +33,19 @@
                              md-font-set="material-icons" md-colors="{color:'red-500'}" permission permission-only="['1']" title="Delete This Course">delete</md-icon>
                 </md-list-item>
             </md-list>
-            <!--<md-list flex>-->
-            <!--<md-virtual-repeat-container id="vertical-container">-->
-            <!--<md-list-item md-virtual-repeat="value in ctrl.infiniteItems"-->
-            <!--md-on-demand ng-class="selectedId==value.id?'label-grey':''"  flex>-->
-            <!--<md-icon ng-show="value.status==1" title="Kết nối thành công"-->
-            <!--md-font-set="material-icons" md-colors="{color:'green-500'}">check</md-icon>-->
-            <!--<md-icon ng-show="value.status==0" title="Kết nối thất bại"-->
-            <!--md-font-set="material-icons" md-colors="{color:'red-500'}">clear</md-icon>-->
-            <!--<div ng-click="selectWebsite(value.id, value.hostName)"-->
-            <!--class="longText">{{value.hostName}}</div>-->
-            <!--<md-icon ng-show="value" ng-click="webStructModal()" class="md-secondary"-->
-            <!--md-font-set="material-icons" md-colors="{color:'grey-500'}">code</md-icon>-->
-            <!--<md-icon ng-show="value" ng-click="editWebsiteModal(value)" class="md-secondary"-->
-            <!--md-font-set="material-icons" md-colors="{color:'green-500'}">edit</md-icon>-->
-            <!--<md-icon ng-show="value" ng-click="deleteWebsiteModal()" class="md-secondary"-->
-            <!--md-font-set="material-icons" md-colors="{color:'red-500'}">delete</md-icon>-->
-            <!--</md-list-item>-->
-            <!--</md-virtual-repeat-container>-->
-            <!--</md-list>-->
         </md-content>
         <div flex flex-gt-md="70" layout="column" layout-margin >
-            <!-- <md-content>
-                <md-progress-linear ng-show="loadingChart" md-mode="indeterminate" class="md-accent"></md-progress-linear>
-                <highchart id="chartMonitor" config="chartConfig"></highchart>
-            </md-content> -->
-            <div flex="100" layout="column" layout-padding>
-                <br><br>
-                <h1 style="text-align: center"><font color="#2196F3">Course Information</font></h1><br>
+            <div flex="100" layout="column">
+                <!--<br><br>-->
+                <h2 style="text-align: center"><font color="#2196F3">Course Information</font></h2>
                 <b>
-                    <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
+                    <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp" style="height: 84px">
                         <div flex-xs="30" flex= "50">Course ID :</div>
                         <div flex-xs="70" flex>
                             <span>{{selectedCourse.id}}</span>
                         </div>
                         <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)" permission permission-only="['1']">
-                            <md-icon class="material-icons" title="Edit Course's Infomation">edit</md-icon>
+                            <md-icon class="material-icons" title="Edit {{selectedCourse.id}}'s Infomation">edit</md-icon>
                         </md-button>
                     </div>
                     <div layout="row" layout-padding layout-align="start center" class="md-whiteframe-1dp">
@@ -127,66 +104,51 @@
 
         </div>
     </div>
-    <!--  <div layout-padding layout="column" layout-gt-md="row" layout-margin>
-         <md-content flex flex-gt-md="30" layout="column">
-             <md-progress-linear ng-show="loadingChartPie" md-mode="indeterminate" class="md-accent"></md-progress-linear>
-             <highchart id="chartStatistic" config="chartStatisticConfig" class="span5"></highchart>
-         </md-content>
-         <md-content flex flex-gt-md ="70" layout="column"> -->
-    <!--<md-input-container class="md-icon-float md-icon-left mb-block">-->
-    <!--&lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;-->
-    <!--<label>Tìm kiếm sự kiện</label>-->
-    <!--<md-icon md-font-set="material-icons"> search </md-icon>-->
-    <!--<input ng-model="filterName" type="text">-->
-    <!--</md-input-container>-->
-    <!--<div ng-hide="true">-->
-    <!--{{(filteredItems = (events | filter: filterName))}}-->
-    <!--</div>-->
-    <!-- <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,20,50,100]}",
-               mdt-row-paginator="getEvents(page, pageSize)"
-               mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
-               mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
-               mdt-row="{
-                      'table-row-id-key': '_id.$id',
+    <div layout="row" layout-gt-md="row" layout-margin layout-padding>
+        <div flex flex-gt-md="96" class="md-whiteframe-1dp">
+            <md-toolbar>
+                <div class="md-toolbar-tools" ng-if="selectedCourse">
+                    {{selectedCourse.id}}'s Session(s)
+                </div>
+            </md-toolbar>
+            <md-content>
+                <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                           mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                           mdt-row="{
+                       data : showClass,
                       'column-keys': [
-                          'event',
+                          'id',
+                          'name',
                           'time',
-                          'reason',
-                          'duration'
-                      ]
+                          'week_day',
+                          'course_id',
+                          'credit',
+                          'lecturer_name',
+                          'room',
+                          'semester',
+                          'requirements',
+                        ]
                       }">
-        <mdt-header-row>
-            <mdt-column align-rule="left">Sự kiện</mdt-column>
-            <mdt-column align-rule="left">Thời gian</mdt-column>
-            <mdt-column align-rule="left">Trạng thái</mdt-column>
-            <mdt-column align-rule="left">Khoảng thời gian</mdt-column>
-        </mdt-header-row>
-        <mdt-custom-cell column-key="event">
-            <label class="label" ng-class="value == 'Down'?'label-danger':value == 'Up'?'label-success':'label-primary'">
-                <i class="fa"
-                   ng-class="value == 'Down'?'fa-long-arrow-down':value == 'Up'?'fa-long-arrow-up':'fa-play'"></i>
-                {{value}}
-            </label>
-        </mdt-custom-cell>
-        <mdt-custom-cell column-key="time">
-            {{value | date:'yyyy-MM-dd HH:mm:ss'}}
-        </mdt-custom-cell>
-        <mdt-custom-cell column-key="reason">
-            <label class="label"
-                   ng-class="value == 'OK' || value=='OK (200)'?'label-success':'label-danger'">
-                {{value}}
-            </label>
-        </mdt-custom-cell>
-    </mdt-table> -->
-    <!-- </md-content> -->
-    <!-- </div> -->
-</div>
+                    <mdt-header-row>
+                        <mdt-column align-rule="center">Id</mdt-column>
+                        <mdt-column align-rule="center">Session name</mdt-column>
+                        <mdt-column align-rule="center">Time</mdt-column>
+                        <mdt-column align-rule="center">Day</mdt-column>
+                        <mdt-column align-rule="center">Course Id</mdt-column>
+                        <mdt-column align-rule="center">Credit</mdt-column>
+                        <mdt-column align-rule="center">Lecturer name</mdt-column>
+                        <mdt-column align-rule="center">Room</mdt-column>
+                        <mdt-column align-rule="center">Semester</mdt-column>
+                        <mdt-column align-rule="center">Requirements</mdt-column>
+                    </mdt-header-row>
+                    <mdt-custom-cell column-key="requirements">
+                        <label class="label label-success ng-scope ng-hide" ng-show="value.length > 0" aria-hidden="true">{{value}}</label>
+                        <label class="label label-warning ng-scope" ng-show="value.length === 0" aria-hidden="false">NOT ACTIVE</label>
+                    </mdt-custom-cell>
+                </mdt-table>
 
-<div layout="column" style="visibility: hidden">
-    <div flex class="md-dialog-container" id="myDialog">
-        <md-dialog flex  style="height: 100% !important;" >
-            <div align="center" id="mynetwork"></div>
-        </md-dialog>
+            </md-content>
+        </div>
     </div>
 </div>
 

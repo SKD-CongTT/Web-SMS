@@ -1,7 +1,7 @@
 <div ng-app="webix" class="container-fluid">
     <div class="row">
         <div ng-controller="updateBySessionController as demo">
-            <div layout="column" layout-gt-md="row" layout-margin>
+            <div layout="column" layout-gt-md="row">
                 <div flex flex-gt-md="100" layout="row">
                     <md-input-container flex="50">
                         <label>Search by Session </label>
@@ -14,20 +14,24 @@
                         <md-button class="md-raised md-success" ng-disabled="demo.isEditing || loading" ng-click="demo.saveScore()" permission permission-only="['1']">Update Score</md-button>
                     </div>
                 </div>
-                <h1 ng-if="!selected && filtedStudentsss.length === 0" md-colors="{color:'blue-500'}"><em>Select a session first</em></h1>
-                <h1 ng-if="selected && filtedStudentsss.length === 0" md-colors="{color:'blue-500'}"><em>This session doesn't have any student</em></h1>
             </div>
+            <h1 ng-if="!selected && filtedStudents.length === 0" md-colors="{color:'blue-500'}"><em>Select a session first.</em></h1>
+            <h1 ng-if="selected && filtedStudents.length === 0" md-colors="{color:'red-500'}"><em>This session doesn't have any student.</em></h1>
+            <h1 ng-if="selected && myClass && filtedStudents.length !== 0" md-colors="{color:'green-500'}"><em>You are the lecturer of this session.</em></h1>
+            <h1 ng-if="selected && !myClass && filtedStudents.length !== 0" md-colors="{color:'red-500'}"><em>You are not the lecturer of this session.</em></h1>
             <div class="brn-group pull-right">
                 <button class="btn btn-default" ng-if="demo.isEditing" ng-click="demo.cancelChanges()">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
-                <button class="btn btn-primary" ng-if="!demo.isEditing" ng-click="demo.isEditing = true">
+                <button class="btn btn-primary" ng-if="!demo.isEditing" ng-disabled="!myClass" ng-click="demo.isEditing = true">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
                 <button class="btn btn-primary" ng-if="demo.isEditing" ng-disabled="!demo.hasChanges() || demo.tableTracker.$invalid" ng-click="demo.saveChanges()">
                     <span class="glyphicon glyphicon-ok"></span>
                 </button>
             </div>
+            <p ng-if="loading" md-colors="{color:'blue-500'}">Processing...</p>
+            <md-progress-linear ng-if="loading" md-mode="indeterminate" class="md-accent" md-colors="{color:'blue-500'}"></md-progress-linear>
             <table ng-table="demo.tableParams" class="table table-bordered table-hover table-condensed editable-table" ng-form="demo.tableForm" disable-filter="demo.isAdding" demo-tracked-table="demo.tableTracker">
                 <colgroup>
                     <col width="10%" />

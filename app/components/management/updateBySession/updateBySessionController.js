@@ -110,6 +110,13 @@ function updateBySessionController(NgTableParams, auth, $rootScope, $scope, $htt
         $scope.selected = true;
         $scope.loading = true;
         $scope.selected_session = value.id;
+        $scope.myClass = false;
+        for (var j = 0; j < $rootScope.profile.sessions.length; j ++){
+            if ($scope.selected_session === $rootScope.profile.sessions[j].id){
+                $scope.myClass = true;
+                break;
+            }
+        };
         var url = '/sessions/list_student_by_session/?session_id=' +  value.id + '&';
         if (auth.isAuthed()){
             $http.get($rootScope.apiUrl + url + "limit=1000").then(function (response) {
@@ -159,9 +166,6 @@ function updateBySessionController(NgTableParams, auth, $rootScope, $scope, $htt
             originalData = angular.copy(self.tableParams.settings().dataset);
             var data = [];
             var legit = 0;
-            $scope.loading = true;
-            console.log($rootScope.profile);
-            console.log($scope.selected_session);
             for (var j = 0; j < $rootScope.profile.sessions.length; j ++){
                 if ($scope.selected_session === $rootScope.profile.sessions[j].id){
                     legit = 1;
@@ -169,6 +173,7 @@ function updateBySessionController(NgTableParams, auth, $rootScope, $scope, $htt
                 }
             };
             if (legit === 1) {
+                $scope.loading = true;
                 for (var i = 0; i < originalData.length; i++) {
                     var temp = {
                         'score': originalData[i].score,

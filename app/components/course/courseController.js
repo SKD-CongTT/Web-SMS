@@ -247,6 +247,21 @@ angular.module('webix')
                 for (i = 1; i < value.requirements.length; i++){
                     $scope.selectedCourse.require = $scope.selectedCourse.require + "; " + value.requirements[i];
                 }
+                $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + $scope.selectedCourse.id)
+                    .then(function (response) {
+                        if (response.data.results !== false) {
+                            $scope.showClass = response.data.results;
+                            for (var i = 0; i < $scope.showClass.length; i++) {
+                                $scope.showClass[i].part_index = i + 1;
+                                $scope.showClass[i].credit = $scope.selectedCourse.cost;
+                                $scope.showClass[i].requirements = $scope.selectedCourse.requirements.toString();
+                                $scope.showClass[i].time = time[$scope.showClass[i].start_at]['start_at'] + " - " + time[$scope.showClass[i].end_at]['end_at'];
+                            }
+                            $scope.loadClass = true;
+                        } else {
+                            $scope.showClass = [];
+                        }
+                    });
                 // if (value.requirements.length == 0)
                 //     $scope.selectedCourse.requirements = "Not Active";
                 if (value.active)
