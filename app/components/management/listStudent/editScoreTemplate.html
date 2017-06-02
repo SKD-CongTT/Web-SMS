@@ -14,7 +14,7 @@
                 <md-input-container class="md-block" flex>
                     <label>Select Sessions ID</label>
                     <md-select ng-model="tmpscore.session">
-                        <md-option type="number" value={{value}} ng-repeat="value in sessions" ng-click="getStudent(value)">{{value}}</md-option>
+                        <md-option type="number" value={{value.session}} ng-repeat="value in sessions" ng-click="getStudent(value)">{{value.name}}</md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex>

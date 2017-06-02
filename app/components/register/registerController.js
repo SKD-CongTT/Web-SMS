@@ -117,7 +117,6 @@ angular.module('webix')
                         lastindex += 1;
                         $scope.registerRoom.push($scope.showClass[rows - 1]);
                         messages = 'Selected class id: ' + $scope.showClass[rows - 1].id;
-                        console.log( $scope.registerRoom);
                     }
                     else
                         messages = 'Already selected class id: ' + $scope.showClass[rows - 1].id;

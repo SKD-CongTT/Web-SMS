@@ -1,0 +1,66 @@
+<div ng-app="webix" class="container-fluid">
+    <div class="row">
+        <div ng-controller="updateBySessionController as demo">
+            <div layout="column" layout-gt-md="row" layout-margin>
+                <div flex flex-gt-md="100" layout="row">
+                    <md-input-container flex="50">
+                        <label>Search by Session </label>
+                        <md-select ng-model="ng_session">
+                            <md-option value="{{value.id}}" ng-repeat="value in sessions" ng-click="demo.getStudentBySession(value)">{{value.name}} - {{value.students.length}} student (s)</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div flex flex-gt-md="50"></div>
+                    <div flex flex-gt-md="50" layout="column" >
+                        <md-button class="md-raised md-success" ng-disabled="demo.isEditing || loading" ng-click="demo.saveScore()" permission permission-only="['1']">Update Score</md-button>
+                    </div>
+                </div>
+                <h1 ng-if="!selected && filtedStudentsss.length === 0" md-colors="{color:'blue-500'}"><em>Select a session first</em></h1>
+                <h1 ng-if="selected && filtedStudentsss.length === 0" md-colors="{color:'blue-500'}"><em>This session doesn't have any student</em></h1>
+            </div>
+            <div class="brn-group pull-right">
+                <button class="btn btn-default" ng-if="demo.isEditing" ng-click="demo.cancelChanges()">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <button class="btn btn-primary" ng-if="!demo.isEditing" ng-click="demo.isEditing = true">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button class="btn btn-primary" ng-if="demo.isEditing" ng-disabled="!demo.hasChanges() || demo.tableTracker.$invalid" ng-click="demo.saveChanges()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </div>
+            <table ng-table="demo.tableParams" class="table table-bordered table-hover table-condensed editable-table" ng-form="demo.tableForm" disable-filter="demo.isAdding" demo-tracked-table="demo.tableTracker">
+                <colgroup>
+                    <col width="10%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="10%" />
+                </colgroup>
+                <tr ng-repeat="row in $data" ng-form="rowForm" demo-tracked-table-row="row">
+                    <td title="'Student ID'" filter="{username: 'text'}" sortable="'username'" ng-switch="demo.isEditing" ng-class="username.$dirty ? 'bg-warning' : ''" ng-form="username" demo-tracked-table-cell>
+                        <span ng-switch-default class="editable-text">{{row.username}}</span>
+                    </td>
+                    <td title="'Last Name'" filter="{last_name: 'text'}" sortable="'last_name'" ng-switch="demo.isEditing" ng-class="last_name.$dirty ? 'bg-warning' : ''" ng-form="last_name" demo-tracked-table-cell>
+                        <span ng-switch-default class="editable-text">{{row.last_name}}</span>
+                    </td>
+                    <td title="'First Name'" filter="{first_name: 'text'}" sortable="'first_name'" ng-switch="demo.isEditing" ng-class="first_name.$dirty ? 'bg-warning' : ''" ng-form="first_name" demo-tracked-table-cell>
+                        <span ng-switch-default class="editable-text">{{row.first_name}}</span>
+                    </td>
+                    <td title="'Class'" filter="{class_id: 'text'}" sortable="'class_id'" ng-switch="demo.isEditing" ng-class="class_id.$dirty ? 'bg-warning' : ''" ng-form="class_id" demo-tracked-table-cell>
+                        <span ng-switch-default class="editable-text">{{row.class_id}}</span>
+                    </td>
+                    <td title="'Year'" filter="{Year: 'number'}" sortable="'year'" ng-switch="demo.isEditing" ng-class="year.$dirty ? 'bg-warning' : ''" ng-form="year" demo-tracked-table-cell>
+                        <span ng-switch-default class="editable-text">{{row.year}}</span>
+                    </td>
+                    <td title="'Score'" filter="{score: 'number'}" sortable="'score'" ng-switch="demo.isEditing" ng-class="score.$dirty ? 'bg-warning' : ''" ng-form="score" demo-tracked-table-cell>
+                        <span ng-switch-default class="editable-text">{{row.score}}</span>
+                        <div class="controls" ng-class="score.$invalid && score.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                            <input type="number" name="score" ng-model="row.score" class="editable-input form-control input-sm" required max="10" min="0"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

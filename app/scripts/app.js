@@ -28,7 +28,9 @@ angular
         'mdDataTable',
         'angular-toArrayFilter',
         'smDateTimeRangePicker',
-        'textAngular','ui.codemirror'
+        'textAngular',
+        'ui.codemirror',
+        'ngTable'
     ])
 
     .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider','$httpProvider','$mdThemingProvider','pickerProvider',
@@ -78,62 +80,13 @@ angular
                 'A700': '#E75753'
             });
 
-            /*config daterange-picker*/
-            pickerProvider.setOkLabel('Chọn');
-            pickerProvider.setCancelLabel('Đóng');
-            pickerProvider.setDayHeader('single'); //Options 'single','shortName', 'fullName'
-            pickerProvider.setDaysNames([
-                {'single':'CN','shortName':'CN','fullName':'Chủ nhật'},
-                {'single':'T2','shortName':'Th 2','fullName':'Thứ 2'},
-                {'single':'T3','shortName':'Th 3','fullName':'Thứ 3'},
-                {'single':'T4','shortName':'Th 4','fullName':'Thứ 4'},
-                {'single':'T5','shortName':'Th 5','fullName':'Thứ 5'},
-                {'single':'T6','shortName':'Th 6','fullName':'Thứ 6'},
-                {'single':'T7','shortName':'Th 7','fullName':'Thứ 7'}
-            ]);
-            pickerProvider.setMonthNames(["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]);
-            pickerProvider.setRangeDefaultList([
-                {
-                    label:'Hôm nay',
-                    startDate:moment().startOf('day'),
-                    endDate:moment().endOf('day')
-                },
-                {
-                    label:'1 Tuần trước',
-                    startDate: moment().subtract(7,'d'),
-                    endDate:moment()
-                },
-                {
-                    label:'Tháng hiện tại',
-                    startDate:moment().startOf('month'),
-                    endDate: moment().endOf('month')
-                },
-                {
-                    label:'1 Tháng trước',
-                    startDate:moment().subtract(1,'month'),
-                    endDate: moment()
-                },
-                {
-                    label:'2 Tháng trước',
-                    startDate:moment().subtract(2,'month'),
-                    endDate: moment()
-                },
-                {
-                    label: 'Quý hiện tại',
-                    startDate: moment().startOf('quarter'),
-                    endDate: moment().endOf('quarter')
-                }
-            ]);
-            pickerProvider.setRangeCustomStartEnd(['Ngày bắt đầu', 'Ngày kết thúc']);
-
-
             $httpProvider.interceptors.push('authInterceptor');
             $urlRouterProvider.deferIntercept();
             $ocLazyLoadProvider.config({
                 debug:false,
                 events:true
             });
-            $urlRouterProvider.when('/alerts', '/alerts/list_student');
+            $urlRouterProvider.when('/management', '/management/list_student');
             $urlRouterProvider.otherwise('/home');
             $stateProvider
                 .state('dashboard', {
@@ -177,94 +130,10 @@ angular
                     },
 
                 })
-                // .state('dashboard.home.general',{
-                //     url: '/general',
-                //     title: 'Student Management System',
-                //     resolve: {
-                //         loadMyFiles:function($ocLazyLoad) {
-                //             return $ocLazyLoad.load({
-                //                 name:'webix',
-                //                 files:[
-                //                     'components/home/general/generalController.js'
-                //                 ]
-                //             })
-                //         }
-                //     },
-                //     views: {
-                //         'general': {
-                //             templateUrl:'components/home/general/generalView.html',
-                //             controller: 'generalController'
-                //         }
-                //     }
-                // })
-                // .state('dashboard.home.system',{
-                //     url: '/system',
-                //     title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                //     resolve: {
-                //         loadMyFiles:function($ocLazyLoad) {
-                //             return $ocLazyLoad.load({
-                //                 name:'webix',
-                //                 files:[
-                //                     'components/home/system/systemController.js'
-                //                 ]
-                //             })
-                //         }
-                //     },
-                //     views: {
-                //         'system': {
-                //             templateUrl:'components/home/system/systemView.html',
-                //             controller: 'systemController'
-                //         }
-                //     }
-                // })
-                // .state('dashboard.home.security',{
-                //     url: '/security',
-                //     title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                //     resolve: {
-                //         loadMyFiles:function($ocLazyLoad) {
-                //             return $ocLazyLoad.load({
-                //                 name:'webix',
-                //                 files:[
-                //                     'components/home/security/securityController.js'
-                //                 ]
-                //             })
-                //         }
-                //     },
-                //     views: {
-                //         'security': {
-                //             templateUrl:'components/home/security/securityView.html',
-                //             controller: 'securityController'
-                //         }
-                //     }
-                // })
-                // .state('dashboard.home.logs-centralize',{
-                //     url: '/logs-centralize',
-                //     title: 'WebAssistant - Hệ thống theo dõi hoạt động và phát hiện bất thường cho website.',
-                //     resolve: {
-                //         loadMyFiles:function($ocLazyLoad) {
-                //             return $ocLazyLoad.load({
-                //                 name:'webix',
-                //                 files:[
-                //                     'components/home/logs/logsCentralizeController.js',
-                //                     'bower_components/highMap/map.js',
-                //                     'bower_components/highMap/world.js'
-                //                 ]
-                //             })
-                //         }
-                //     },
-                //     views: {
-                //         'logs-centralize': {
-                //             templateUrl:'components/home/logs/logsCentralizeView.html',
-                //             controller: 'logsCentralizeController'
-                //         }
-                //     }
-                // })
-
-
                 .state('dashboard.student_management',{
-                    templateUrl:'components/alerts/alertsView.html',
+                    templateUrl:'components/management/managementView.html',
                     title: 'Student Management',
-                    url:'/alerts',
+                    url:'/management',
                     data: {
                         permissions: {
                             only: ['1','2'],
@@ -280,7 +149,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/positive/positiveController.js'
+                                    'components/management/listStudent/listStudentController.js'
                                 ]
                             })
                         }
@@ -293,8 +162,34 @@ angular
                     },
                     views: {
                         'positive': {
-                            templateUrl:'components/alerts/positive/positiveView.html',
-                            controller: 'positiveController'
+                            templateUrl:'components/management/listStudent/listStudentView.html',
+                            controller: 'listStudentController'
+                        }
+                    }
+                })
+                .state('dashboard.student_management.update_by_session',{
+                    url: '/update_by_session',
+                    title: 'Update By Session.',
+                    resolve: {
+                        loadMyFiles:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'webix',
+                                files:[
+                                    'components/management/updateBySession/updateBySessionController.js'
+                                ]
+                            })
+                        }
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'dashboard.student_management.student_result'
+                        }
+                    },
+                    views: {
+                        'report': {
+                            templateUrl:'components/management/updateBySession/updateBySessionView.html',
+                            controller: 'updateBySessionController'
                         }
                     }
                 })
@@ -306,7 +201,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/negative/negativeController.js'
+                                    'components/management/studentResult/studentResultController.js'
                                 ]
                             })
                         }
@@ -319,8 +214,8 @@ angular
                     },
                     views: {
                         'negative': {
-                            templateUrl:'components/alerts/negative/negativeView.html',
-                            controller: 'negativeController'
+                            templateUrl:'components/management/studentResult/studentResultView.html',
+                            controller: 'studentResultController'
                         }
                     }
                 })
@@ -332,7 +227,7 @@ angular
                             return $ocLazyLoad.load({
                                 name:'webix',
                                 files:[
-                                    'components/alerts/done/doneController.js'
+                                    'components/management/schedule/scheduleController.js'
                                 ]
                             })
                         }
@@ -345,8 +240,8 @@ angular
                     },
                     views: {
                         'done': {
-                            templateUrl:'components/alerts/done/doneView.html',
-                            controller: 'doneController'
+                            templateUrl:'components/management/schedule/scheduleView.html',
+                            controller: 'scheduleController'
                         }
                     }
                 })
@@ -591,8 +486,8 @@ angular
                             $rootScope.profile.Name = response.data.last_name + " " + response.data.first_name;
                             $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("T", " ");
                             $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("Z", " ");
-                            $rootScope.profile.last_login = $rootScope.profile.last_login.replace("T", " ");
-                            $rootScope.profile.last_login = $rootScope.profile.last_login.replace("Z", " ");
+                            // $rootScope.profile.last_login = $rootScope.profile.last_login.replace("T", " ");
+                            // $rootScope.profile.last_login = $rootScope.profile.last_login.replace("Z", " ");
                             if (auth.getGroup() === "lecturer"){
                                 $rootScope.profile.type = "LECTURER";
                             }

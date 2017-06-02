@@ -1,0 +1,66 @@
+<div layout="column" layout-gt-md="row" layout-margin>
+    <div flex flex-gt-md="30" layout="row">
+        <md-input-container flex="80">
+            <label>Search by Class</label>
+            <md-select ng-model="ng_class">
+                <md-option value="all" ng-click="getStudentByClass('all')">All Class</md-option>
+                <md-option value="{{value.id}}" ng-repeat="value in classes" ng-click="getStudentByClass(value)">{{value.id}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="80">
+            <label>Search by Session </label>
+            <md-select ng-model="ng_session">
+                <md-option value="{{value.id}}" ng-repeat="value in sessions" ng-click="getStudentBySession(value)">{{value.name}} - {{value.students.length}} student (s)</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div flex flex-gt-md="50" layout="column">
+        <md-input-container class="md-icon-right md-block">
+            <label>Search by student name or student id</label>
+            <md-icon md-font-set="material-icons"> search </md-icon>
+            <input ng-model="expression" type="text" ng-keyup="search()">
+        </md-input-container>
+        <!--<div ng-hide="true">-->
+            <!--{{(filtedStudents = (students | filter: expression))}}-->
+        <!--</div>-->
+    </div>
+</div>
+<div layout="column" layout-margin>
+    <div flex>
+        <h1 ng-if="!selected && filtedStudentsss.length === 0 && !loadingStudent" md-colors="{color:'blue-500'}"><em>Select a class or session first</em></h1>
+        <h1 ng-if="selected && filtedStudentsss.length === 0 && !loadingStudent" md-colors="{color:'blue-500'}"><em>This session doesn't have any student</em></h1>
+        <md-progress-linear ng-if="loadingStudent" md-mode="indeterminate" class="md-accent"></md-progress-linear>
+        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,30,40,50]}"
+                   mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                   mdt-row="{
+                          data : filtedStudentsss,
+                          'column-keys': [
+                              'username',
+                              'last_name',
+                              'first_name',
+                              'class_id',
+                              'year',
+                              'score',
+                              'ids',
+                              'id'
+                          ]
+                          }">
+            <mdt-header-row>
+                <mdt-column align-rule="left">Student ID</mdt-column>
+                <mdt-column align-rule="left">Last Name</mdt-column>
+                <mdt-column align-rule="left">First Name</mdt-column>
+                <mdt-column align-rule="left">Class</mdt-column>
+                <mdt-column align-rule="left">Year</mdt-column>
+                <mdt-column align-rule="left">Session score</mdt-column>
+                <mdt-column align-rule="left">Edit score</mdt-column>
+                <mdt-column align-rule="left">Detail</mdt-column>
+            </mdt-header-row>
+            <mdt-custom-cell column-key="ids">
+                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.editScoreModal(value)">edit</md-icon>
+            </mdt-custom-cell>
+            <mdt-custom-cell column-key="id">
+                <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showresult(value)">arrow_forward</md-icon>
+            </mdt-custom-cell>
+        </mdt-table>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<br><br><br><br><br>
+<div class="row times" style="height:auto; display: flex; width: 1455px; margin-left: 8px;">
+    <div class="col-xs-2 text-center" style="background: #2196F3; width:10%; border-left:1px ;flex: 1 1 20%;border-style: groove;
+">
+        <h2><font color="white"><label>Time Table</label></font></h2>
+    </div>
+    <div class="col-xs-2 text-left" ng-repeat="day in days" style="background: white; border-style: groove;">
+        <h2 class= "text-center"><font color="#2196F3">{{ day.name }}</font></h2>
+        <div class="time-slot" ng-repeat="slot in day.slots">
+            <input id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
+            <label for="{{ day.name }}-{{ $index }}">Time: {{ slot.time }}<br>Room: {{ slot.room }} <br>Course: {{ slot.name}} <br>
+            </label>
+        </div>
+    </div>
+</div>
