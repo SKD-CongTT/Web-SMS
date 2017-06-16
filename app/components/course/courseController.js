@@ -131,7 +131,6 @@ angular.module('webix')
                         $scope.requirements.push(item);
                     }
                 };
-                console.log($scope.courseInfo);
 
                 $scope.edit = function () {
                     if (auth.isAuthed) {
@@ -176,6 +175,29 @@ angular.module('webix')
                 });
             };
             getRoom();
+            $scope.deleteSession = function (value) {
+                var confirm = $mdDialog.confirm()
+                    .title('Are you sure to delete this session:' + value + ' ?')
+                    .textContent('All data that related with this session will be deleted.')
+                    .ariaLabel('Deleted course.')
+                    .ok('Confirm')
+                    .cancel('Cancel');
+
+                $mdDialog.show(confirm).then(function() {
+                    $http.delete($rootScope.apiUrl + '/sessions/'+ value)
+                        .success(function(response){
+                            $mdToast.show(toastSuccess);
+                            for (var i = 0; i < $scope.showClass.length; i++) {
+                                if ($scope.showClass[i].ids = value){
+                                    $scope.showClass.splice(i,1);
+                                    break;
+                                }
+                            }
+                        }).error(function () {
+                        $mdToast.show(toastFail);
+                    })
+                });
+            };
             var getAllCourse = function(force){
                 if (auth.isAuthed()){
                     return new Promise(function(resolve, reject) {
@@ -192,6 +214,14 @@ angular.module('webix')
                                                 return 1;
                                             return 0; //default return value (no sorting)
                                         });
+                                        for (var i = 0; i < $rootScope.showCourse.length; i++){
+                                            if ($rootScope.showCourse[i].name.length > 15){
+                                                $rootScope.showCourse[i].display = $rootScope.showCourse[i].name.slice(0, 13) + "...";
+                                                // console.log($rootScope.showCourse[i].name.slice(3,10));
+                                            }
+                                            else
+                                                $rootScope.showCourse[i].display = $rootScope.showCourse[i].name;
+                                        }
                                         select($rootScope.showCourse[0]);
                                         $scope.loadingCourseList = false;
                                         resolve();
@@ -220,6 +250,7 @@ angular.module('webix')
                         if (response.data.results !== false) {
                             $scope.showClass = response.data.results;
                             for (var i = 0; i < $scope.showClass.length; i++) {
+                                $scope.showClass[i].ids = $scope.showClass[i].id;
                                 $scope.showClass[i].part_index = i + 1;
                                 $scope.showClass[i].credit = $scope.selectedCourse.cost;
                                 $scope.showClass[i].requirements = $scope.selectedCourse.requirements.toString();

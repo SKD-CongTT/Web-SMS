@@ -26,7 +26,8 @@
                     <md-icon hide-sm hide-xs ng-if="value.active"
                              md-font-set="material-icons" md-colors="{color:'green-500'}" title="Opening">check_circle</md-icon>
 
-                    <p class="longText"><b>{{value.id}}</b></p>
+                    <p class="longText" permission permission-only="['3']"><b>{{value.id}} : {{value.display}}</b></p>
+                    <p class="longText" permission permission-only="['1']"><b>{{value.id}} : {{value.name}}</b></p>
                     <md-icon hide-sm hide-xs ng-click="addSessionModal(value)" class="md-secondary"
                              md-font-set="material-icons" md-colors="{color:'blue-500'}" permission permission-only="['3']" title="Assign This Session" ng-if="value.active">add_box</md-icon>
                     <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
@@ -105,7 +106,7 @@
         </div>
     </div>
     <div layout="row" layout-gt-md="row" layout-margin layout-padding>
-        <div flex flex-gt-md="96" class="md-whiteframe-1dp">
+        <div flex flex-gt-md="96" class="md-whiteframe-1dp" permission permission-only="['1']">
             <md-toolbar>
                 <div class="md-toolbar-tools" ng-if="selectedCourse">
                     {{selectedCourse.id}}'s Session(s)
@@ -144,6 +145,56 @@
                     <mdt-custom-cell column-key="requirements">
                         <label class="label label-success ng-scope ng-hide" ng-show="value.length > 0" aria-hidden="true">{{value}}</label>
                         <label class="label label-warning ng-scope" ng-show="value.length === 0" aria-hidden="false">NOT ACTIVE</label>
+                    </mdt-custom-cell>
+                </mdt-table>
+
+            </md-content>
+        </div>
+        <div flex flex-gt-md="96" class="md-whiteframe-1dp" permission permission-only="['3']">
+            <md-toolbar>
+                <div class="md-toolbar-tools" ng-if="selectedCourse">
+                    {{selectedCourse.id}}'s Session(s)
+                </div>
+            </md-toolbar>
+            <md-content>
+                <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                           mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                           mdt-row="{
+                       data : showClass,
+                      'column-keys': [
+                          'id',
+                          'name',
+                          'time',
+                          'week_day',
+                          'course_id',
+                          'credit',
+                          'lecturer_name',
+                          'room',
+                          'semester',
+                          'requirements',
+                          'ids'
+                        ]
+                      }">
+                    <mdt-header-row>
+                        <mdt-column align-rule="center">Id</mdt-column>
+                        <mdt-column align-rule="center">Session name</mdt-column>
+                        <mdt-column align-rule="center">Time</mdt-column>
+                        <mdt-column align-rule="center">Day</mdt-column>
+                        <mdt-column align-rule="center">Course Id</mdt-column>
+                        <mdt-column align-rule="center">Credit</mdt-column>
+                        <mdt-column align-rule="center">Lecturer name</mdt-column>
+                        <mdt-column align-rule="center">Room</mdt-column>
+                        <mdt-column align-rule="center">Semester</mdt-column>
+                        <mdt-column align-rule="center">Requirements</mdt-column>
+                        <mdt-column align-rule="center">Remove</mdt-column>
+                    </mdt-header-row>
+                    <mdt-custom-cell column-key="requirements">
+                        <label class="label label-success ng-scope ng-hide" ng-show="value.length > 0" aria-hidden="true">{{value}}</label>
+                        <label class="label label-warning ng-scope" ng-show="value.length === 0" aria-hidden="false">NOT ACTIVE</label>
+                    </mdt-custom-cell>
+                    <mdt-custom-cell column-key="ids">
+                        <md-icon hide-sm hide-xs ng-click="clientScope.deleteSession(value)" class="md-secondary"
+                                 md-font-set="material-icons" md-colors="{color:'red-500'}" permission permission-only="['3']" title="Delete This Session">delete</md-icon>
                     </mdt-custom-cell>
                 </mdt-table>
 

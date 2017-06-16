@@ -38,10 +38,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addSessionTemplate.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="addSessionTemplate.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/course/addSessionTemplate.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
+            <state relative-caret-position="487">
               <caret line="122" column="41" lean-forward="false" selection-start-line="122" selection-start-column="41" selection-end-line="122" selection-end-column="41" />
               <folding />
             </state>
@@ -51,21 +51,23 @@
       <file leaf-file-name="courseView.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/course/courseView.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-890">
-              <caret line="46" column="157" lean-forward="false" selection-start-line="46" selection-start-column="157" selection-end-line="46" selection-end-column="157" />
+            <state relative-caret-position="2306">
+              <caret line="195" column="84" lean-forward="false" selection-start-line="195" selection-start-column="84" selection-end-line="195" selection-end-column="84" />
               <folding>
-                <marker date="1497584688708" expanded="true" signature="7258:7759" ph="{&quot;data&quot;: showClass...}" />
-                <marker date="1497584688708" expanded="true" signature="7338:7735" ph="[...]" />
+                <marker date="1497603677661" expanded="true" signature="7464:7965" ph="{&quot;data&quot;: showClass...}" />
+                <marker date="1497603677661" expanded="true" signature="7544:7941" ph="[...]" />
+                <marker date="1497603677661" expanded="true" signature="9806:10339" ph="{&quot;data&quot;: showClass...}" />
+                <marker date="1497603677661" expanded="true" signature="9886:10315" ph="[...]" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="courseController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="courseController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/components/course/courseController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="439" column="46" lean-forward="true" selection-start-line="439" selection-start-column="46" selection-end-line="439" selection-end-column="46" />
+            <state relative-caret-position="366">
+              <caret line="180" column="73" lean-forward="false" selection-start-line="180" selection-start-column="73" selection-end-line="180" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -130,8 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>no Cour</find>
-      <find>loadingCourseList</find>
       <find>notmatch</find>
       <find>selected</find>
       <find>co</find>
@@ -158,8 +158,10 @@
       <find>$rootScope.s</find>
       <find>=== 0</find>
       <find>$rootScope.session</find>
-      <find>sessionLoading</find>
       <find>get</find>
+      <find>sessionLoading</find>
+      <find>getall</find>
+      <find>showClass</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -195,12 +197,10 @@
         <option value="$PROJECT_DIR$/app/components/register/registerView.html" />
         <option value="$PROJECT_DIR$/app/scripts/services.js" />
         <option value="$PROJECT_DIR$/app/components/dashboard/dashboardView.html" />
-        <option value="$PROJECT_DIR$/app/components/course/courseView.html" />
         <option value="$PROJECT_DIR$/app/components/management/request/requestController.js" />
         <option value="$PROJECT_DIR$/app/components/course/editCourseTemplate.html" />
         <option value="$PROJECT_DIR$/app/styles/main.css" />
         <option value="$PROJECT_DIR$/app/components/home/homeView.html" />
-        <option value="$PROJECT_DIR$/app/components/course/courseController.js" />
         <option value="$PROJECT_DIR$/app/components/management/updateBySession/updateBySessionView.html" />
         <option value="$PROJECT_DIR$/app/components/management/updateBySession/updateBySessionController.js" />
         <option value="$PROJECT_DIR$/app/components/management/managementView.html" />
@@ -208,6 +208,8 @@
         <option value="$PROJECT_DIR$/app/components/management/listStudent/listStudentController.js" />
         <option value="$PROJECT_DIR$/app/components/management/listStudent/listStudentView.html" />
         <option value="$PROJECT_DIR$/app/components/course/addSessionTemplate.html" />
+        <option value="$PROJECT_DIR$/app/components/course/courseView.html" />
+        <option value="$PROJECT_DIR$/app/components/course/courseController.js" />
       </list>
     </option>
   </component>
@@ -565,6 +567,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -693,12 +696,12 @@
       <workItem from="1496413353571" duration="1510000" />
       <workItem from="1496450511639" duration="4451000" />
       <workItem from="1496460318086" duration="108000" />
-      <workItem from="1497577030339" duration="10884000" />
+      <workItem from="1497577030339" duration="13811000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165354000" />
+    <option name="totallyTimeSpent" value="168281000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -952,17 +955,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/course/courseView.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-890">
-          <caret line="46" column="157" lean-forward="false" selection-start-line="46" selection-start-column="157" selection-end-line="46" selection-end-column="157" />
-          <folding>
-            <marker date="1497584688708" expanded="true" signature="7258:7759" ph="{&quot;data&quot;: showClass...}" />
-            <marker date="1497584688708" expanded="true" signature="7338:7735" ph="[...]" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/management/studentResult/studentResultController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
@@ -995,14 +987,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/management/updateBySession/updateBySessionController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="118" column="39" lean-forward="false" selection-start-line="118" selection-start-column="39" selection-end-line="118" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/management/listStudent/listStudentView.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="708">
@@ -1024,18 +1008,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/course/courseController.js">
+    <entry file="file://$PROJECT_DIR$/app/components/course/addSessionTemplate.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="439" column="46" lean-forward="true" selection-start-line="439" selection-start-column="46" selection-end-line="439" selection-end-column="46" />
+        <state relative-caret-position="487">
+          <caret line="122" column="41" lean-forward="false" selection-start-line="122" selection-start-column="41" selection-end-line="122" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/course/addSessionTemplate.html">
+    <entry file="file://$PROJECT_DIR$/app/components/management/updateBySession/updateBySessionController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="122" column="41" lean-forward="false" selection-start-line="122" selection-start-column="41" selection-end-line="122" selection-end-column="41" />
+        <state relative-caret-position="535">
+          <caret line="118" column="39" lean-forward="false" selection-start-line="118" selection-start-column="39" selection-end-line="118" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/course/courseView.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2306">
+          <caret line="195" column="84" lean-forward="false" selection-start-line="195" selection-start-column="84" selection-end-line="195" selection-end-column="84" />
+          <folding>
+            <marker date="1497603677661" expanded="true" signature="7464:7965" ph="{&quot;data&quot;: showClass...}" />
+            <marker date="1497603677661" expanded="true" signature="7544:7941" ph="[...]" />
+            <marker date="1497603677661" expanded="true" signature="9806:10339" ph="{&quot;data&quot;: showClass...}" />
+            <marker date="1497603677661" expanded="true" signature="9886:10315" ph="[...]" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/course/courseController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="180" column="73" lean-forward="false" selection-start-line="180" selection-start-column="73" selection-end-line="180" selection-end-column="73" />
           <folding />
         </state>
       </provider>
