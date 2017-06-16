@@ -89,11 +89,13 @@ function updateBySessionController(NgTableParams, auth, $rootScope, $scope, $htt
     self.saveChanges = saveChanges;
     self.getStudentBySession = getStudentBySession;
     self.saveScore = saveScore;
-
+    self.getSessionByCourse = getSessionByCourse;
+    self.getSession = getSession;
     $scope.selected_session = 0;
     $scope.loading = false;
+    $scope.sessionLoading1 = false;
     //////////
-    var getSession = function () {
+    function getSession() {
         if (auth.isAuthed()){
             if ($rootScope.sessions.length === 0)
                 $http.get($rootScope.apiUrl + "/sessions/?limit=1000").then(function (response) {
@@ -105,7 +107,75 @@ function updateBySessionController(NgTableParams, auth, $rootScope, $scope, $htt
             auth.logout();
         }
     };
-    getSession();
+    var getSessionAuto = function () {
+        if (auth.isAuthed()){
+            $scope.loading = true;
+            if ($rootScope.sessions.length === 0)
+                $http.get($rootScope.apiUrl + "/sessions/?limit=1000").then(function (response) {
+                    $rootScope.sessions = response.data.results;
+                    $scope.loading = false;
+                });
+            else
+                $scope.loading = false;
+        }
+        else{
+            alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+            auth.logout();
+        }
+    };
+    getSessionAuto();
+    var getAllCourse = function(force){
+        if (auth.isAuthed()){
+            return new Promise(function() {
+                if (force === 1 || $rootScope.showCourse.length === 0){
+                    $http.get($rootScope.apiUrl + '/courses/?limit=10000')
+                        .then(function (response) {
+                            if(response.data.results !== false) {
+                                $rootScope.showCourse = response.data.results;
+                                $rootScope.showCourse.sort(function(a, b){
+                                    var idA=a.id.toLowerCase(), idB=b.id.toLowerCase();
+                                    if (idA < idB) //sort string ascending
+                                        return -1 ;
+                                    if (idA > idB)
+                                        return 1;
+                                    return 0; //default return value (no sorting)
+                                });
+                            } else {
+                                $rootScope.showCourse = [];
+                            }
+                        })
+                }
+            })
+        }
+        else{
+            alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+            auth.logout();
+        }
+    };
+    getAllCourse(1);
+    function getSessionByCourse(value) {
+        $scope.sessionLoading1 = true;
+        $rootScope.sessions = [];
+        $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + value.id)
+            .then(function (response) {
+                if(response.data.results !== false) {
+                    $rootScope.sessions = response.data.results;
+                    $rootScope.sessions.sort(function(a, b){
+                        var idA=a.id, idB=b.id;
+                        if (idA < idB) //sort string ascending
+                            return -1 ;
+                        if (idA > idB)
+                            return 1;
+                        return 0; //default return value (no sorting)
+                    });
+                    $scope.ng_session = "";
+                    $scope.sessionLoading1 = false;
+                } else {
+                    $rootScope.sessions = [];
+                    $scope.sessionLoading1 = false;
+                }
+            })
+    };
     function getStudentBySession(value) {
         $scope.selected = true;
         $scope.loading = true;

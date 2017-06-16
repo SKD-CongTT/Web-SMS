@@ -3,10 +3,13 @@ angular.module('webix')
         if(auth.isAuthed()){
 
             $scope.loadingStudent = false;
+            $scope.sessionLoading = false;
             $scope.selected = false;
             $scope.ng_class = "";
             $scope.ng_session = "";
             $scope.expression = "";
+            $scope.tableByClass = false;
+            $scope.tableBySession = false;
             $scope.alertList = {
                 id: []
             };
@@ -14,7 +17,64 @@ angular.module('webix')
             $scope.selectedRowCallback = function(rows){
                 $scope.alertList.id = rows;
             };
-
+            var getAllCourse = function(force){
+                if (auth.isAuthed()){
+                    return new Promise(function() {
+                        if (force === 1 || $rootScope.showCourse.length === 0){
+                            $http.get($rootScope.apiUrl + '/courses/?limit=10000')
+                                .then(function (response) {
+                                    if(response.data.results !== false) {
+                                        $rootScope.showCourse = response.data.results;
+                                        $rootScope.showCourse.sort(function(a, b){
+                                            var idA=a.id.toLowerCase(), idB=b.id.toLowerCase();
+                                            if (idA < idB) //sort string ascending
+                                                return -1 ;
+                                            if (idA > idB)
+                                                return 1;
+                                            return 0; //default return value (no sorting)
+                                        });
+                                    } else {
+                                        $rootScope.showCourse = [];
+                                    }
+                                })
+                        }
+                    })
+                }
+                else{
+                    alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                    auth.logout();
+                }
+            };
+            getAllCourse(1);
+            $scope.getSessionByCourse = function (value) {
+                if (auth.isAuthed()){
+                    $rootScope.sessions = [];
+                    $scope.sessionLoading = true;
+                    $http.get($rootScope.apiUrl + '/sessions/list_by_course_id/?course_id=' + value.id)
+                        .then(function (response) {
+                            if(response.data.results !== false) {
+                                $rootScope.sessions = response.data.results;
+                                $rootScope.sessions.sort(function(a, b){
+                                    var idA=a.id, idB=b.id;
+                                    if (idA < idB) //sort string ascending
+                                        return -1 ;
+                                    if (idA > idB)
+                                        return 1;
+                                    return 0; //default return value (no sorting)
+                                });
+                                $scope.sessionLoading = false;
+                                $scope.ng_session = "";
+                            } else {
+                                $rootScope.sessions = [];
+                                $scope.sessionLoading = false;
+                            }
+                        })
+                }
+                else{
+                    alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                    auth.logout();
+                }
+            };
             var getClass = function () {
                 if (auth.isAuthed()){
                     if ($rootScope.classes.length === 0)
@@ -30,10 +90,14 @@ angular.module('webix')
             getClass();
             var getSession = function () {
                 if (auth.isAuthed()){
+                    $scope.sessionLoading = true;
                     if ($rootScope.sessions.length === 0)
                         $http.get($rootScope.apiUrl + "/sessions/?limit=1000").then(function (response) {
                             $rootScope.sessions = response.data.results;
+                            $scope.sessionLoading = false;
                         });
+                    else
+                        $scope.sessionLoading = false;
                 }
                 else{
                     alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
@@ -41,6 +105,7 @@ angular.module('webix')
                 }
             };
             getSession();
+            $scope.getSession = getSession;
             $scope.search = function () {
                 var query = $scope.expression.toLocaleLowerCase();
                 $scope.filtedStudentsss = []
@@ -54,6 +119,8 @@ angular.module('webix')
             $scope.filtedStudentsss = $rootScope.filtedStudents;
             console.log($scope.filtedStudentsss);
             $scope.getStudentByClass = function (value) {
+                $scope.tableByClass = true;
+                $scope.tableBySession = false;
                 $scope.ng_session = "";
                 $scope.selected = true;
                 $scope.loadingStudent = true;
@@ -89,6 +156,8 @@ angular.module('webix')
                 }
             };
             $scope.getStudentBySession = function (value) {
+                $scope.tableByClass = false;
+                $scope.tableBySession = true;
                 $scope.ng_class = "";
                 $scope.selected = true;
                 $scope.loadingStudent = true;

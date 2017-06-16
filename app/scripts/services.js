@@ -98,8 +98,18 @@ function userService($http,$rootScope,$location,PermPermissionStore, $urlRouter,
 function userProfile($http, $rootScope, auth) {
     return {
         getProfile : function (){
-            if (auth.getGroup() === "lecturer"){
+            var role = auth.getGroup();
+            if (role === "lecturer"){
                 $http.get($rootScope.apiUrl + '/lecturers/').then(function (response){
+                    if(response.data.results !== false) {
+                        return response;
+                    } else {
+                        $location.path('/login')
+                    }
+                })
+            }
+            else if (role === "admin"){
+                $http.get($rootScope.apiUrl + '/users/').then(function (response){
                     if(response.data.results !== false) {
                         return response;
                     } else {

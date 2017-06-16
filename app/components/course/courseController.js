@@ -64,51 +64,7 @@ angular.module('webix')
                     'end_at' : '17h35'
                 }
             };
-            var rooms = [
-                {
-                    'name' : 'B',
-                    'room' : []
-                },
-                {
-                    'name' : 'C',
-                    'room' : []
-                },
-                {
-                    'name' : 'D',
-                    'room' : []
-                },
-                {
-                    'name' : 'Stadium - Sân Vận Động',
-                    'room' : [
-                        'SVD-101', 'SVD-102', 'SVD'
-                    ]
-                },
-                {
-                    'name' : 'Indoor Stadium - Nhà Thi Đấu',
-                    'room' : [
-                        'NTD', 'NTD-101', 'NTD-102'
-                    ]
-                },
-                {
-                    'name' : 'Library - Thư Viện',
-                    'room' : [
-                        'TV-610', 'TV-611', 'TV-612', 'TV-613', 'TV-614',
-                        'TV-710', 'TV-711', 'TV-712', 'TV-713', 'TV-714',
-                        'TV-810', 'TV-811', 'TV-812', 'TV-813', 'TV-814'
-                    ]
-                }
-            ];
-            for (var i = 0; i < 3; i++){
-                for (var j = 1; j <= 9; j++){
-                    for (var k = 1; k <= 5; k++){
-                        for (var z = 1; z <= 7; z++) {
-                            var temp = rooms[i].name + j + "-" + (k * 100 + z);
-                           rooms[i].room.push(temp);
-                        }
-                    }
-                }
-            }
-            console.log(rooms);
+            $scope.rooms = [];
             $scope.allCourseList = [];
             $scope.department = [];
             $scope.isNumber = angular.isNumber;
@@ -175,6 +131,7 @@ angular.module('webix')
                         $scope.requirements.push(item);
                     }
                 };
+                console.log($scope.courseInfo);
 
                 $scope.edit = function () {
                     if (auth.isAuthed) {
@@ -192,6 +149,7 @@ angular.module('webix')
                                 id: $scope.courseInfo.id,
                                 name: $scope.courseInfo.name,
                                 cost: $scope.courseInfo.cost,
+                                active: $scope.courseInfo.active,
                                 requirements: $scope.requirements
                             }
                         }).success(function (response) {
@@ -208,6 +166,16 @@ angular.module('webix')
                     }
                 };
             }
+            var getRoom = function (){
+                $http({
+                    method: 'GET',
+                    url: $rootScope.apiUrl + '/rooms/list_building/?limit=1000'
+                }).success(function (response) {
+                    $scope.buildings = response;
+                    console.log($scope.buildings);
+                });
+            };
+            getRoom();
             var getAllCourse = function(force){
                 if (auth.isAuthed()){
                     return new Promise(function(resolve, reject) {
@@ -315,19 +283,26 @@ angular.module('webix')
                 }
             };
             $scope.addSessionModal = function (value) {
-                if(auth.isAuthed()) {
-                    $mdDialog.show({
-                        locals: {value : value, time: time, rooms : rooms},
-                        controller: DialogAddSController,
-                        templateUrl: 'components/course/addSessionTemplate.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose:true,
-                        fullscreen: true
-                    })
-                } else {
-                    alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
-                    auth.logout();
-                }
+                console.log(value)
+                $http({
+                    method: 'GET',
+                    url: $rootScope.apiUrl + '/lecturers/list_by_course_id/?course_id='+value.id+'&limit=1000'
+                }).success(function (response) {
+                   $scope.lecturers = response.results;
+                    if(auth.isAuthed()) {
+                        $mdDialog.show({
+                            locals: {value : value, time: time, buildings : $scope.buildings, lecturers: $scope.lecturers},
+                            controller: DialogAddSController,
+                            templateUrl: 'components/course/addSessionTemplate.html',
+                            parent: angular.element(document.body),
+                            clickOutsideToClose:true,
+                            fullscreen: true
+                        })
+                    } else {
+                        alert ('Phiên làm việc của bạn đã hết ! Xin mời đăng nhập lại.');
+                        auth.logout();
+                    }
+                });
             };
 
             var toastSuccess = $mdToast.simple()
@@ -442,8 +417,9 @@ angular.module('webix')
                     }
                 };
             }
-            function DialogAddSController($scope, value, time, rooms) {
-                $scope.rooms = rooms;
+            function DialogAddSController($scope, value, time, buildings, lecturers) {
+                $scope.lecturers = lecturers;
+                $scope.buildings = buildings;
                 $scope.selectedCourse = value;
                 $scope.count = 0;
                 $scope.is_full = true;
@@ -490,9 +466,15 @@ angular.module('webix')
                     $scope.is_full = false;
                 }
                 $scope.showRoom = function (value) {
-                    $scope.info.building = value;
+                    $http({
+                        method: 'GET',
+                        url: $rootScope.apiUrl + '/rooms/list_room_by_building/?building=' + value + '&limit=1000'
+                    }).success(function (response) {
+                        $scope.rooms = response;
+                    })
                 };
                 $scope.add = function () {
+                    console.log($scope.info);
                     if (auth.isAuthed) {
                         $http({
                             method: 'POST',
@@ -503,9 +485,9 @@ angular.module('webix')
                                 start_at: $scope.info.start_at,
                                 end_at: $scope.info.end_at,
                                 max_enroll: $scope.info.max_enroll,
-                                lecturer_id: $rootScope.profile.id,
                                 course_id: $scope.selectedCourse.id,
                                 room : $scope.info.room,
+                                lecturer_id: $scope.info.lecturer,
                                 week_day: $scope.info.day
                             }
                         }).success(function (response) {

@@ -95,7 +95,7 @@ angular
                     controller: 'dashboardController',
                     data: {
                         permissions: {
-                            only: ['1','2'],
+                            only: ['1','2','3'],
                             redirectTo: 'dashboard.profile'
                         }
                     },
@@ -136,7 +136,7 @@ angular
                     url:'/management',
                     data: {
                         permissions: {
-                            only: ['1','2'],
+                            only: ['1','2', '3'],
                             redirectTo: 'dashboard.profile'
                         }
                     }
@@ -156,7 +156,7 @@ angular
                     },
                     data: {
                         permissions: {
-                            only: ['1'],
+                            only: ['1', '3'],
                             redirectTo: 'dashboard.student_management.student_result'
                         }
                     },
@@ -208,7 +208,7 @@ angular
                     },
                     data: {
                         permissions: {
-                            only: ['1','2'],
+                            only: ['1','2','3'],
                             redirectTo: 'dashboard.profile'
                         }
                     },
@@ -234,7 +234,7 @@ angular
                     },
                     data: {
                         permissions: {
-                            only: ['1','2'],
+                            only: ['1','2','3'],
                             redirectTo: 'dashboard.profile'
                         }
                     },
@@ -275,7 +275,7 @@ angular
                     controller:'courseController',
                     data: {
                         permissions: {
-                            only: ['1', '2'],
+                            only: ['1', '2', '3'],
                             redirectTo: 'dashboard.profile'
                         }
                     },
@@ -381,8 +381,8 @@ angular
         $rootScope.$state = $state;
         $rootScope.wrongInfo = false;
         $rootScope.onLogin = false;
-        $rootScope.apiUrl = 'http://ictk59-api.herokuapp.com';
-        $rootScope.downloadUrl = 'http://ictk59-api.herokuapp.com';
+        $rootScope.apiUrl = 'http://192.168.1.66';
+        $rootScope.downloadUrl = 'http://192.168.1.66';
         $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
         $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
         $rootScope.selectedStudent = 0;
@@ -391,7 +391,7 @@ angular
         $rootScope.sessions = [];
         $rootScope.filtedStudents = [];
         $rootScope.loading = true;
-        var permissions = []
+        var permissions = [];
         var period = {
             1 : {
                 'period' : 1,
@@ -488,8 +488,12 @@ angular
                             $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("Z", " ");
                             // $rootScope.profile.last_login = $rootScope.profile.last_login.replace("T", " ");
                             // $rootScope.profile.last_login = $rootScope.profile.last_login.replace("Z", " ");
-                            if (auth.getGroup() === "lecturer"){
+                            var role = auth.getGroup();
+                            if (role === "lecturer"){
                                 $rootScope.profile.type = "LECTURER";
+                            }
+                            else if (role === "admin"){
+                                $rootScope.profile.type = "ADMIN";
                             }
                             else{
                                 $rootScope.profile.type = "STUDENT";
@@ -538,8 +542,12 @@ angular
                             $location.path('/login');
                         }
                     });
-                    if (auth.getGroup() === "lecturer"){
+                    var role = auth.getGroup();
+                    if (role === "lecturer"){
                         permissions = ['1'];
+                    }
+                    else if (role === "admin"){
+                        permissions = ['3'];
                     }
                     else{
                         permissions = ['2'];

@@ -1,6 +1,6 @@
 <div ng-controller="registerController as ctrl" ng-cloak>
-    <div layout-padding layout="column" layout-gt-md="row" layout-margin style="max-height: 450px">
-        <md-content flex="nogrow" flex-gt-md="30" layout="column">
+    <div  layout="column" layout-gt-md="row"  layout-margin style="max-height: 446px">
+        <md-content flex="nogrow" flex-gt-md="30" layout="column" class="md-whiteframe-1dp">
             <div layout="row">
                 <form flex ng-submit="searchCourse(query)" name="formSearch">
                     <md-input-container ng-form="formSearch" class="md-icon-float md-icon-right mb-block">
@@ -38,7 +38,7 @@
                         <h1 class="noThing" ng-show="loadClass && showClass.length === 0"><em>No class available for {{selectedCourse.name}}</em></h1>
                         <h1 class="noThing" ng-show="!valid"><em>This course is not opened yet</em></h1>
                         <h1 class="noThing" ng-show="valid && showClass.length !== 0 && loadClass"><em>{{selectedCourse.name}}</em></h1>
-                        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+                        <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [3, 5]}"
                                    selectable-rows="valid"
                                    ng-disable="valid"
                                    selected-row-callback="selectedRowCallback(rows)"

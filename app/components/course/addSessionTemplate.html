@@ -60,6 +60,17 @@
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>Lecturer: </span>
+                            <md-select ng-model="info.lecturer" placeholder="Select lecturer" class="md-no-underline" required name="lecturer">
+                                <md-option value="{{value.id}}" ng-repeat="value in lecturers">{{value.last_name}} {{value.first_name}}</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.lecturer.$error" ng-show="addSession.lecturer.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
                         <span>Max enroll:</span>
                         <input type="number"
                                name="max_enroll"
@@ -97,28 +108,6 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <div layout="row" layout-align="space-between center">
-                            <span>Building: </span>
-                            <md-select ng-model="info.temp" placeholder="Building" class="md-no-underline" required name="building">
-                                <md-option value="{{value.name}}" ng-repeat="value in rooms" ng-click="showRoom(value)">{{value.name}}</md-option>
-                            </md-select>
-                        </div>
-                        <div ng-messages="addSession.building.$error" ng-show="addSession.building.$touched">
-                            <div ng-message="required">This field cannot be blank</div>
-                        </div>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <div layout="row" layout-align="space-between center">
-                            <span>Classroom: </span>
-                            <md-select ng-model="info.room" placeholder="Classroom" class="md-no-underline" required name="classroom">
-                                <md-option value="{{each}}" ng-repeat="each in info.building.room">{{each}}</md-option>
-                            </md-select>
-                        </div>
-                        <div ng-messages="addSession.classroom.$error" ng-show="addSession.classroom.$touched">
-                            <div ng-message="required">This field cannot be blank</div>
-                        </div>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <div layout="row" layout-align="space-between center">
                             <span>Day of Week: </span>
                             <md-select ng-model="info.day" placeholder="Day of Week" class="md-no-underline" required name="day">
                                 <md-option value="2">2 - Monday</md-option>
@@ -132,6 +121,29 @@
                             <div ng-message="required">This field cannot be blank</div>
                         </div>
                     </md-input-container>
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>Building: </span>
+                            <md-select ng-model="info.temp" placeholder="Building" class="md-no-underline" required name="building">
+                                <md-option value="{{value}}" ng-repeat="value in buildings" ng-click="showRoom(value)">{{value}}</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.building.$error" ng-show="addSession.building.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="space-between center">
+                            <span>Classroom: </span>
+                            <md-select ng-model="info.room" placeholder="Classroom" class="md-no-underline" required name="classroom">
+                                <md-option value="{{each.id}}" ng-repeat="each in rooms">{{info.temp}}-{{each.room}}</md-option>
+                            </md-select>
+                        </div>
+                        <div ng-messages="addSession.classroom.$error" ng-show="addSession.classroom.$touched">
+                            <div ng-message="required">This field cannot be blank</div>
+                        </div>
+                    </md-input-container>
+
                 </div>
             </div>
         </md-dialog-content>

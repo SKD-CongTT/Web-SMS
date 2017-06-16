@@ -10,7 +10,7 @@
                         <input ng-model="id" type="text">
                     </md-input-container>
                 </form>
-                <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="addCourseModal()" permission permission-only="['1']">
+                <md-button style="margin-top: 16px;" class="md-icon-button launch" ng-click="addCourseModal()" permission permission-only="['3']">
                     <md-icon md-colors="{color:'green-500'}" md-font-set="material-icons" title="Add New Course"> add_box </md-icon>
                 </md-button>
             </div>
@@ -28,9 +28,9 @@
 
                     <p class="longText"><b>{{value.id}}</b></p>
                     <md-icon hide-sm hide-xs ng-click="addSessionModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'blue-500'}" permission permission-only="['1']" title="Assign This Session" ng-if="value.active">add_box</md-icon>
+                             md-font-set="material-icons" md-colors="{color:'blue-500'}" permission permission-only="['3']" title="Assign This Session" ng-if="value.active">add_box</md-icon>
                     <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
-                             md-font-set="material-icons" md-colors="{color:'red-500'}" permission permission-only="['1']" title="Delete This Course">delete</md-icon>
+                             md-font-set="material-icons" md-colors="{color:'red-500'}" permission permission-only="['3']" title="Delete This Course">delete</md-icon>
                 </md-list-item>
             </md-list>
         </md-content>
@@ -44,7 +44,7 @@
                         <div flex-xs="70" flex>
                             <span>{{selectedCourse.id}}</span>
                         </div>
-                        <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)" permission permission-only="['1']">
+                        <md-button hide-xs hide-sm aria-label="Add" class="md-fab" ng-click="editCourseModal(selectedCourse)" permission permission-only="['3']">
                             <md-icon class="material-icons" title="Edit {{selectedCourse.id}}'s Infomation">edit</md-icon>
                         </md-button>
                     </div>

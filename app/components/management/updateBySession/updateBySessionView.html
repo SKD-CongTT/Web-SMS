@@ -3,10 +3,17 @@
         <div ng-controller="updateBySessionController as demo">
             <div layout="column" layout-gt-md="row">
                 <div flex flex-gt-md="100" layout="row">
+                    <md-input-container flex="30">
+                        <label>Search Sessions by Course</label>
+                        <md-select ng-model="ng_course">
+                            <md-option value="all" ng-click="demo.getSession()">All Sessions</md-option>
+                            <md-option value="{{value.id}}" ng-repeat="value in showCourse" ng-click="demo.getSessionByCourse(value)">{{value.id}}</md-option>
+                        </md-select>
+                    </md-input-container>
                     <md-input-container flex="50">
                         <label>Search by Session </label>
                         <md-select ng-model="ng_session">
-                            <md-option value="{{value.id}}" ng-repeat="value in sessions" ng-click="demo.getStudentBySession(value)">{{value.name}} - {{value.students.length}} student (s)</md-option>
+                            <md-option value="{{value.id}}" ng-repeat="value in sessions" ng-click="demo.getStudentBySession(value)">{{value.name}} - {{value.enrolled}} student (s)</md-option>
                         </md-select>
                     </md-input-container>
                     <div flex flex-gt-md="50"></div>
@@ -15,8 +22,8 @@
                     </div>
                 </div>
             </div>
-            <h1 ng-if="!selected && filtedStudents.length === 0" md-colors="{color:'blue-500'}"><em>Select a session first.</em></h1>
-            <h1 ng-if="selected && filtedStudents.length === 0" md-colors="{color:'red-500'}"><em>This session doesn't have any student.</em></h1>
+            <h1 ng-if="!selected && filtedStudents.length === 0 && !sessionLoading" md-colors="{color:'blue-500'}"><em>Select a session first.</em></h1>
+            <h1 ng-if="selected && filtedStudents.length === 0 && !sessionLoading" md-colors="{color:'red-500'}"><em>This session doesn't have any student.</em></h1>
             <h1 ng-if="selected && myClass && filtedStudents.length !== 0" md-colors="{color:'green-500'}"><em>You are the lecturer of this session.</em></h1>
             <h1 ng-if="selected && !myClass && filtedStudents.length !== 0" md-colors="{color:'red-500'}"><em>You are not the lecturer of this session.</em></h1>
             <div class="brn-group pull-right">
@@ -30,8 +37,8 @@
                     <span class="glyphicon glyphicon-ok"></span>
                 </button>
             </div>
-            <p ng-if="loading" md-colors="{color:'blue-500'}">Processing...</p>
-            <md-progress-linear ng-if="loading" md-mode="indeterminate" class="md-accent" md-colors="{color:'blue-500'}"></md-progress-linear>
+            <p ng-if="loading || sessionLoading1" md-colors="{color:'blue-500'}">Processing...</p>
+            <md-progress-linear ng-if="loading || sessionLoading" md-mode="indeterminate" class="md-accent" md-colors="{color:'blue-500'}"></md-progress-linear>
             <table ng-table="demo.tableParams" class="table table-bordered table-hover table-condensed editable-table" ng-form="demo.tableForm" disable-filter="demo.isAdding" demo-tracked-table="demo.tableTracker">
                 <colgroup>
                     <col width="10%" />
