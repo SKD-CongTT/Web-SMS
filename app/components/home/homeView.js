@@ -1,11 +1,12 @@
 angular.module('webix')
-    .controller('generalController', function($scope,$http,$interval,auth,$rootScope,$timeout,$state,webNotification,searchQuery) {
+    .controller('generalController', function($scope,$http,$interval,auth,$rootScope,$timeout,$mdToast, $state,webNotification,searchQuery) {
         if(auth.isAuthed()){
 
             searchQuery.setQuery("");
             $scope.allCourseList = [];
             $scope.availableCourse = [];
             $scope.isNumber = angular.isNumber;
+            $scope.notifications = [];
             $scope.panelResult = [{
                 name : "Member",
                 info : 0,
@@ -24,7 +25,7 @@ angular.module('webix')
 
             var getNotification = function () {
                 if (auth.isAuthed()) {
-                    $http.get($rootScope.apiUrl + '/notifications/list_noti_for_student/').then(
+                    $http.get($rootScope.apiUrl + '/notifications/list_noti_for_user/').then(
                         function (response) {
                             $http({
                                 method: 'POST',
@@ -32,16 +33,6 @@ angular.module('webix')
                                 data: response.data
                             }).then(
                                 function (response) {
-                                    var lenNoti = response.data.length;
-                                    var lenSes = $rootScope.profile.sessions.length;
-                                    for (var i = 0; i < lenNoti; i++) {
-                                        response.data[i].date = response.data[i].date.replace("T", " ");
-                                        response.data[i].date = response.data[i].date.slice(0, 19);
-                                        for (var j = 0; j < lenSes; j++) {
-                                            if (response.data[i].session_id === $rootScope.profile.sessions[j].id)
-                                                response.data[i].name = $rootScope.profile.sessions[j].name
-                                        }
-                                    }
                                     $scope.notifications = response.data;
                                 }
                             )
@@ -50,6 +41,19 @@ angular.module('webix')
                 }
             };
             getNotification();
+            $scope.deleteNotification = function (id) {
+                $http({
+                    method: 'DELETE',
+                    url: $rootScope.apiUrl + '/notifications/' + id
+                }).then (
+                    function (response) {
+                        $mdToast.show($mdToast.simple()
+                            .textContent('Delete notification successfully.')
+                            .position('right bottom'));
+                        getNotification();
+                    }
+                )
+            };
             var getAvailableCourse = function () {
                 if (auth.isAuthed()){
                     return new Promise(function(resolve, reject) {

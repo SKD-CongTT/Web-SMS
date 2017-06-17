@@ -51,7 +51,8 @@
                     New Notification
                 </div>
             </md-toolbar>
-            <md-content>
+            <h3 ng-if="notifications.length === 0">&nbsp&nbsp&nbspThere isn't any new notification.</h3>
+            <md-content ng-if="notifications.length > 0">
                 <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
                            mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
                            mdt-row="{
@@ -73,6 +74,9 @@
                         <mdt-column align-rule="left">Content</mdt-column>
                         <mdt-column align-rule="center">Remove</mdt-column>
                     </mdt-header-row>
+                    <mdt-custom-cell column-key="id">
+                        <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.deleteNotification(value)" md-colors="{background: 'red'}" title="Remove This Notification">close </md-icon>
+                    </mdt-custom-cell>
                 </mdt-table>
 
             </md-content>
@@ -85,7 +89,8 @@
                     New Notification
                 </div>
             </md-toolbar>
-            <md-content>
+            <h3 ng-if="notifications.length === 0">&nbsp&nbsp&nbspThere isn't any new notification.</h3>
+            <md-content ng-if="notifications.length > 0">
                 <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
                            mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
                            mdt-row="{
@@ -93,7 +98,7 @@
                       'column-keys': [
                           'title',
                           'lecturer',
-                          'name',
+                          'session_name',
                           'date',
                           'content',
                         ]

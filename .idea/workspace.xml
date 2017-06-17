@@ -37,8 +37,8 @@
       <file leaf-file-name="registerView.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/register/registerView.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="57" lean-forward="false" selection-start-line="0" selection-start-column="57" selection-end-line="0" selection-end-column="57" />
+            <state relative-caret-position="606">
+              <caret line="116" column="57" lean-forward="true" selection-start-line="116" selection-start-column="57" selection-end-line="116" selection-end-column="57" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <marker date="1497672818380" expanded="true" signature="3645:4052" ph="{&quot;data&quot;: showClass...}" />
@@ -63,8 +63,8 @@
       <file leaf-file-name="homeView.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/home/homeView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+            <state relative-caret-position="425">
+              <caret line="34" column="53" lean-forward="false" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -93,15 +93,15 @@
       <file leaf-file-name="homeView.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/components/home/homeView.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="73" column="54" lean-forward="false" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
+            <state relative-caret-position="623">
+              <caret line="100" column="39" lean-forward="false" selection-start-line="100" selection-start-column="39" selection-end-line="100" selection-end-column="39" />
               <folding>
-                <marker date="1497690514973" expanded="true" signature="1278:1554" ph="{&quot;data&quot;: availableCourse...}" />
-                <marker date="1497690514973" expanded="true" signature="1364:1530" ph="[...]" />
-                <marker date="1497690514973" expanded="true" signature="2597:2942" ph="{&quot;data&quot;: notifications...}" />
-                <marker date="1497690514973" expanded="true" signature="2682:2918" ph="[...]" />
-                <marker date="1497690514973" expanded="true" signature="4132:4446" ph="{&quot;data&quot;: notifications...}" />
-                <marker date="1497690514973" expanded="true" signature="4217:4422" ph="[...]" />
+                <marker date="1497696792587" expanded="true" signature="1278:1554" ph="{&quot;data&quot;: availableCourse...}" />
+                <marker date="1497696792587" expanded="true" signature="1364:1530" ph="[...]" />
+                <marker date="1497696792587" expanded="true" signature="2735:3080" ph="{&quot;data&quot;: notifications...}" />
+                <marker date="1497696792587" expanded="true" signature="2820:3056" ph="[...]" />
+                <marker date="1497696792587" expanded="true" signature="4701:5023" ph="{&quot;data&quot;: notifications...}" />
+                <marker date="1497696792587" expanded="true" signature="4786:4999" ph="[...]" />
               </folding>
             </state>
           </provider>
@@ -110,8 +110,8 @@
       <file leaf-file-name="registerController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/register/registerController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="174" column="20" lean-forward="false" selection-start-line="174" selection-start-column="20" selection-end-line="180" selection-end-column="22" />
+            <state relative-caret-position="578">
+              <caret line="187" column="59" lean-forward="true" selection-start-line="185" selection-start-column="28" selection-end-line="187" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -713,12 +713,12 @@
       <workItem from="1496460318086" duration="108000" />
       <workItem from="1497577030339" duration="13811000" />
       <workItem from="1497618993371" duration="8068000" />
-      <workItem from="1497665237608" duration="10852000" />
+      <workItem from="1497665237608" duration="12302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187201000" />
+    <option name="totallyTimeSpent" value="188651000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -974,28 +974,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/register/registerView.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="57" lean-forward="false" selection-start-line="0" selection-start-column="57" selection-end-line="0" selection-end-column="57" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1497672818380" expanded="true" signature="3645:4052" ph="{&quot;data&quot;: showClass...}" />
-            <marker date="1497672818380" expanded="true" signature="3786:4028" ph="[...]" />
-            <marker date="1497672818380" expanded="true" signature="5229:5777" ph="{&quot;data&quot;: registerRoom...}" />
-            <marker date="1497672818380" expanded="true" signature="5312:5753" ph="[...]" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/register/registerController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="174" column="20" lean-forward="false" selection-start-line="174" selection-start-column="20" selection-end-line="180" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/management/updateBySession/updateBySessionView.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1020,25 +998,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/register/registerController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="187" column="59" lean-forward="true" selection-start-line="185" selection-start-column="28" selection-end-line="187" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/register/registerView.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="116" column="57" lean-forward="true" selection-start-line="116" selection-start-column="57" selection-end-line="116" selection-end-column="57" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1497672818380" expanded="true" signature="3645:4052" ph="{&quot;data&quot;: showClass...}" />
+            <marker date="1497672818380" expanded="true" signature="3786:4028" ph="[...]" />
+            <marker date="1497672818380" expanded="true" signature="5229:5777" ph="{&quot;data&quot;: registerRoom...}" />
+            <marker date="1497672818380" expanded="true" signature="5312:5753" ph="[...]" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/home/homeView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+        <state relative-caret-position="425">
+          <caret line="34" column="53" lean-forward="false" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/components/home/homeView.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="73" column="54" lean-forward="false" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
+        <state relative-caret-position="623">
+          <caret line="100" column="39" lean-forward="false" selection-start-line="100" selection-start-column="39" selection-end-line="100" selection-end-column="39" />
           <folding>
-            <marker date="1497690514973" expanded="true" signature="1278:1554" ph="{&quot;data&quot;: availableCourse...}" />
-            <marker date="1497690514973" expanded="true" signature="1364:1530" ph="[...]" />
-            <marker date="1497690514973" expanded="true" signature="2597:2942" ph="{&quot;data&quot;: notifications...}" />
-            <marker date="1497690514973" expanded="true" signature="2682:2918" ph="[...]" />
-            <marker date="1497690514973" expanded="true" signature="4132:4446" ph="{&quot;data&quot;: notifications...}" />
-            <marker date="1497690514973" expanded="true" signature="4217:4422" ph="[...]" />
+            <marker date="1497696792587" expanded="true" signature="1278:1554" ph="{&quot;data&quot;: availableCourse...}" />
+            <marker date="1497696792587" expanded="true" signature="1364:1530" ph="[...]" />
+            <marker date="1497696792587" expanded="true" signature="2735:3080" ph="{&quot;data&quot;: notifications...}" />
+            <marker date="1497696792587" expanded="true" signature="2820:3056" ph="[...]" />
+            <marker date="1497696792587" expanded="true" signature="4701:5023" ph="{&quot;data&quot;: notifications...}" />
+            <marker date="1497696792587" expanded="true" signature="4786:4999" ph="[...]" />
           </folding>
         </state>
       </provider>
