@@ -1,15 +1,67 @@
-<br><br><br><br><br>
-<div class="row times" style="height:auto; display: flex; width: 1455px; margin-left: 8px;">
-    <div class="col-xs-2 text-center" style="background: #2196F3; width:10%; border-left:1px ;flex: 1 1 20%;border-style: groove;
+<br><br><br>
+<div layout-margin >
+    <div class="row times" style="height:auto; display: flex; width: 1455px; margin-left: 8px;">
+        <div class="col-xs-2 text-center" style="background: #2196F3; width:10%; border-left:1px ;flex: 1 1 20%;border-style: groove;
 ">
-        <h2><font color="white"><label>Time Table</label></font></h2>
-    </div>
-    <div class="col-xs-2 text-left" ng-repeat="day in days" style="background: white; border-style: groove;">
-        <h2 class= "text-center"><font color="#2196F3">{{ day.name }}</font></h2>
-        <div class="time-slot" ng-repeat="slot in day.slots">
-            <input id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
-            <label for="{{ day.name }}-{{ $index }}">Time: {{ slot.time }}<br>Room: {{ slot.room }} <br>Course: {{ slot.name}} <br>
-            </label>
+            <h2><font color="white"><label>Time Table</label></font></h2>
+        </div>
+        <div class="col-xs-2 text-left" ng-repeat="day in days" style="background: white; border-style: groove;">
+            <h2 class= "text-center"><font color="#2196F3">{{ day.name }}</font></h2>
+            <div class="time-slot" ng-repeat="slot in day.slots">
+                <input id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
+                <label for="{{ day.name }}-{{ $index }}">Time: {{ slot.time }}<br>Room: {{ slot.room }} <br>Course: {{ slot.name}} <br>
+                </label>
+            </div>
         </div>
     </div>
+    <form name="noti_form" class="md-whiteframe-1dp" permission permission-only="['1']">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Post new notification</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column" layout-margin layout-padding>
+                <md-input-container class="md-block">
+                    <label>&nbsp&nbsp&nbspTitle</label>
+                    <input type="text"
+                           name="title"
+                           ng-model="noti.title"
+                           md-maxlength="30"
+                           required/>
+                    <div ng-messages="noti_form.title.$error" ng-show="noti_form.title.$dirty">
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="md-maxlength">Title is too long</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex>
+                    <div layout="row" layout-align="space-between center" style="width:450px; height:76px;">
+                        <span>Select Sessions ID: </span>
+                        <md-select ng-model="noti.id" flex="65">
+                            <md-option type="number" value={{value.id}} ng-repeat="value in profile.sessions">{{value.name}}</md-option>
+                        </md-select>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex>
+                    <label>&nbsp&nbsp&nbspContent</label>
+                    <input type="text"
+                           name="content"
+                           ng-model="noti.content"
+                           md-maxlength="100"
+                           required/>
+                    <div ng-messages="noti_form.content.$error" ng-show="noti_form.content.$dirty">
+                        <div ng-message="required">This field cannot be blank</div>
+                        <div ng-message="md-maxlength">Content is too long</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-margin>
+            <span flex></span>
+            <md-button class="md-success md-raised" ng-disabled="noti_form.$invalid"
+                       ng-click="post()">
+                Confirm
+            </md-button>
+        </md-dialog-actions>
+    </form>
 </div>

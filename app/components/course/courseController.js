@@ -201,6 +201,7 @@ angular.module('webix')
             var getAllCourse = function(force){
                 if (auth.isAuthed()){
                     return new Promise(function(resolve, reject) {
+                        console.log($rootScope.showCourse);
                         if (force === 1 || $rootScope.showCourse.length === 0){
                             $http.get($rootScope.apiUrl + '/courses/?limit=10000')
                                 .then(function (response) {
@@ -223,6 +224,7 @@ angular.module('webix')
                                                 $rootScope.showCourse[i].display = $rootScope.showCourse[i].name;
                                         }
                                         select($rootScope.showCourse[0]);
+                                        console.log( $rootScope.showCourse);
                                         $scope.loadingCourseList = false;
                                         resolve();
                                     } else {

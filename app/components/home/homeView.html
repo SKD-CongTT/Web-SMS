@@ -44,6 +44,72 @@
             </md-content>
         </div>
     </div>
+    <div layout="column" layout-gt-md="row" layout-margin class="noLeftRightMargin" permission permission-only="['1']">
+        <div flex layout="column" class="md-whiteframe-1dp">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    New Notification
+                </div>
+            </md-toolbar>
+            <md-content>
+                <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+                           mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                           mdt-row="{
+                       data : notifications ,
+                      'column-keys': [
+                          'title',
+                          'lecturer',
+                          'name',
+                          'date',
+                          'content',
+                          'id'
+                        ]
+                      }">
+                    <mdt-header-row>
+                        <mdt-column align-rule="left">Title</mdt-column>
+                        <mdt-column align-rule="left">Lecturer</mdt-column>
+                        <mdt-column align-rule="left">Class</mdt-column>
+                        <mdt-column align-rule="left">Date</mdt-column>
+                        <mdt-column align-rule="left">Content</mdt-column>
+                        <mdt-column align-rule="center">Remove</mdt-column>
+                    </mdt-header-row>
+                </mdt-table>
+
+            </md-content>
+        </div>
+    </div>
+    <div layout="column" layout-gt-md="row" layout-margin class="noLeftRightMargin" permission permission-only="['2']">
+        <div flex layout="column" class="md-whiteframe-1dp">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    New Notification
+                </div>
+            </md-toolbar>
+            <md-content>
+                <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}",
+                           mdt-row-paginator-error-message="Xảy ra lỗi khi tải dữ liệu"
+                           mdt-row="{
+                       data : notifications ,
+                      'column-keys': [
+                          'title',
+                          'lecturer',
+                          'name',
+                          'date',
+                          'content',
+                        ]
+                      }">
+                    <mdt-header-row>
+                        <mdt-column align-rule="left">Title</mdt-column>
+                        <mdt-column align-rule="left">Lecturer</mdt-column>
+                        <mdt-column align-rule="left">Class</mdt-column>
+                        <mdt-column align-rule="left">Date</mdt-column>
+                        <mdt-column align-rule="left">Content</mdt-column>
+                    </mdt-header-row>
+                </mdt-table>
+
+            </md-content>
+        </div>
+    </div>
 </strong>
 <div class="row times" style="height:auto; display: flex; width: 1475px; margin-left: 8px;">
     <div class="col-xs-2 text-center" style="background: #2196F3; width:10%; border-left:1px ;flex: 1 1 20%;border-style: groove;

@@ -27,7 +27,7 @@
                              md-font-set="material-icons" md-colors="{color:'green-500'}" title="Opening">check_circle</md-icon>
 
                     <p class="longText" permission permission-only="['3']"><b>{{value.id}} : {{value.display}}</b></p>
-                    <p class="longText" permission permission-only="['1']"><b>{{value.id}} : {{value.name}}</b></p>
+                    <p class="longText" permission permission-only="['1', '2']"><b>{{value.id}} : {{value.name}}</b></p>
                     <md-icon hide-sm hide-xs ng-click="addSessionModal(value)" class="md-secondary"
                              md-font-set="material-icons" md-colors="{color:'blue-500'}" permission permission-only="['3']" title="Assign This Session" ng-if="value.active">add_box</md-icon>
                     <md-icon hide-sm hide-xs ng-click="deleteCourseModal(value)" class="md-secondary"
@@ -106,7 +106,7 @@
         </div>
     </div>
     <div layout="row" layout-gt-md="row" layout-margin layout-padding>
-        <div flex flex-gt-md="96" class="md-whiteframe-1dp" permission permission-only="['1']">
+        <div flex flex-gt-md="96" class="md-whiteframe-1dp" permission permission-only="['1', '2']">
             <md-toolbar>
                 <div class="md-toolbar-tools" ng-if="selectedCourse">
                     {{selectedCourse.id}}'s Session(s)
@@ -169,7 +169,7 @@
                           'course_id',
                           'credit',
                           'lecturer_name',
-                          'room',
+                          'room_name',
                           'semester',
                           'requirements',
                           'ids'

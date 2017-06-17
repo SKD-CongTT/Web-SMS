@@ -77,6 +77,14 @@ angular.module('webix')
                                                 return 1;
                                             return 0; //default return value (no sorting)
                                         });
+                                        for (var i = 0; i < $rootScope.showCourse.length; i++){
+                                            if ($rootScope.showCourse[i].name.length > 15){
+                                                $rootScope.showCourse[i].display = $rootScope.showCourse[i].name.slice(0, 13) + "...";
+                                                // console.log($rootScope.showCourse[i].name.slice(3,10));
+                                            }
+                                            else
+                                                $rootScope.showCourse[i].display = $rootScope.showCourse[i].name;
+                                        }
                                         $scope.loadingCourseList = false;
                                         resolve();
                                     } else {
@@ -168,14 +176,16 @@ angular.module('webix')
                         method: 'POST',
                         url: $rootScope.apiUrl + '/scores/register_many/',
                         data: {
-                            session_ids: sessions_id,
+                            "session_ids": sessions_id,
                         }
                     }).success(function (response) {
                         $mdDialog.hide();
                         if(response.result === true) {
                             $mdToast.show(toastSuccess);
                         } else {
-                            $mdToast.show(toastFail);
+                            $mdToast.show($mdToast.simple()
+                                .textContent('Register unsuccessfully. ' + response.reason)
+                                .position('right bottom'));
                         }
                     }).error(function () {
                         $mdDialog.hide();

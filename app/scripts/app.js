@@ -381,7 +381,7 @@ angular
         $rootScope.$state = $state;
         $rootScope.wrongInfo = false;
         $rootScope.onLogin = false;
-        $rootScope.apiUrl = 'http://192.168.1.66';
+        $rootScope.apiUrl = 'http://ictk59-api.herokuapp.com';
         $rootScope.downloadUrl = 'http://192.168.1.66';
         $rootScope.webUrl = 'http://ictk59-api.herokuapp.com';
         $rootScope.webUrlHttp = 'http://ictk59-api.herokuapp.com';
@@ -526,6 +526,12 @@ angular
                                     slots: [
 
                                     ]
+                                },
+                                {
+                                    name: 'Saturday',
+                                    slots: [
+
+                                    ]
                                 }
                             ];
                             for (var i = 0; i < $rootScope.profile.sessions.length; i++){
@@ -537,7 +543,6 @@ angular
                                 };
                                 $rootScope.days[$rootScope.profile.sessions[i].week_day - 2].slots.push(temp);
                             }
-                            console.log($rootScope.days);
                         } else {
                             $location.path('/login');
                         }

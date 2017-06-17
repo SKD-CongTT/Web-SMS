@@ -1,13 +1,13 @@
 <div ng-controller="registerController as ctrl" ng-cloak>
-    <div  layout="column" layout-gt-md="row"  layout-margin style="max-height: 446px">
+    <div  layout-padding layout="column" layout-gt-md="row"  layout-margin style="max-height: 449px">
         <md-content flex="nogrow" flex-gt-md="30" layout="column" class="md-whiteframe-1dp">
             <div layout="row">
                 <form flex ng-submit="searchCourse(query)" name="formSearch">
                     <md-input-container ng-form="formSearch" class="md-icon-float md-icon-right mb-block">
                         <!-- Use floating label instead of placeholder -->
                         <md-icon md-font-set="material-icons"> search </md-icon>
-                        <label for="search">Course Searching</label>
-                        <input ng-model="id" id="search" type="text">
+                        <label><b>Course Searching</b></label>
+                        <input ng-model="id" type="text">
                     </md-input-container>
                 </form>
             </div>
@@ -22,22 +22,26 @@
                              md-font-set="material-icons" md-colors="{color:'red-500'}" title="Close">cancel</md-icon>
                     <md-icon hide-sm hide-xs ng-if="value.active"
                              md-font-set="material-icons" md-colors="{color:'green-500'}" title="Opening">check_circle</md-icon>
-                    <p class="longText"><strong>{{value.id}}</strong></p>
+                    <p class="longText"><strong>{{value.id}} : {{value.name}}</strong></p>
+                    <md-icon hide-sm hide-xs class="md-secondary"
+                             md-font-set="material-icons" md-colors="{color:'blue-500'}" permission permission-only="['3']" title="Assign This Session" ng-if="value.active">add_box</md-icon>
+                    <md-icon hide-sm hide-xs  class="md-secondary"
+                             md-font-set="material-icons" md-colors="{color:'red-500'}" permission permission-only="['3']" title="Delete This Course">delete</md-icon>
                 </md-list-item>
             </md-list>
         </md-content>
-        <div layout="column" layout-gt-md="row" flex flex-gt-md="70" layout-margin>
+        <div layout="column" layout-gt-md="row" flex flex-gt-md="70" >
             <div flex layout="column">
                 <strong>
-                    <md-toolbar>
+                    <md-toolbar class="md-whiteframe-1dp">
                         <div class="md-toolbar-tools">
                             Opening Class
                         </div>
                     </md-toolbar>
                     <md-content class="md-whiteframe-1dp">
-                        <h1 class="noThing" ng-show="loadClass && showClass.length === 0"><em>No class available for {{selectedCourse.name}}</em></h1>
-                        <h1 class="noThing" ng-show="!valid"><em>This course is not opened yet</em></h1>
-                        <h1 class="noThing" ng-show="valid && showClass.length !== 0 && loadClass"><em>{{selectedCourse.name}}</em></h1>
+                        <h3 class="noThing" ng-show="loadClass && showClass.length === 0"><em>No class available for {{selectedCourse.name}}</em></h3>
+                        <h3 class="noThing" ng-show="!valid"><em>This course is not opened yet</em></h3>
+                        <h3 class="noThing" ng-show="valid && showClass.length !== 0 && loadClass"><em>{{selectedCourse.name}}</em></h3>
                         <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [3, 5]}"
                                    selectable-rows="valid"
                                    ng-disable="valid"
@@ -87,7 +91,7 @@
                           'course_id',
                           'credit',
                           'lecturer_name',
-                          'room',
+                          'room_name',
                           'semester',
                           'requirements',
                           'part_index'

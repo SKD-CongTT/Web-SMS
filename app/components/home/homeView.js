@@ -22,7 +22,34 @@ angular.module('webix')
                 info : "2016 - 2017",
             }];
 
-
+            var getNotification = function () {
+                if (auth.isAuthed()) {
+                    $http.get($rootScope.apiUrl + '/notifications/list_noti_for_student/').then(
+                        function (response) {
+                            $http({
+                                method: 'POST',
+                                url: $rootScope.apiUrl + '/notifications/list_noti_detail/',
+                                data: response.data
+                            }).then(
+                                function (response) {
+                                    var lenNoti = response.data.length;
+                                    var lenSes = $rootScope.profile.sessions.length;
+                                    for (var i = 0; i < lenNoti; i++) {
+                                        response.data[i].date = response.data[i].date.replace("T", " ");
+                                        response.data[i].date = response.data[i].date.slice(0, 19);
+                                        for (var j = 0; j < lenSes; j++) {
+                                            if (response.data[i].session_id === $rootScope.profile.sessions[j].id)
+                                                response.data[i].name = $rootScope.profile.sessions[j].name
+                                        }
+                                    }
+                                    $scope.notifications = response.data;
+                                }
+                            )
+                        }
+                    )
+                }
+            };
+            getNotification();
             var getAvailableCourse = function () {
                 if (auth.isAuthed()){
                     return new Promise(function(resolve, reject) {

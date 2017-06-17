@@ -3,17 +3,17 @@
         <div ng-controller="updateBySessionController as demo">
             <div layout="column" layout-gt-md="row">
                 <div flex flex-gt-md="100" layout="row">
-                    <md-input-container flex="30">
-                        <label>Search Sessions by Course</label>
-                        <md-select ng-model="ng_course">
-                            <md-option value="all" ng-click="demo.getSession()">All Sessions</md-option>
-                            <md-option value="{{value.id}}" ng-repeat="value in showCourse" ng-click="demo.getSessionByCourse(value)">{{value.id}}</md-option>
-                        </md-select>
-                    </md-input-container>
+                    <!--<md-input-container flex="30">-->
+                        <!--<label>Search Sessions by Course</label>-->
+                        <!--<md-select ng-model="ng_course">-->
+                            <!--<md-option value="all" ng-click="demo.getSession()">All Sessions</md-option>-->
+                            <!--<md-option value="{{value.id}}" ng-repeat="value in showCourse" ng-click="demo.getSessionByCourse(value)">{{value.id}}</md-option>-->
+                        <!--</md-select>-->
+                    <!--</md-input-container>-->
                     <md-input-container flex="50">
                         <label>Search by Session </label>
                         <md-select ng-model="ng_session">
-                            <md-option value="{{value.id}}" ng-repeat="value in sessions" ng-click="demo.getStudentBySession(value)">{{value.name}} - {{value.enrolled}} student (s)</md-option>
+                            <md-option value="{{value.id}}" ng-repeat="value in profile.sessions" ng-click="demo.getStudentBySession(value)">{{value.name}} : {{value.course_name}}</md-option>
                         </md-select>
                     </md-input-container>
                     <div flex flex-gt-md="50"></div>

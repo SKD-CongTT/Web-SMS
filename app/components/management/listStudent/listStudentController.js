@@ -33,6 +33,14 @@ angular.module('webix')
                                                 return 1;
                                             return 0; //default return value (no sorting)
                                         });
+                                        for (var i = 0; i < $rootScope.showCourse.length; i++){
+                                            if ($rootScope.showCourse[i].name.length > 15){
+                                                $rootScope.showCourse[i].display = $rootScope.showCourse[i].name.slice(0, 13) + "...";
+                                                // console.log($rootScope.showCourse[i].name.slice(3,10));
+                                            }
+                                            else
+                                                $rootScope.showCourse[i].display = $rootScope.showCourse[i].name;
+                                        }
                                     } else {
                                         $rootScope.showCourse = [];
                                     }
@@ -45,7 +53,7 @@ angular.module('webix')
                     auth.logout();
                 }
             };
-            getAllCourse(1);
+            getAllCourse(0);
             $scope.getSessionByCourse = function (value) {
                 if (auth.isAuthed()){
                     $rootScope.sessions = [];
@@ -115,7 +123,7 @@ angular.module('webix')
                         $scope.filtedStudentsss.push(each);
                     }
                 }
-            }
+            };
             $scope.filtedStudentsss = $rootScope.filtedStudents;
             console.log($scope.filtedStudentsss);
             $scope.getStudentByClass = function (value) {
@@ -217,11 +225,6 @@ angular.module('webix')
                     }
                     var foundItem = $filter('filter')(sessions, { session: Number($scope.ng_session)}, true)[0];
                     var index = sessions.indexOf(foundItem );
-                    console.log(editStudent);
-                    console.log(foundItem);
-                    console.log($scope.ng_session);
-                    console.log(sessions);
-                    console.log($rootScope.profile);
                     if (sessions.length === 0 || ($scope.ng_session !== "" && index < 0)){
                         $mdToast.show(
                             $mdToast.simple()
