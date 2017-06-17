@@ -24,8 +24,6 @@
             </div>
             <h1 ng-if="!selected && filtedStudents.length === 0 && !sessionLoading" md-colors="{color:'blue-500'}"><em>Select a session first.</em></h1>
             <h1 ng-if="selected && filtedStudents.length === 0 && !sessionLoading" md-colors="{color:'red-500'}"><em>This session doesn't have any student.</em></h1>
-            <h1 ng-if="selected && myClass && filtedStudents.length !== 0" md-colors="{color:'green-500'}"><em>You are the lecturer of this session.</em></h1>
-            <h1 ng-if="selected && !myClass && filtedStudents.length !== 0" md-colors="{color:'red-500'}"><em>You are not the lecturer of this session.</em></h1>
             <div class="brn-group pull-right">
                 <button class="btn btn-default" ng-if="demo.isEditing" ng-click="demo.cancelChanges()">
                     <span class="glyphicon glyphicon-remove"></span>

@@ -392,7 +392,7 @@ angular
         $rootScope.filtedStudents = [];
         $rootScope.loading = true;
         var permissions = [];
-        var period = {
+        $rootScope.period = {
             1 : {
                 'period' : 1,
                 'start_at':'6h45',
@@ -454,7 +454,6 @@ angular
                 'end_at' : '17h35'
             }
         };
-        // var building = ['A', 'B', 'C', 'D', 'TC', 'SVD'];
         $rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState) {
             $rootScope.loading = true;
             $rootScope.stateIsLoading = {value : true};
@@ -535,11 +534,12 @@ angular
                                 }
                             ];
                             for (var i = 0; i < $rootScope.profile.sessions.length; i++){
-                                var time = period[$rootScope.profile.sessions[i].start_at].start_at + " - " + period[$rootScope.profile.sessions[i].end_at].end_at;
+                                var time = $rootScope.period[$rootScope.profile.sessions[i].start_at].start_at + " - " + $rootScope.period[$rootScope.profile.sessions[i].end_at].end_at;
                                 var temp = {
                                     'time' : time,
                                     'name' : $rootScope.profile.sessions[i].course_id,
-                                    'room' : $rootScope.profile.sessions[i].room
+                                    'room' : $rootScope.profile.sessions[i].room,
+                                    'class': $rootScope.profile.sessions[i].name
                                 };
                                 $rootScope.days[$rootScope.profile.sessions[i].week_day - 2].slots.push(temp);
                             }

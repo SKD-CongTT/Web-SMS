@@ -180,13 +180,6 @@ function updateBySessionController(NgTableParams, auth, $rootScope, $scope, $htt
         $scope.selected = true;
         $scope.loading = true;
         $scope.selected_session = value.id;
-        $scope.myClass = false;
-        for (var j = 0; j < $rootScope.profile.sessions.length; j ++){
-            if ($scope.selected_session === $rootScope.profile.sessions[j].id){
-                $scope.myClass = true;
-                break;
-            }
-        };
         var url = '/sessions/list_student_by_session/?session_id=' +  value.id + '&';
         if (auth.isAuthed()){
             $http.get($rootScope.apiUrl + url + "limit=1000").then(function (response) {

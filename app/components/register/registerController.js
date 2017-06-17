@@ -182,6 +182,75 @@ angular.module('webix')
                         $mdDialog.hide();
                         if(response.result === true) {
                             $mdToast.show(toastSuccess);
+                            $http.get($rootScope.apiUrl + '/users/').then(function (response){
+                                if(response.data.results !== false) {
+                                    $rootScope.profile = response.data;
+                                    $rootScope.loading = false;
+                                    $rootScope.profile.Name = response.data.last_name + " " + response.data.first_name;
+                                    $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("T", " ");
+                                    $rootScope.profile.date_joined = $rootScope.profile.date_joined.replace("Z", " ");
+                                    // $rootScope.profile.last_login = $rootScope.profile.last_login.replace("T", " ");
+                                    // $rootScope.profile.last_login = $rootScope.profile.last_login.replace("Z", " ");
+                                    var role = auth.getGroup();
+                                    if (role === "lecturer"){
+                                        $rootScope.profile.type = "LECTURER";
+                                    }
+                                    else if (role === "admin"){
+                                        $rootScope.profile.type = "ADMIN";
+                                    }
+                                    else{
+                                        $rootScope.profile.type = "STUDENT";
+                                        $rootScope.selectedStudent = $rootScope.profile;
+                                    }
+                                    $rootScope.profile.notExist = false;
+                                    $rootScope.days = [
+                                        {
+                                            name: 'Monday',
+                                            slots: [
+
+                                            ]
+                                        },{
+                                            name: 'Tuesday',
+                                            slots: [
+
+                                            ]
+                                        },{
+                                            name: 'Wednesday',
+                                            slots: [
+
+                                            ]
+                                        },{
+                                            name: 'Thursday',
+                                            slots: [
+
+                                            ]
+                                        },{
+                                            name: 'Friday',
+                                            slots: [
+
+                                            ]
+                                        },
+                                        {
+                                            name: 'Saturday',
+                                            slots: [
+
+                                            ]
+                                        }
+                                    ];
+                                    for (var i = 0; i < $rootScope.profile.sessions.length; i++){
+                                        var time = $rootScope.period[$rootScope.profile.sessions[i].start_at].start_at + " - " + $rootScope.period[$rootScope.profile.sessions[i].end_at].end_at;
+                                        var temp = {
+                                            'time' : time,
+                                            'name' : $rootScope.profile.sessions[i].course_id,
+                                            'room' : $rootScope.profile.sessions[i].room,
+                                            'class': $rootScope.profile.sessions[i].name
+                                        };
+                                        $rootScope.days[$rootScope.profile.sessions[i].week_day - 2].slots.push(temp);
+                                    }
+                                } else {
+                                    $location.path('/login');
+                                }
+                            });
                         } else {
                             $mdToast.show($mdToast.simple()
                                 .textContent('Register unsuccessfully. ' + response.reason)

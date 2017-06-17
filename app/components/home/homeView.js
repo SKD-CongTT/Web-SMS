@@ -17,7 +17,7 @@ angular.module('webix')
                 href : "dashboard.course_information"
             },{
                 name : "Semester",
-                info : 2,
+                info : 3,
             },{
                 name : "Year",
                 info : "2016 - 2017",
@@ -33,6 +33,11 @@ angular.module('webix')
                                 data: response.data
                             }).then(
                                 function (response) {
+                                    var lenNoti = response.data.length;
+                                    for (var i = 0; i < lenNoti; i ++){
+                                        response.data[i].date = response.data[i].date.replace("T", " ");
+                                        response.data[i].date = response.data[i].date.slice(0, 19);
+                                    }
                                     $scope.notifications = response.data;
                                 }
                             )
