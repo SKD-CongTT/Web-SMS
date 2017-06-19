@@ -9,7 +9,7 @@
             <h2 class= "text-center"><font color="#2196F3">{{ day.name }}</font></h2>
             <div class="time-slot" ng-repeat="slot in day.slots">
                 <input id="{{ day.name }}-{{ $index }}" ng-model="slot.booked">
-                <label for="{{ day.name }}-{{ $index }}">Time: {{ slot.time }}<br>Room: {{ slot.room }} <br>Course: {{ slot.name}} <br>
+                <label for="{{ day.name }}-{{ $index }}">Time: {{ slot.time }}<br>Room: {{ slot.room }} <br>Course: {{ slot.name}} <br>Class: {{ slot.class}} <br>
                 </label>
             </div>
         </div>

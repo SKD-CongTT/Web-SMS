@@ -242,7 +242,7 @@ angular.module('webix')
                                         var temp = {
                                             'time' : time,
                                             'name' : $rootScope.profile.sessions[i].course_id,
-                                            'room' : $rootScope.profile.sessions[i].room,
+                                            'room' : $rootScope.profile.sessions[i].room_name,
                                             'class': $rootScope.profile.sessions[i].name
                                         };
                                         $rootScope.days[$rootScope.profile.sessions[i].week_day - 2].slots.push(temp);

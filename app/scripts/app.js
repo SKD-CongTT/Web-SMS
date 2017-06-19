@@ -234,7 +234,7 @@ angular
                     },
                     data: {
                         permissions: {
-                            only: ['1','2','3'],
+                            only: ['1','2'],
                             redirectTo: 'dashboard.profile'
                         }
                     },
@@ -391,6 +391,8 @@ angular
         $rootScope.sessions = [];
         $rootScope.filtedStudents = [];
         $rootScope.loading = true;
+        $rootScope.tableByClass = false;
+        $rootScope.tableBySession = false;
         var permissions = [];
         $rootScope.period = {
             1 : {
@@ -538,7 +540,7 @@ angular
                                 var temp = {
                                     'time' : time,
                                     'name' : $rootScope.profile.sessions[i].course_id,
-                                    'room' : $rootScope.profile.sessions[i].room,
+                                    'room' : $rootScope.profile.sessions[i].room_name,
                                     'class': $rootScope.profile.sessions[i].name
                                 };
                                 $rootScope.days[$rootScope.profile.sessions[i].week_day - 2].slots.push(temp);

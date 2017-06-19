@@ -8,8 +8,6 @@ angular.module('webix')
             $scope.ng_class = "";
             $scope.ng_session = "";
             $scope.expression = "";
-            $scope.tableByClass = false;
-            $scope.tableBySession = false;
             $scope.alertList = {
                 id: []
             };
@@ -126,9 +124,17 @@ angular.module('webix')
             };
             $scope.filtedStudentsss = $rootScope.filtedStudents;
             console.log($scope.filtedStudentsss);
+            var convert = function () {
+                var len = $scope.filtedStudentsss.length;
+                for (var i = 0; i < len; i++){
+                    if ($scope.filtedStudentsss[i].score === -1){
+                        $scope.filtedStudentsss[i].score = "NOT ACTIVE";
+                    }
+                }
+            };
             $scope.getStudentByClass = function (value) {
-                $scope.tableByClass = true;
-                $scope.tableBySession = false;
+                $rootScope.tableByClass = true;
+                $rootScope.tableBySession = false;
                 $scope.ng_session = "";
                 $scope.selected = true;
                 $scope.loadingStudent = true;
@@ -145,6 +151,7 @@ angular.module('webix')
                         for (var i = 0; i < $scope.students.length; i++){
                             $scope.students[i].year = Math.floor(2018 - $scope.students[i].username/10000);
                             $scope.students[i].ids =  $scope.students[i].id;
+                            $scope.students[i].student_id =  $scope.students[i].id;
                         }
                         $scope.students.sort(function(a, b){
                             if (a.id < b.id) //sort string ascending
@@ -155,6 +162,7 @@ angular.module('webix')
                         });
                         $rootScope.filtedStudents = $scope.students;
                         $scope.filtedStudentsss = $rootScope.filtedStudents;
+                        convert();
                         $scope.loadingStudent = false;
                     });
                 }
@@ -163,9 +171,10 @@ angular.module('webix')
                     auth.logout();
                 }
             };
+
             $scope.getStudentBySession = function (value) {
-                $scope.tableByClass = false;
-                $scope.tableBySession = true;
+                $rootScope.tableByClass = false;
+                $rootScope.tableBySession = true;
                 $scope.ng_class = "";
                 $scope.selected = true;
                 $scope.loadingStudent = true;
@@ -178,7 +187,7 @@ angular.module('webix')
                         }
                         for (var i = 0; i < $scope.students.length; i++){
                             $scope.students[i].year = Math.floor(2018 - $scope.students[i].username/10000);
-                            $scope.students[i].ids =  $scope.students[i].id;
+                            $scope.students[i].ids =  $scope.students[i].student_id;
                         }
                         $scope.students.sort(function(a, b){
                             if (a.id < b.id) //sort string ascending
@@ -189,6 +198,7 @@ angular.module('webix')
                         });
                         $rootScope.filtedStudents = $scope.students;
                         $scope.filtedStudentsss = $rootScope.filtedStudents;
+                        convert();
                         $scope.loadingStudent = false;
                     });
                 }
@@ -198,11 +208,10 @@ angular.module('webix')
                 }
             };
             $scope.showresult = function (value) {
-                var foundItem = $filter('filter')($rootScope.filtedStudents, { id: value  }, true)[0];
+                var foundItem = $filter('filter')($rootScope.filtedStudents, { ids: value  }, true)[0];
                 var index = $rootScope.filtedStudents.indexOf(foundItem );
                 $rootScope.selectedStudent = $rootScope.filtedStudents[index];
-                if (!$rootScope.selectedStudent.hasOwnProperty('student_id'))
-                    $rootScope.selectedStudent.student_id = $rootScope.selectedStudent.id;
+                console.log($rootScope.selectedStudent)
                 $window.location.href = 'http://sms.ict.vn:8000/#/management/student_result';
             };
 

@@ -28,7 +28,7 @@
                 <button class="btn btn-default" ng-if="demo.isEditing" ng-click="demo.cancelChanges()">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
-                <button class="btn btn-primary" ng-if="!demo.isEditing" ng-disabled="!myClass" ng-click="demo.isEditing = true">
+                <button class="btn btn-primary" ng-if="!demo.isEditing" ng-click="demo.isEditing = true">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
                 <button class="btn btn-primary" ng-if="demo.isEditing" ng-disabled="!demo.hasChanges() || demo.tableTracker.$invalid" ng-click="demo.saveChanges()">

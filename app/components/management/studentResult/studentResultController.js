@@ -4,8 +4,6 @@ angular.module('webix')
             $scope.score = [];
             var getScore = function (value) {
                 if (auth.isAuthed()){
-                    if (!$rootScope.selectedStudent.hasOwnProperty('student_id'))
-                        $rootScope.selectedStudent.student_id = $rootScope.selectedStudent.id;
                     if ($scope.score.length === 0 || value === 1)
                         $http.get($scope.apiUrl + "/scores/list_score_by_student/?student_id=" + $rootScope.selectedStudent.student_id).then(function (response) {
                             $scope.score = response.data.results;

@@ -83,8 +83,8 @@
                               'class_id',
                               'year',
                               'score',
-                              'ids',
-                              'id'
+                              'student_id',
+                              'ids'
                           ]
                           }">
             <mdt-header-row>
@@ -97,10 +97,10 @@
                 <mdt-column align-rule="left">Edit score</mdt-column>
                 <mdt-column align-rule="left">Detail</mdt-column>
             </mdt-header-row>
-            <mdt-custom-cell column-key="ids">
+            <mdt-custom-cell column-key="student_id">
                 <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.editScoreModal(value)">edit</md-icon>
             </mdt-custom-cell>
-            <mdt-custom-cell column-key="id">
+            <mdt-custom-cell column-key="ids">
                 <md-icon md-ink-ripple class="material-icon" ng-click="clientScope.showresult(value)">arrow_forward</md-icon>
             </mdt-custom-cell>
         </mdt-table>
